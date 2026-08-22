@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="-mLGBCqZwSAn5OEJ4Q0Gzikoa79SCJJbezfRw8NpKFo" />
+    <meta name="description" content="Grade 12 Assistant - وێبسایتی فەرمی پۆلی ١٢ زانستی و وێژەیی بۆ مەلزەمە، پرسیاری وزاری، کورتکراوە و ڕێنمایی قوتابیان.">
+    <meta name="keywords" content="Grade12assistant, grade 12 assistant, پۆلی ١٢, مەلزەمەی پۆلی ١٢, وزاری پۆلی ١٢, عومەر جەمال, وێژەیی, زانستی">
+    <meta name="author" content="Omer Jamal">
+    <title>Grade 12 Assistant | ئەسیستانتی پۆلی ١٢</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --accent: #38bdf8;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.12) 0%, transparent 50%);
+            background-attachment: fixed;
+            padding: 24px 16px;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 10px 24px;
+            max-width: 600px;
+            width: 100%;
+            animation: fadeInDown 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            color: white;
+            padding: 6px 22px;
+            border-radius: 30px;
+            font-size: 0.88rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 20px var(--primary-glow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: pulse 3s infinite alternate ease-in-out;
+        }
+
+        h1 {
+            font-size: 2.35rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 20%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.96rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .section-label {
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 16px 8px 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 16px 18px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-3px) scale(1.01);
+            border-color: rgba(99, 102, 241, 0.45);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.25);
+        }
+
+        .card:active {
+            transform: scale(0.97);
+        }
+
+        .card-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.55rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0.06);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .icon {
+            transform: scale(1.1) rotate(4deg);
+        }
+
+        .card-text h3 {
+            font-size: 1.08rem;
+            font-weight: 800;
+            margin-bottom: 3px;
+        }
+
+        .card-text span {
+            font-size: 0.83rem;
+            color: var(--text-muted);
+        }
+
+        .arrow {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.3s ease;
+        }
+
+        .card:hover .arrow {
+            transform: translateX(-6px);
+            color: var(--accent);
+        }
+
+        .card-tg {
+            background: linear-gradient(135deg, rgba(34, 158, 217, 0.15), rgba(34, 158, 217, 0.05)) !important;
+            border-color: rgba(34, 158, 217, 0.4) !important;
+        }
+
+        .card-support {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05)) !important;
+            border-color: rgba(245, 158, 11, 0.4) !important;
+        }
+
+        .sub-page {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 11px 22px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 0.92rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            width: fit-content;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(4px);
+        }
+
+        .item-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 16px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(18px);
+            transition: all 0.3s ease;
+        }
+
+        .item-box:hover {
+            border-color: rgba(99, 102, 241, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            color: white;
+            padding: 9px 20px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+            white-space: nowrap;
+            transition: all 0.25s ease;
+        }
+
+        .btn-action:hover {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+            transform: scale(1.03);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 25px 10px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.86rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); }
+            100% { transform: scale(1.02); box-shadow: 0 6px 22px rgba(236, 72, 153, 0.45); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="badge">پۆلی ١٢ • زانستی و وێژەیی</span>
+        <h1>Grade 12 Assistant</h1>
+        <p class="subtitle">هەموو مەلزەمە، پرسیاری وزاری، ڕێنمایی و سەرچاوەکان</p>
+    </header>
+
+    <div id="homePage" class="container">
+        
+        <div class="card card-tg" onclick="openSection('telegram', 'لە تیلیگرام لەگەڵمان بن', '✈️')">
+            <div class="card-info">
+                <div class="icon">✈️</div>
+                <div class="card-text">
+                    <h3>لە تیلیگرام لەگەڵمان بن</h3>
+                    <span>گروپ و چەناڵی فەرمی پۆلی ١٢</span>
+                </div>
+            </div>
+            <div class="arrow">←</div>
+        </div>
+
+        <a href="https://t.me/omerjamal01" target="_blank" class="card card-support">
+            <div class="card-info">
+                <div class="icon">🛠</div>
+                <div class="card-text">
+                    <h3>بۆ هەر کێشە و داواکاریەک</h3>
+                    <span>پەیوەندیم پێوە بکە بۆ داواکاریەکەت</span>
+                </div>
+            </div>
+            <div class="arrow">↗</div>
+        </a>
+
+        <div class="section-label">🔬 بەشی زانستی</div>
+
+        <div class="card" onclick="openSection('ahya', 'ئەحیا (زیندەزانی)', '🧬')">
+            <div class="card-info"><div class="icon">🧬</div><div class="card-text"><h3>ئەحیا</h3><span>مەلزەمە، وزاری، وێنەکان، کورتکراوە، ڕێنمایی</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="card" onclick="openSection('physics', 'فیزیا', '⚡')">
+            <div class="card-info"><div class="icon">⚡</div><div class="card-text"><h3>فیزیا</h3><span>یاساکان، شیکاری وزاری، تاقیکردنەوە، گرنگترینەکان</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="card" onclick="openSection('chem', 'کیمیا', '🧪')">
+            <div class="card-info"><div class="icon">🧪</div><div class="card-text"><h3>کیمیا</h3><span>پوختەی بەندەکان، هاوکێشە، پرسیارە وزارییەکان</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="card" onclick="openSection('math', 'بیرکاری (زانستی)', '📐')">
+            <div class="card-info"><div class="icon">📐</div><div class="card-text"><h3>بیرکاری</h3><span>یاساکان، شیکاری وزاری، نموونەی فکری، کورتکراوە</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="section-label">📚 بەشی وێژەیی</div>
+
+        <div class="card" onclick="openSection('history', 'مێژوو', '📜')">
+            <div class="card-info"><div class="icon">📜</div><div class="card-text"><h3>مێژوو</h3><span>مەلزەمە، کورتکراوە، ڕووداو و بەروارەکان، وزاری</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="card" onclick="openSection('geo', 'جوگرافیا', '🌍')">
+            <div class="card-info"><div class="icon">🌍</div><div class="card-text"><h3>جوگرافیا</h3><span>مەلزەمە، نەخشە و هێڵکاری، کورتکراوە، وزاری</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="card" onclick="openSection('econ', 'ئابووری', '📊')">
+            <div class="card-info"><div class="icon">📊</div><div class="card-text"><h3>ئابووری</h3><span>مەلزەمە، یاسا و کێشە ژمێریارییەکان، وزاری</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="section-label">📖 وانە هاوبەشەکان</div>
+
+        <div class="card" onclick="openSection('kurdish', 'زمانی کوردی', '✒️')">
+            <div class="card-info"><div class="icon">✒️</div><div class="card-text"><h3>کوردی</h3><span>ئەدەب، ڕێزمان، ڕەوانبێژی، وزاری، گرنگترینەکان</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="card" onclick="openSection('arabic', 'اللغة العربية', '📖')">
+            <div class="card-info"><div class="icon">📖</div><div class="card-text"><h3>عەرەبی</h3><span>القواعد، الأدب والنصوص، الوزاريات، الملخصات</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="card" onclick="openSection('english', 'English (Sunrise 12)', '🇬🇧')">
+            <div class="card-info"><div class="icon">🇬🇧</div><div class="card-text"><h3>ئینگلیزی (Sunrise 12)</h3><span>Grammar, Stories, Vocabulary, Ministerial Exams</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="card" onclick="openSection('religion', 'پەروەردەی ئیسلامی', '🕌')">
+            <div class="card-info"><div class="icon">🕌</div><div class="card-text"><h3>ئاین</h3><span>پوختە، فەرموودە و دەقەکان، پرسیارە وزارییەکان</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="section-label">✨ بەشە تایبەتەکان</div>
+
+        <div class="card" onclick="openSection('schedule', 'پێشنیار و خشتە', '📅')">
+            <div class="card-info"><div class="icon">📅</div><div class="card-text"><h3>پێشنیار و خشتە</h3><span>پلانی خوێندن، دابەشکردنی کاتەکان، ڕێنمایی وزاری</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+        <div class="card" onclick="openSection('videos', 'ڤیدیۆ تایبەتەکان', '🎥')">
+            <div class="card-info"><div class="icon">🎥</div><div class="card-text"><h3>ڤیدیۆ تایبەتەکان</h3><span>شیکاری پرسیارە قورسەکان و وانە فێرکارییەکان</span></div></div>
+            <div class="arrow">←</div>
+        </div>
+
+    </div>
+
+    <div id="subPage" class="sub-page">
+        <button class="back-btn" onclick="goBack()">→ گەڕانەوە بۆ سەرەتا</button>
+        <div id="subContent"></div>
+    </div>
+
+    <footer>
+        <p>Grade 12 Assistant • دروستکراوە بۆ سەرکەوتنی هەموو قوتابیان ✨</p>
+    </footer>
+
+    <script>
+        const database = {
+            'telegram': [
+                { title: 'گروپەکەی ئێمە', desc: 'بۆ پرسیار و وەڵام و گفتوگۆی قوتابیان', link: 'https://t.me/grade12assistant' },
+                { title: 'چەناڵەکەمان', desc: 'کەناڵی سەرەکی بڵاوکردنەوەی سەرچاوە و هەواڵەکان', link: 'https://t.me/grade12asistant' }
+            ],
+            'ahya': [
+                { title: 'مەلزەمەکان', desc: 'تەواوی مەلزەمەی سەرەکی بەندەکان', link: '#' },
+                { title: 'پرسیارە وزارییەکان', desc: 'پرسیاری ساڵانی پێشوو بەپێی بەند لەگەڵ وەڵام', link: '#' },
+                { title: 'وێنەکان', desc: 'تەواوی وێنە و دیاگرامە وزارییە پێویستەکان', link: '#' },
+                { title: 'شتە زۆر گرنگەکان', desc: 'خاڵە فکرییەکان و تێبینییە ئاڵۆزەکان', link: '#' },
+                { title: 'کورتکراوەکان', desc: 'پوختەی خێرای بەندەکان بۆ پێداچوونەوە', link: '#' },
+                { title: 'ڕێنمایی من بۆ تۆ', desc: 'شێوازی خوێندنی زیرەکانە و مسۆگەرکردنی 100', link: '#' }
+            ],
+            'physics': [
+                { title: 'مەلزەمەکان', desc: 'مەلزەمەی وانەکان و شیکاری یاساکان', link: '#' },
+                { title: 'پرسیارە وزارییەکان', desc: 'شیکاری پرسیاری خولی یەکەم و دووەم', link: '#' },
+                { title: 'یاسا و یەکە فیزیکییەکان', desc: 'تەواوی یاساکان و هێڵکارییەکان بە ڕێکی', link: '#' },
+                { title: 'شتە زۆر گرنگەکان', desc: 'پرسیارە هەڵبژاردنە فکری و هەستیارەکان', link: '#' },
+                { title: 'کورتکراوەکان', desc: 'پوختەی خێرای بەشەکان', link: '#' },
+                { title: 'ڕێنمایی من بۆ تۆ', desc: 'چۆن لە فیزیا تێبگەیت و لێی نەترسیت؟', link: '#' }
+            ],
+            'chem': [
+                { title: 'مەلزەمەکان', desc: 'مەلزەمەی گشتگیری وانەی کیمیا', link: '#' },
+                { title: 'پرسیارە وزارییەکان', desc: 'شیکاری پرسیارەکانی نیشتمانی و وزاری', link: '#' },
+                { title: 'هاوکێشە و خشتەکان', desc: 'کۆکراوەی هەموو هاوکێشە و پێناسە پێویستەکان', link: '#' },
+                { title: 'شتە زۆر گرنگەکان', desc: 'پرسیارە دووبارەبووەوەکانی وزاری', link: '#' },
+                { title: 'کورتکراوەکان', desc: 'پوختەی یاساکانی کیمیا', link: '#' },
+                { title: 'ڕێنمایی من بۆ تۆ', desc: 'ئامۆژگاری زێڕین بۆ مسۆگەرکردنی نمرەی بەرز', link: '#' }
+            ],
+            'math': [
+                { title: 'مەلزەمەکان', desc: 'مەلزەمەی شیکارکراوی سەرجەم بەشەکان', link: '#' },
+                { title: 'پرسیارە وزارییەکان', desc: 'پرسیاری خولە وزارییەکان لەگەڵ ڕوونکردنەوە', link: '#' },
+                { title: 'یاسا و ڕێساکانی بیرکاری', desc: 'پوختەی هەموو یاسا و نەخشەکان لە یەک فایلدا', link: '#' },
+                { title: 'شتە زۆر گرنگەکان', desc: 'نموونە و شیکاری پرسیارە فکرییەکان', link: '#' },
+                { title: 'کورتکراوەکان', desc: 'ڕێگای خێرا و کورت بۆ وەڵامدانەوەی هەڵبژاردن', link: '#' },
+                { title: 'ڕێنمایی من بۆ تۆ', desc: 'شێوازی مەشقکردن و بەدەستهێنانی نمرەی تەواو', link: '#' }
+            ],
+            'history': [
+                { title: 'مەلزەمەی مێژوو', desc: 'تەواوی مەلزەمەی مێژووی پۆلی ١٢ بە ڕوونی', link: '#' },
+                { title: 'پرسیارە وزارییەکان', desc: 'شیکاری پرسیاری خولە وزارییەکان لەگەڵ وەڵام', link: '#' },
+                { title: 'بەروار و ڕووداوە گرنگەکان', desc: 'خشتەی پوختەی بەروار و پەیماننامە مێژووییەکان', link: '#' },
+                { title: 'کورتکراوەکان', desc: 'پوختەی سەرنجڕاکێشی بەشەکان بۆ پێداچوونەوە', link: '#' },
+                { title: 'شتە زۆر گرنگەکان', desc: 'خاڵە فکری و پرسیارە چاوەڕوانکراوەکان', link: '#' },
+                { title: 'ڕێنمایی من بۆ تۆ', desc: 'تەکنیکی زێڕین بۆ لەبەرکردنی مێژوو بێ لەبیرچوونەوە', link: '#' }
+            ],
+            'geo': [
+                { title: 'مەلزەمەی جوگرافیا', desc: 'مەلزەمەی تەواوی بەشەکانی جوگرافیا', link: '#' },
+                { title: 'پرسیارە وزارییەکان', desc: 'شیکاری پرسیاری ساڵانی ڕابردوو بە وەڵامەوە', link: '#' },
+                { title: 'نەخشە و هێڵکارییەکان', desc: 'کۆکراوەی نەخشە وزارییە پێویستەکان بە ڕەنگی ڕوون', link: '#' },
+                { title: 'کورتکراوەکان', desc: 'پوختەی پێناسە، هۆکار و دەرەنجامەکان', link: '#' },
+                { title: 'شتە زۆر گرنگەکان', desc: 'خشتە و بەراوردکارییە وزارییە گرنگەکان', link: '#' },
+                { title: 'ڕێنمایی من بۆ تۆ', desc: 'شێوازی بەدەستهێنانی نمرەی تەواو لە جوگرافیا', link: '#' }
+            ],
+            'econ': [
+                { title: 'مەلزەمەی ئابووری', desc: 'مەلزەمەی گشتگیری وانەی ئابووری پۆلی ١٢', link: '#' },
+                { title: 'پرسیارە وزارییەکان', desc: 'پرسیاری خولە وزارییەکان بەپێی بەش و وەڵام', link: '#' },
+                { title: 'یاسا و کێشە ژمێریارییەکان', desc: 'تەواوی یاسا و مەسەلە حساباتییەکان بە شیکاری', link: '#' },
+                { title: 'کورتکراوەکان', desc: 'پوختەی خێرای بەشەکانی ئابووری', link: '#' },
+                { title: 'شتە زۆر گرنگەکان', desc: 'پێناسە و خاڵە دووبارەبووەوەکانی وزاری', link: '#' },
+                { title: 'ڕێنمایی من بۆ تۆ', desc: 'تێگەیشتن لە چەمک و یاساکانی ئابووری زۆر بە ئاسانی', link: '#' }
+            ],
+            'kurdish': [
+                { title: 'ئەدەب و مێژووی ئەدەب', desc: 'تەواوی شاعیران، نووسەران و پارچە ئەدەبییەکان', link: '#' },
+                { title: 'ڕێزمان (قواعد)', desc: 'یاساکانی ڕێزمان بە شیکاری و نموونەی ئاسان', link: '#' },
+                { title: 'ڕەوانبێژی', desc: 'شیکردنەوەی تەواوی بابەتەکانی ڕەوانبێژی', link: '#' },
+                { title: 'مەلزەمە', desc: 'مەلزەمەی تەواوی کتێبی کوردی پۆلی ١٢', link: '#' },
+                { title: 'پرسیاری وزاری', desc: 'شیکاری پرسیارە وزارییەکانی خولەکان', link: '#' },
+                { title: 'کورتکراوەکان', desc: 'پوختەی زانیارییە گرنگەکان', link: '#' },
+                { title: 'گرنگترینەکان', desc: 'خاڵ و پرسیارە چاوەڕوانکراوەکان', link: '#' },
+                { title: 'ڕێنمایی من بۆ تۆ', desc: 'چۆن لە زمانی کوردی ئاسان نمرە کۆبکەیتەوە', link: '#' }
+            ],
+            'arabic': [
+                { title: 'الأدب والنصوص', desc: 'تەواوی دەق و ئەدەبی عەرەبی بە وەرگێڕانەوە', link: '#' },
+                { title: 'القواعد (ڕێزمان)', desc: 'شیکاری ڕێزمانی عەرەبی بە شێوازێکی زۆر سادە', link: '#' },
+                { title: 'مەلزەمەکان', desc: 'باشترین مەلزەمەی عەرەبی پۆلی ١٢', link: '#' },
+                { title: 'پرسیاری وزاری (الأسئلة الوزارية)', desc: 'پرسیاری ساڵانی ڕابردوو بە وەڵامەوە', link: '#' },
+                { title: 'کورتکراوەکان (الملخصات)', desc: 'پوختەی یاساکانی ئیعراب و نصوص', link: '#' },
+                { title: 'گرنگترینەکان (الأهم)', desc: 'خاڵە هەستیارەکان بۆ تاقیکردنەوەی نیشتمانی', link: '#' },
+                { title: 'ڕێنمایی من بۆ تۆ', desc: 'ڕێگای ئاسان بۆ نمرەی سەروو ٩٠ لە عەرەبی', link: '#' }
+            ],
+            'english': [
+                { title: 'Grammar (All Units)', desc: 'ڕێزمانی سەرجەم یونتەکان بە کورتی و ڕوونی', link: '#' },
+                { title: 'Reading & Literature Study (Stories)', desc: 'چیرۆکەکان (Treasure Island)، ئەدەب و پەڕەگرافەکان', link: '#' },
+                { title: 'Vocabulary & Functions', desc: 'تەواوی وشە، پێناسە و فەنکشنە پێویستەکان', link: '#' },
+                { title: 'Full Course Materials (مەلزەمە)', desc: 'مەلزەمەی پۆلی دوانزەی ئینگلیزی', link: '#' },
+                { title: 'Ministerial Questions (پرسیاری وزاری)', desc: 'پرسیاری خولەکانی ئینگلیزی بە وەڵامەوە', link: '#' },
+                { title: 'Summary & Quick Revision (کورتکراوەکان)', desc: 'پوختەی خێرای یونتەکان', link: '#' },
+                { title: 'Important Points (گرنگترینەکان)', desc: 'خاڵە دووبارەبووەوەکانی تاقیکردنەوەی وزاری', link: '#' },
+                { title: 'My Advice (ڕێنمایی من بۆ تۆ)', desc: 'باشترین تەکنیک بۆ دەستخستنی 100 لە زمانی ئینگلیزی', link: '#' }
+            ],
+            'religion': [
+                { title: 'مەلزەمەی ئاین', desc: 'تەواوی مەلزەمە بە پرسیار و وەڵام', link: '#' },
+                { title: 'فەرموودە و دەقە گرنگەکان', desc: 'تەواوی ئایەت و فەرموودە پێویستەکان', link: '#' },
+                { title: 'پرسیارە وزارییەکان', desc: 'شیکاری پرسیاری خولە وزارییەکان', link: '#' },
+                { title: 'کورتکراوەی خێرا', desc: 'پوختەی هەموو وانەکان لە چەند لاپەڕەیەکدا', link: '#' },
+                { title: 'ڕێنمایی من بۆ تۆ', desc: 'شێوازی لەبەرکردن و تێگەیشتن لە ماوەیەکی کەمدا', link: '#' }
+            ],
+            'schedule': [
+                { title: 'پلانی خوێندنی ڕۆژانە (٦-٨ کاتژمێر)', desc: 'باشترین خشتەی ڕێکخستنی کات بۆ ماڵەوە و مەکتەب', link: '#' },
+                { title: 'خشتەی مانگەکانی پێش وزاری (پێداچوونەوە)', desc: 'پلانی تەواوکردنی دووبارەی هەموو وانەکان', link: '#' },
+                { title: 'ڕێنمایی تەندروستی و کەمکردنەوەی سترێس', desc: 'چۆنیەتی پاراستنی ووزە و تەەرکیز لە پۆلی ١٢', link: '#' }
+            ],
+            'videos': [
+                { title: 'شیکاری ڤیدیۆیی پرسیارە فکرییەکان', desc: 'وانەی ڕوونکردنەوەی فکری وانە زانستییەکان', link: '#' },
+                { title: 'ڤیدیۆی تەکنیکی وەڵامدانەوە لە وزاری', desc: 'چۆن لە کاتی تاقیکردنەوە کات بەڕێوەببەیت؟', link: '#' }
+            ]
+        };
+
+        function openSection(key, title, icon) {
+            const items = database[key] || [];
+            let html = `<h2 style="margin-bottom: 16px; font-size: 1.25rem; font-weight: 800;">${icon} ${title}</h2>`;
+            
+            items.forEach(item => {
+                html += `
+                    <div class="item-box" style="margin-bottom: 10px;">
+                        <div>
+                            <h4 style="font-size: 0.95rem; margin-bottom: 3px; font-weight: 700;">${item.title}</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">${item.desc}</p>
+                        </div>
+                        <a href="${item.link}" target="_blank" class="btn-action">کردنەوە</a>
+                    </div>
+                `;
+            });
+
+            document.getElementById('subContent').innerHTML = html;
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('subPage').style.display = 'flex';
+            window.scrollTo(0, 0);
+        }
+
+        function goBack() {
+            document.getElementById('homePage').style.display = 'flex';
+            document.getElementById('subPage').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
