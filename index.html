@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 12 Assistant | یاریدەدەری پۆلی ۱۲</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 30, 49, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary-accent: #3b82f6;
+            --primary-glow: #6366f1;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(11, 15, 25, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            backdrop-filter: blur(12px);
+        }
+
+        .site-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .site-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* بەستەرەکانی پەیوەندی */
+        .social-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .social-link:hover {
+            background: var(--primary-accent);
+            border-color: var(--primary-accent);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 16px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        /* بەشی گۆڕینی زانستی و وێژەیی */
+        .branch-switcher {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .branch-btn {
+            padding: 14px;
+            border-radius: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .branch-btn.active {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35);
+        }
+
+        /* لیستی وانەکان */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .subject-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 18px 12px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .subject-card:hover {
+            border-color: var(--primary-accent);
+            transform: translateY(-2px);
+        }
+
+        /* پەڕەی ناوەوەی وانەکە */
+        .view-section {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .back-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* تابی جۆری بابەتەکان */
+        .type-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .type-tab {
+            padding: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .type-tab.active {
+            background: var(--primary-accent);
+            color: #fff;
+            border-color: var(--primary-accent);
+        }
+
+        .items-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .content-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .action-btn {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 8px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .admin-btn-inline {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+
+        /* مۆداڵی زیادکردنی ئەدمین */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-card {
+            background: #131b2e;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: #fff;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        .modal-input:focus {
+            border-color: var(--primary-accent);
+        }
+
+        .viewer-box {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 200;
+            flex-direction: column;
+            padding: 16px;
+        }
+
+        .viewer-header {
+            display: flex;
+            justify-content: space-between;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .viewer-body {
+            flex-grow: 1;
+            background: #000;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .viewer-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="site-title">Grade 12 Assistant</div>
+        <p class="site-desc">پلاتفۆرمی فەرمی سەرجەم وانەکانی پۆلی ١٢</p>
+        <div class="social-bar">
+            <a href="https://t.me/" target="_blank" class="social-link">📢 کەناڵی تێلیگرام</a>
+            <a href="https://t.me/" target="_blank" class="social-link">👥 گرووپی گفتوگۆ</a>
+            <a href="https://t.me/" target="_blank" class="social-link">✉ پەیوەندی بە من</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- بەشی سەرەکی -->
+        <div id="homeSection">
+            <div class="branch-switcher">
+                <button class="branch-btn active" id="sciBtn" onclick="switchBranch('scientific')">زانستی</button>
+                <button class="branch-btn" id="litBtn" onclick="switchBranch('literary')">وێژەیی</button>
+            </div>
+
+            <div class="subjects-grid" id="subjectsGrid"></div>
+        </div>
+
+        <!-- پەڕەی تایبەتی وانەکە کاتێک کلیکی لێ دەکرێت -->
+        <div class="view-section" id="subjectDetailSection">
+            <div class="back-nav">
+                <h3 id="currentSubjectTitle" style="font-size: 1.2rem; color: #fff;"></h3>
+                <button class="back-btn" onclick="backToHome()">⬅ گەڕانەوە</button>
+            </div>
+
+            <!-- دوگمەی زیادکردنی ئەدمین لە ناو هەمان وانە -->
+            <button class="admin-btn-inline" onclick="openAdminAdd()">➕ زیادکردنی فایلی نوێ بۆ ئەم وانەیە</button>
+
+            <!-- جۆری بەشەکان: مەلزەمە / کورتکراوە / ڤیدیۆ -->
+            <div class="type-tabs">
+                <button class="type-tab active" onclick="switchContentType('malzama', this)">مەلزەمە</button>
+                <button class="type-tab" onclick="switchContentType('summary', this)">کورتکراوە</button>
+                <button class="type-tab" onclick="switchContentType('video', this)">ڤیدیۆ</button>
+            </div>
+
+            <div class="items-container" id="itemsList"></div>
+        </div>
+    </div>
+
+    <!-- مۆداڵی زیادکردنی ئەدمین -->
+    <div class="modal" id="adminModal">
+        <div class="modal-card">
+            <h3 style="margin-bottom: 14px; font-size: 1.1rem; color: #fff;">بڵاوکردنەوەی فایلی نوێ</h3>
+            
+            <select class="modal-input" id="itemTypeSelect">
+                <option value="malzama">مەلزەمە</option>
+                <option value="summary">کورتکراوە</option>
+                <option value="video">ڤیدیۆ</option>
+            </select>
+
+            <input type="text" class="modal-input" id="itemTitleInput" placeholder="ناوی فایلەکە بنووسە">
+            <input type="text" class="modal-input" id="itemUrlInput" placeholder="لینکی PDF یان ڤیدیۆی YouTube">
+
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button class="action-btn" style="flex:1; background:#10b981; color:#fff;" onclick="submitNewItem()">زیادکردن</button>
+                <button class="action-btn" style="flex:1; background:rgba(255,255,255,0.1); color:#fff;" onclick="closeModal()">داخستن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Viewer بۆ کردنەوەی فایل و ڤیدیۆ -->
+    <div class="viewer-box" id="viewerBox">
+        <div class="viewer-header">
+            <span id="viewerTitle"></span>
+            <button onclick="closeViewer()" style="background:none; border:none; color:#fff; font-size:1.3rem; cursor:pointer;">✕</button>
+        </div>
+        <div class="viewer-body" id="viewerContent"></div>
+    </div>
+
+    <script>
+        const ADMIN_PASS = 'omerjamal01@Om2007er@';
+        
+        let currentBranch = 'scientific';
+        let currentSubjectKey = '';
+        let currentContentType = 'malzama';
+
+        const subjectsData = {
+            scientific: [
+                { key: 'ahya', title: 'زیندەوەرزانی' },
+                { key: 'chem', title: 'کیمیا' },
+                { key: 'phy', title: 'فیزیا' },
+                { key: 'math_s', title: 'بیرکاری' },
+                { key: 'kurd', title: 'کوردی' },
+                { key: 'ar', title: 'عەرەبی' },
+                { key: 'eng', title: 'ئینگلیزی' }
+            ],
+            literary: [
+                { key: 'tarikh', title: 'مێژوو' },
+                { key: 'joghrafa', title: 'جوگرافیا' },
+                { key: 'aburi', title: 'ئابووری' },
+                { key: 'math_l', title: 'بیرکاری' },
+                { key: 'kurd', title: 'کوردی' },
+                { key: 'ar', title: 'عەرەبی' },
+                { key: 'eng', title: 'ئینگلیزی' }
+            ]
+        };
+
+        let storageData = JSON.parse(localStorage.getItem('g12_core_db')) || {};
+
+        function init() {
+            renderSubjects();
+        }
+
+        function switchBranch(branch) {
+            currentBranch = branch;
+            document.getElementById('sciBtn').classList.toggle('active', branch === 'scientific');
+            document.getElementById('litBtn').classList.toggle('active', branch === 'literary');
+            renderSubjects();
+        }
+
+        function renderSubjects() {
+            const grid = document.getElementById('subjectsGrid');
+            grid.innerHTML = '';
+            subjectsData[currentBranch].forEach(sub => {
+                const card = document.createElement('div');
+                card.className = 'subject-card';
+                card.textContent = sub.title;
+                card.onclick = () => openSubject(sub.key, sub.title);
+                grid.appendChild(card);
+            });
+        }
+
+        function openSubject(key, title) {
+            currentSubjectKey = key;
+            document.getElementById('currentSubjectTitle').textContent = title;
+            document.getElementById('homeSection').style.display = 'none';
+            document.getElementById('subjectDetailSection').style.display = 'block';
+            renderContentItems();
+        }
+
+        function backToHome() {
+            document.getElementById('homeSection').style.display = 'block';
+            document.getElementById('subjectDetailSection').style.display = 'none';
+        }
+
+        function switchContentType(type, el) {
+            currentContentType = type;
+            document.querySelectorAll('.type-tab').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            renderContentItems();
+        }
+
+        function renderContentItems() {
+            const list = document.getElementById('itemsList');
+            list.innerHTML = '';
+
+            const listData = (storageData[currentSubjectKey] && storageData[currentSubjectKey][currentContentType]) || [];
+
+            if (listData.length === 0) {
+                list.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--text-muted);">هیچ فایلێک زیاد نەکراوە.</div>';
+                return;
+            }
+
+            listData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'content-item';
+                div.innerHTML = `
+                    <div class="content-title">${item.title}</div>
+                    <button class="action-btn" onclick="openFile('${encodeURIComponent(item.title)}', '${encodeURIComponent(item.url)}', '${currentContentType}')">
+                        ${currentContentType === 'video' ? 'سەیرکردن' : 'کردنەوە'}
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function openAdminAdd() {
+            const pass = prompt('پاسۆردی ئەدمین بنووسە:');
+            if (pass === ADMIN_PASS) {
+                document.getElementById('adminModal').style.display = 'flex';
+            } else if (pass !== null) {
+                alert('پاسۆردەکە هەڵەیە!');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        function submitNewItem() {
+            const type = document.getElementById('itemTypeSelect').value;
+            const title = document.getElementById('itemTitleInput').value.trim();
+            const url = document.getElementById('itemUrlInput').value.trim();
+
+            if (!title || !url) {
+                alert('تکایە هەموو خانەکان پڕبکەرەوە!');
+                return;
+            }
+
+            if (!storageData[currentSubjectKey]) {
+                storageData[currentSubjectKey] = { malzama: [], summary: [], video: [] };
+            }
+            if (!storageData[currentSubjectKey][type]) {
+                storageData[currentSubjectKey][type] = [];
+            }
+
+            storageData[currentSubjectKey][type].unshift({ title, url });
+            localStorage.setItem('g12_core_db', JSON.stringify(storageData));
+
+            document.getElementById('itemTitleInput').value = '';
+            document.getElementById('itemUrlInput').value = '';
+            closeModal();
+            renderContentItems();
+        }
+
+        function openFile(title, url, type) {
+            title = decodeURIComponent(title);
+            url = decodeURIComponent(url);
+            document.getElementById('viewerTitle').textContent = title;
+            const container = document.getElementById('viewerContent');
+            container.innerHTML = '';
+
+            if (type === 'video' || url.includes('youtube.com') || url.includes('youtu.be')) {
+                let videoId = url.includes('v=') ? url.split('v=')[1].split('&')[0] : url.split('/').pop();
+                container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen></iframe>`;
+            } else {
+                container.innerHTML = `<iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true"></iframe>`;
+            }
+
+            document.getElementById('viewerBox').style.display = 'flex';
+        }
+
+        function closeViewer() {
+            document.getElementById('viewerContent').innerHTML = '';
+            document.getElementById('viewerBox').style.display = 'none';
+        }
+
+        init();
+    </script>
+</body>
+</html>
