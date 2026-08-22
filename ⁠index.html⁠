@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 12 Assistant | یاریدەدەری پۆلی ۱۲</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --card-bg: rgba(16, 26, 46, 0.85);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --accent: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top right, rgba(79, 70, 229, 0.15), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.1), transparent 40%);
+        }
+
+        header {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(7, 13, 24, 0.85);
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a5b4fc, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .subject-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 14px 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+
+        .subject-btn.active {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .filter-tab {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .filter-tab.active {
+            background: var(--accent);
+            color: #070d18;
+            font-weight: 700;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .item-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .item-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .item-thumb {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            background: #1e293b;
+        }
+
+        .item-content {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .item-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .item-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .item-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            flex-grow: 1;
+            line-height: 1.4;
+        }
+
+        .open-btn {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+
+        .open-btn:active {
+            opacity: 0.8;
+        }
+
+        /* Modal Viewer */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            flex-direction: column;
+            padding: 12px;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px 14px;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            flex-grow: 1;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-body iframe, .modal-body video {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Admin Trigger & Panel */
+        .admin-trigger {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .admin-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 150;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .admin-box {
+            background: #111a2e;
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 24px;
+            width: 100%;
+            max-width: 440px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .admin-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .admin-input, .admin-select {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: #fff;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .admin-input:focus, .admin-select:focus {
+            border-color: var(--primary);
+        }
+
+        .admin-submit {
+            width: 100%;
+            background: #10b981;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Grade 12 Assistant</h1>
+        <p>تەواوی مەلزەمە، ڤیدیۆ و کورتکراوەکانی پۆلی ١٢ لە یەک شوێن</p>
+    </header>
+
+    <div class="container">
+        <!-- وانەکان -->
+        <div class="subjects-grid">
+            <button class="subject-btn active" onclick="setSubject('ahya', this)">زیندەوەرزانی</button>
+            <button class="subject-btn" onclick="setSubject('chem', this)">کیمیا</button>
+            <button class="subject-btn" onclick="setSubject('phy', this)">فیزیا</button>
+            <button class="subject-btn" onclick="setSubject('math', this)">بیرکاری</button>
+            <button class="subject-btn" onclick="setSubject('kurd', this)">کوردی</button>
+            <button class="subject-btn" onclick="setSubject('ar', this)">عەرەبی</button>
+            <button class="subject-btn" onclick="setSubject('eng', this)">ئینگلیزی</button>
+        </div>
+
+        <!-- پۆلێنکردن -->
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="setCategory('all', this)">هەموو بابەتەکان</button>
+            <button class="filter-tab" onclick="setCategory('malzama', this)">📚 مەلزەمەی مامۆستایان</button>
+            <button class="filter-tab" onclick="setCategory('video', this)">🎥 ڤیدیۆ و شیکار</button>
+            <button class="filter-tab" onclick="setCategory('summary', this)">⚡ کورتکراوەکان</button>
+            <button class="filter-tab" onclick="setCategory('exam', this)">📝 پرسیاری وزاری</button>
+        </div>
+
+        <!-- لیستی بابەتەکان -->
+        <div class="items-grid" id="itemsList"></div>
+    </div>
+
+    <!-- Viewer Modal ناوخۆیی -->
+    <div class="modal" id="viewerModal">
+        <div class="modal-header">
+            <h3 id="modalTitle" style="font-size: 1rem;"></h3>
+            <button class="modal-close" onclick="closeViewer()">✕</button>
+        </div>
+        <div class="modal-body" id="viewerContent"></div>
+    </div>
+
+    <!-- دوگمەی خوارەوە بۆ ئەدمین -->
+    <div class="admin-trigger" onclick="openAdminLogin()">🔒 پنێڵی بەڕێوەبردن (Admin)</div>
+
+    <!-- پەنجەرەی ئەدمین -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-box">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                <h3>زیادکردنی بابەتی نوێ</h3>
+                <button onclick="closeAdmin()" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;">✕</button>
+            </div>
+            
+            <select class="admin-select" id="newItemSubject">
+                <option value="ahya">زیندەوەرزانی (ئەحیا)</option>
+                <option value="chem">کیمیا</option>
+                <option value="phy">فیزیا</option>
+                <option value="math">بیرکاری</option>
+                <option value="kurd">کوردی</option>
+                <option value="ar">عەرەبی</option>
+                <option value="eng">ئینگلیزی</option>
+            </select>
+
+            <select class="admin-select" id="newItemCat">
+                <option value="malzama">مەلزەمەی مامۆستا (PDF)</option>
+                <option value="video">ڤیدیۆ و ڕوونکردنەوە</option>
+                <option value="summary">کورتکراوە و خشتە</option>
+                <option value="exam">پرسیاری وزاری</option>
+            </select>
+
+            <input type="text" class="admin-input" id="newItemTitle" placeholder="ناونیشان (بۆ نموونە: مەلزەمەی مامۆستا هوشیار وەرزی ١)">
+            <input type="text" class="admin-input" id="newItemDesc" placeholder="ڕوونکردنەوەی کورت...">
+            <input type="text" class="admin-input" id="newItemThumb" placeholder="لینکی وێنەی بەرگ (ئارەزوومەندانە)">
+            <input type="text" class="admin-input" id="newItemUrl" placeholder="لینکی فایلی PDF یان ڤیدیۆی YouTube">
+
+            <button class="admin-submit" onclick="saveNewItem()">➕ بڵاوکردنەوەی دەستبەجێ</button>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_PASS = 'omerjamal01@Om2007er@';
+        let currentSubject = 'ahya';
+        let currentCategory = 'all';
+
+        // داتای سەرەتایی
+        let defaultData = {
+            'ahya': [
+                {
+                    id: 1,
+                    cat: 'malzama',
+                    title: 'مەلزەمەی مامۆستا هوشیار - وەرزی یەکەم',
+                    desc: 'تەواوی بەندەکانی وەرزی یەکەم بە شیکاری وێنەیی',
+                    thumb: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=500&q=80',
+                    url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+                    type: 'pdf'
+                },
+                {
+                    id: 2,
+                    cat: 'malzama',
+                    title: 'مەلزەمەی مامۆستا حسێن',
+                    desc: 'پوختەی تەواوی کتێب بە تێبینی گرنگ',
+                    thumb: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?w=500&q=80',
+                    url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+                    type: 'pdf'
+                }
+            ]
+        };
+
+        // بارکردنی داتا
+        let appData = JSON.parse(localStorage.getItem('g12_data')) || defaultData;
+
+        function renderItems() {
+            const list = document.getElementById('itemsList');
+            list.innerHTML = '';
+            
+            const subjectItems = appData[currentSubject] || [];
+            const filtered = currentCategory === 'all' ? subjectItems : subjectItems.filter(i => i.cat === currentCategory);
+
+            if (filtered.length === 0) {
+                list.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--text-muted);">هێشتا هیچ بابەتێک لەم بەشەدا دانەنراوە.</div>';
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
+                    <img src="${item.thumb || 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=500&q=80'}" class="item-thumb" alt="${item.title}">
+                    <div class="item-content">
+                        <span class="item-tag">${getCatName(item.cat)}</span>
+                        <div class="item-title">${item.title}</div>
+                        <div class="item-desc">${item.desc || ''}</div>
+                        <button class="open-btn" onclick="openViewer('${encodeURIComponent(item.title)}', '${encodeURIComponent(item.url)}', '${item.type}')">
+                            ${item.type === 'video' ? '▶ بینینی ڤیدیۆ' : '📖 کردنەوەی مەلزەمە'}
+                        </button>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function getCatName(cat) {
+            const map = { malzama: 'مەلزەمە', video: 'ڤیدیۆ', summary: 'کورتکراوە', exam: 'وزاری' };
+            return map[cat] || 'بابەت';
+        }
+
+        function setSubject(sub, el) {
+            currentSubject = sub;
+            document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            renderItems();
+        }
+
+        function setCategory(cat, el) {
+            currentCategory = cat;
+            document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            renderItems();
+        }
+
+        // Viewer ناوخۆیی
+        function openViewer(title, url, type) {
+            title = decodeURIComponent(title);
+            url = decodeURIComponent(url);
+            document.getElementById('modalTitle').textContent = title;
+            const container = document.getElementById('viewerContent');
+            container.innerHTML = '';
+
+            if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                let videoId = url.includes('v=') ? url.split('v=')[1].split('&')[0] : url.split('/').pop();
+                container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen allow="autoplay"></iframe>`;
+            } else {
+                container.innerHTML = `<iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true"></iframe>`;
+            }
+
+            document.getElementById('viewerModal').style.display = 'flex';
+        }
+
+        function closeViewer() {
+            document.getElementById('viewerContent').innerHTML = '';
+            document.getElementById('viewerModal').style.display = 'none';
+        }
+
+        // بەشی ئەدمین
+        function openAdminLogin() {
+            const entered = prompt('تکایە پاسۆردی ئەدمین بنووسە:');
+            if (entered === ADMIN_PASS) {
+                document.getElementById('adminModal').style.display = 'flex';
+            } else if (entered !== null) {
+                alert('پاسۆردەکە هەڵەیە!');
+            }
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        function saveNewItem() {
+            const subject = document.getElementById('newItemSubject').value;
+            const cat = document.getElementById('newItemCat').value;
+            const title = document.getElementById('newItemTitle').value.trim();
+            const desc = document.getElementById('newItemDesc').value.trim();
+            const thumb = document.getElementById('newItemThumb').value.trim();
+            const url = document.getElementById('newItemUrl').value.trim();
+
+            if (!title || !url) {
+                alert('تکایە ناونیشان و لینکەکە پڕبکەرەوە!');
+                return;
+            }
+
+            const isVideo = cat === 'video' || url.includes('youtube') || url.includes('youtu.be');
+
+            const newItem = {
+                id: Date.now(),
+                cat: cat,
+                title: title,
+                desc: desc,
+                thumb: thumb,
+                url: url,
+                type: isVideo ? 'video' : 'pdf'
+            };
+
+            if (!appData[subject]) appData[subject] = [];
+            appData[subject].unshift(newItem);
+
+            localStorage.setItem('g12_data', JSON.stringify(appData));
+
+            alert('بابەتەکە بە سەرکەوتوویی زیادکرا!');
+            closeAdmin();
+            renderItems();
+        }
+
+        renderItems();
+    </script>
+</body>
+</html>
