@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade 12 Assistant | یاریدەدەری پۆلی ١٢</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --primary: #6366F1;
+            --primary-hover: #4F46E5;
+            --accent: #EC4899;
+            --bg-base: #070913;
+            --card-surface: rgba(18, 24, 43, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #F9FAFB;
+            --text-sub: #9CA3AF;
+            --success: #10B981;
+            --danger: #EF4444;
+            --radius-lg: 22px;
+            --radius-md: 14px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Ambient Lighting Background */
+        .ambient-glow {
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.45;
+        }
+        .glow-1 { top: -120px; right: -80px; background: #4F46E5; }
+        .glow-2 { bottom: -120px; left: -80px; background: #EC4899; }
+
+        /* Global Modals & Overlays */
+        .overlay-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(7, 9, 19, 0.88);
+            backdrop-filter: blur(25px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-card {
+            background: var(--card-surface);
+            border: 1px solid var(--card-border);
+            padding: 32px 24px;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            animation: zoomUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 14px 20px;
+            background: #FFFFFF;
+            color: #111827;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-top: 22px;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.25);
+        }
+        .login-btn svg { width: 22px; height: 22px; }
+
+        /* Container */
+        .app-container {
+            max-width: 950px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px 16px 80px 16px;
+            position: relative;
+            z-index: 1;
+            display: none;
+        }
+
+        /* Navbar Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+            background: var(--card-surface);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(16px);
+            border-radius: 18px;
+            margin-bottom: 25px;
+        }
+
+        .user-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-meta img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            object-fit: cover;
+        }
+
+        .btn-ui {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .btn-ui:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+        .btn-admin-glow {
+            border-color: rgba(99, 102, 241, 0.5);
+            background: rgba(99, 102, 241, 0.15);
+            color: #A5B4FC;
+        }
+
+        /* Social Channels Bar */
+        .social-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .social-link {
+            padding: 12px;
+            background: var(--card-surface);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+        .social-link:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Stream Selector (زانستی / وێژەیی) */
+        .stream-switch {
+            display: flex;
+            background: rgba(18, 24, 43, 0.6);
+            border: 1px solid var(--card-border);
+            padding: 4px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+        }
+        .stream-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            color: var(--text-sub);
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .stream-tab.active {
+            background: linear-gradient(135deg, var(--primary), #818CF8);
+            color: #FFF;
+            box-shadow: 0 4px 18px rgba(99, 102, 241, 0.35);
+        }
+
+        /* Subjects Grid */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .subject-card {
+            background: var(--card-surface);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .subject-card:hover, .subject-card.active {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.25);
+        }
+        .subject-card.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+        }
+        .subject-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .subject-card h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* Resources Area */
+        .resources-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding: 0 4px;
+        }
+
+        .resource-card {
+            background: var(--card-surface);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            transition: all 0.25s ease;
+        }
+        .resource-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.005);
+        }
+        .res-type-pill {
+            padding: 4px 10px;
+            background: rgba(99, 102, 241, 0.15);
+            color: #A5B4FC;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            color: #FFF;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary);
+        }
+
+        @keyframes zoomUp {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- 1. Google Login Overlay -->
+    <div id="auth-overlay" class="overlay-screen">
+        <div class="modal-card" style="text-align: center;">
+            <div style="width: 60px; height: 60px; background: rgba(99, 102, 241, 0.15); border-radius: 20px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                <i data-lucide="graduation-cap" style="width: 32px; height: 32px; color: #818CF8;"></i>
+            </div>
+            <h2 style="font-size: 1.45rem; font-weight: 900; margin-bottom: 6px;">Grade 12 Assistant</h2>
+            <p style="color: var(--text-sub); font-size: 0.85rem; line-height: 1.6;">پلاتفۆرمی سەرچاوە و مەلزەمەکانی پۆلی ١٢ بە نوێترین شێواز</p>
+            
+            <button id="google-login-btn" class="login-btn">
+                <svg viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                چوونەژوورەوە بە Gmail
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. Registration / Profile Modal -->
+    <div id="profile-modal" class="overlay-screen" style="display: none;">
+        <div class="modal-card">
+            <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 8px;">تەواوکردنی پڕۆفایل</h3>
+            <p style="color: var(--text-sub); font-size: 0.82rem; margin-bottom: 20px;">تەنها یەکجار ئەم زانیارییانە پڕبکەرەوە بۆ پێناسی قوتابی</p>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label>ناوی تەواو (ناوی بەکارهێنەر)</label>
+                    <input type="text" id="reg-fullname" required placeholder="بۆ نموونە: ئارام کاروان">
+                </div>
+                <div class="form-group">
+                    <label>ناسناو (چۆن بانگت بکەین؟)</label>
+                    <input type="text" id="reg-nickname" required placeholder="بۆ نموونە: ئارۆ">
+                </div>
+                <button type="submit" class="login-btn" style="background: var(--primary); color: #FFF; margin-top: 10px;">پاشەکەوتکردن و دەستپێکردن</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Admin Password Protection Modal -->
+    <div id="admin-auth-modal" class="overlay-screen" style="display: none;">
+        <div class="modal-card">
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 8px;">چوونەژوورەوەی بەڕێوەبەر</h3>
+            <p style="color: var(--text-sub); font-size: 0.82rem; margin-bottom: 18px;">تکایە تێپەڕەوشەی بەڕێوەبەر بنووسە</p>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label>تێپەڕەوشە (Password)</label>
+                    <input type="password" id="admin-pass-input" required placeholder="••••••••">
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button type="submit" class="btn-ui" style="flex: 1; justify-content: center; background: var(--primary); color: #FFF;">پشتڕاستکردنەوە</button>
+                    <button type="button" id="close-admin-auth" class="btn-ui" style="justify-content: center;">داخستن</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. Main App Container -->
+    <div id="main-app" class="app-container">
+        
+        <!-- Header -->
+        <header>
+            <div class="user-meta">
+                <img id="user-avatar" src="" alt="avatar">
+                <div>
+                    <div id="user-display-name" style="font-weight: 800; font-size: 0.95rem;">-</div>
+                    <div id="user-nickname-display" style="font-size: 0.76rem; color: #818CF8;">-</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <button id="btn-open-admin" class="btn-ui btn-admin-glow">
+                    <i data-lucide="shield-alert" style="width: 15px;"></i>
+                    ئەدمین
+                </button>
+                <button id="logout-btn" class="btn-ui">
+                    <i data-lucide="log-out" style="width: 15px;"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Social Channels & Contact -->
+        <div class="social-bar">
+            <a href="https://t.me/assistant_grade12" target="_blank" class="social-link">
+                <i data-lucide="send" style="width: 16px; color: #38BDF8;"></i>
+                <span>کەناڵی تێلیگرام</span>
+            </a>
+            <a href="https://t.me/assistant_grade12_group" target="_blank" class="social-link">
+                <i data-lucide="messages-square" style="width: 16px; color: #A78BFA;"></i>
+                <span>گرووپی گفتوگۆ</span>
+            </a>
+            <a href="https://t.me/omerjamal01" target="_blank" class="social-link">
+                <i data-lucide="user-check" style="width: 16px; color: #34D399;"></i>
+                <span>ئەدمین (پەیوەندی)</span>
+            </a>
+        </div>
+
+        <!-- Stream Switcher -->
+        <div class="stream-switch">
+            <button class="stream-tab active" data-stream="scientific">بەشی زانستی 🔬</button>
+            <button class="stream-tab" data-stream="literary">بەشی وێژەیی 📚</button>
+        </div>
+
+        <!-- Dynamic Subjects Grid -->
+        <div id="subjects-container" class="subjects-grid"></div>
+
+        <!-- Resources Section -->
+        <div class="resources-header">
+            <div>
+                <h3 id="current-subject-title" style="font-size: 1.15rem; font-weight: 800;">سەرچاوەکان</h3>
+                <span id="current-subject-badge" style="font-size: 0.78rem; color: var(--text-sub);">هەموو بابەتەکان</span>
+            </div>
+            <button id="btn-add-res-trigger" class="btn-ui" style="background: var(--success); color: #FFF; display: none;">
+                <i data-lucide="plus" style="width: 15px;"></i>
+                زیادکردنی مەلزەمە
+            </button>
+        </div>
+
+        <!-- Resources List -->
+        <div id="resources-list"></div>
+
+    </div>
+
+    <!-- 5. Add Resource Modal (Admin Only) -->
+    <div id="add-res-modal" class="overlay-screen" style="display: none;">
+        <div class="modal-card">
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 14px;">زیادکردنی سەرچاوە لەم بەشەدا</h3>
+            <form id="add-res-form">
+                <div class="form-group">
+                    <label>ناونیشانی مەلزەمە یان ڤیدیۆ</label>
+                    <input type="text" id="add-title" required placeholder="بۆ نموونە: ڕوونکردنەوەی وەرزی یەکەم">
+                </div>
+                <div class="form-group">
+                    <label>بەش / بەشەکان</label>
+                    <input type="text" id="add-section-tag" placeholder="بۆ نموونە: بەشی مەلزەمە یان بەشی پرسیاری وزاری">
+                </div>
+                <div class="form-group">
+                    <label>جۆری سەرچاوە</label>
+                    <select id="add-type">
+                        <option value="PDF">مەلزەمە / فایلی PDF</option>
+                        <option value="ڤیدیۆ">ڤیدیۆی فێرکاری</option>
+                        <option value="تاقیکردنەوە">تاقیکردنەوەی ئۆنلاین</option>
+                        <option value="سەرچاوە">لینکی تر</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ئامادەکار یان مامۆستا</label>
+                    <input type="text" id="add-author" required placeholder="ناوی مامۆستا">
+                </div>
+                <div class="form-group">
+                    <label>لینکی ڕاستەوخۆ (Drive یان تێلیگرام)</label>
+                    <input type="url" id="add-url" required placeholder="https://...">
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 16px;">
+                    <button type="submit" class="btn-ui" style="flex: 1; justify-content: center; background: var(--primary); color: #FFF;">پاشەکەوتکردن</button>
+                    <button type="button" id="close-add-modal" class="btn-ui" style="justify-content: center;">داخستن</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDoc, doc, setDoc, serverTimestamp, query, where, orderBy, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD9W11fEY6iL8zhivkYDRap9xCY_fgOrDs",
+            authDomain: "grade12assistant.firebaseapp.com",
+            projectId: "grade12assistant",
+            storageBucket: "grade12assistant.firebasestorage.app",
+            messagingSenderId: "1071512579791",
+            appId: "1:1071512579791:web:93a8481245051c63bc11ba"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        // Passwords & State
+        const ADMIN_PASS = "omer1234";
+        let isSuperAdmin = false;
+        let currentUser = null;
+        let currentStream = "scientific";
+        let currentSubject = "زیندەوەرزانی";
+
+        // Subject Definitions with Icons
+        const subjectsData = {
+            scientific: [
+                { id: "زیندەوەرزانی", name: "زیندەوەرزانی", icon: "🧬" },
+                { id: "بیرکاری", name: "بیرکاری", icon: "📐" },
+                { id: "فیزیا", name: "فیزیا", icon: "⚡" },
+                { id: "کیمیا", name: "کیمیا", icon: "🧪" },
+                { id: "کوردی", name: "کوردی", icon: "📖" },
+                { id: "عەرەبی", name: "عەرەبی", icon: "🕌" },
+                { id: "ئینگلیزی", name: "ئینگلیزی", icon: "🌐" }
+            ],
+            literary: [
+                { id: "مێژوو", name: "مێژوو", icon: "🏛️" },
+                { id: "جوگرافیا", name: "جوگرافیا", icon: "🗺️" },
+                { id: "ئابووری", name: "ئابووری", icon: "📊" },
+                { id: "بیرکاری", name: "بیرکاری", icon: "📐" },
+                { id: "کوردی", name: "کوردی", icon: "📖" },
+                { id: "عەرەبی", name: "عەرەبی", icon: "🕌" },
+                { id: "ئینگلیزی", name: "ئینگلیزی", icon: "🌐" }
+            ]
+        };
+
+        // DOM Handles
+        const authOverlay = document.getElementById('auth-overlay');
+        const profileModal = document.getElementById('profile-modal');
+        const adminAuthModal = document.getElementById('admin-auth-modal');
+        const mainApp = document.getElementById('main-app');
+        const googleLoginBtn = document.getElementById('google-login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const profileForm = document.getElementById('profile-form');
+        const adminLoginForm = document.getElementById('admin-login-form');
+        const adminPassInput = document.getElementById('admin-pass-input');
+        const btnOpenAdmin = document.getElementById('btn-open-admin');
+        const closeAdminAuth = document.getElementById('close-admin-auth');
+        const btnAddResTrigger = document.getElementById('btn-add-res-trigger');
+        const addResModal = document.getElementById('add-res-modal');
+        const closeAddModal = document.getElementById('close-add-modal');
+        const addResForm = document.getElementById('add-res-form');
+
+        const subjectsContainer = document.getElementById('subjects-container');
+        const resourcesList = document.getElementById('resources-list');
+        const currentSubjectTitle = document.getElementById('current-subject-title');
+        const currentSubjectBadge = document.getElementById('current-subject-badge');
+
+        lucide.createIcons();
+
+        // 1. Google Sign-In
+        googleLoginBtn.onclick = async () => {
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (e) {
+                alert("هەڵە لە چوونەژوورەوە: " + e.message);
+            }
+        };
+
+        logoutBtn.onclick = () => signOut(auth);
+
+        // 2. Auth State Changed (Automatic & Persistent)
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                authOverlay.style.display = 'none';
+
+                // Check profile
+                const snap = await getDoc(doc(db, "users", user.uid));
+                if (snap.exists() && snap.data().fullName && snap.data().nickname) {
+                    initDashboard(snap.data());
+                } else {
+                    profileModal.style.display = 'flex';
+                    document.getElementById('reg-fullname').value = user.displayName || '';
+                }
+            } else {
+                currentUser = null;
+                authOverlay.style.display = 'flex';
+                mainApp.style.display = 'none';
+            }
+        });
+
+        // 3. Save User Profile
+        profileForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const data = {
+                fullName: document.getElementById('reg-fullname').value,
+                nickname: document.getElementById('reg-nickname').value,
+                email: currentUser.email,
+                photo: currentUser.photoURL,
+                updatedAt: serverTimestamp()
+            };
+            await setDoc(doc(db, "users", currentUser.uid), data, { merge: true });
+            profileModal.style.display = 'none';
+            initDashboard(data);
+        };
+
+        function initDashboard(userData) {
+            mainApp.style.display = 'block';
+            document.getElementById('user-avatar').src = currentUser.photoURL || 'https://via.placeholder.com/40';
+            document.getElementById('user-display-name').innerText = userData.fullName;
+            document.getElementById('user-nickname-display').innerText = `@${userData.nickname}`;
+            renderSubjects();
+            loadResources();
+        }
+
+        // 4. Admin Auth
+        btnOpenAdmin.onclick = () => {
+            if (isSuperAdmin) {
+                alert("تۆ لە ئێستادا وەک ئەدمین چالاکیت!");
+            } else {
+                adminAuthModal.style.display = 'flex';
+            }
+        };
+        closeAdminAuth.onclick = () => adminAuthModal.style.display = 'none';
+
+        adminLoginForm.onsubmit = (e) => {
+            e.preventDefault();
+            if (adminPassInput.value === ADMIN_PASS) {
+                isSuperAdmin = true;
+                adminAuthModal.style.display = 'none';
+                btnAddResTrigger.style.display = 'inline-flex';
+                alert("بەخێربێیت گەورەم! بەشی بەڕێوەبەر چالاک بوو.");
+                loadResources();
+            } else {
+                alert("تێپەڕەوشە هەڵەیە!");
+            }
+        };
+
+        // 5. Stream Switcher
+        document.querySelectorAll('.stream-tab').forEach(tab => {
+            tab.onclick = () => {
+                document.querySelector('.stream-tab.active').classList.remove('active');
+                tab.classList.add('active');
+                currentStream = tab.dataset.stream;
+                currentSubject = subjectsData[currentStream][0].id;
+                renderSubjects();
+                loadResources();
+            };
+        });
+
+        // 6. Render Subjects Grid
+        function renderSubjects() {
+            subjectsContainer.innerHTML = subjectsData[currentStream].map(sub => `
+                <div class="subject-card ${sub.id === currentSubject ? 'active' : ''}" onclick="window.selectSubject('${sub.id}')">
+                    <span class="subject-icon">${sub.icon}</span>
+                    <h4>${sub.name}</h4>
+                </div>
+            `).join('');
+        }
+
+        window.selectSubject = (subId) => {
+            currentSubject = subId;
+            renderSubjects();
+            loadResources();
+        };
+
+        // 7. Load Resources from Firestore
+        function loadResources() {
+            currentSubjectTitle.innerText = `مەلزەمەکانی ${currentSubject}`;
+            currentSubjectBadge.innerText = currentStream === 'scientific' ? 'بەشی زانستی' : 'بەشی وێژەیی';
+
+            const q = query(
+                collection(db, "resources"),
+                where("stream", "==", currentStream),
+                where("subject", "==", currentSubject)
+            );
+
+            onSnapshot(q, (snap) => {
+                if (snap.empty) {
+                    resourcesList.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--text-sub);">هیچ مەلزەمەیەک لەم وانەیە زیاد نەکراوە.</div>`;
+                    return;
+                }
+                resourcesList.innerHTML = snap.docs.map(d => {
+                    const r = d.data();
+                    return `
+                        <div class="resource-card">
+                            <div>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                                    <span class="res-type-pill">${r.type}</span>
+                                    ${r.sectionTag ? `<span style="font-size: 0.75rem; color: #EC4899;">[${r.sectionTag}]</span>` : ''}
+                                    <h4 style="font-size: 0.95rem;">${r.title}</h4>
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--text-sub);">ئامادەکار: ${r.author}</div>
+                            </div>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <a href="${r.url}" target="_blank" class="btn-ui" style="background: var(--primary); color: #FFF; text-decoration: none;">
+                                    <span>کردنەوە</span>
+                                    <i data-lucide="external-link" style="width: 14px;"></i>
+                                </a>
+                                ${isSuperAdmin ? `<button class="btn-ui" style="background: rgba(239, 68, 68, 0.2); color: var(--danger);" onclick="window.delRes('${d.id}')"><i data-lucide="trash-2" style="width: 15px;"></i></button>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                lucide.createIcons();
+            });
+        }
+
+        // 8. Add Resource by Admin
+        btnAddResTrigger.onclick = () => addResModal.style.display = 'flex';
+        closeAddModal.onclick = () => addResModal.style.display = 'none';
+
+        addResForm.onsubmit = async (e) => {
+            e.preventDefault();
+            try {
+                await addDoc(collection(db, "resources"), {
+                    stream: currentStream,
+                    subject: currentSubject,
+                    title: document.getElementById('add-title').value,
+                    sectionTag: document.getElementById('add-section-tag').value,
+                    type: document.getElementById('add-type').value,
+                    author: document.getElementById('add-author').value,
+                    url: document.getElementById('add-url').value,
+                    createdAt: serverTimestamp()
+                });
+                addResForm.reset();
+                addResModal.style.display = 'none';
+            } catch (err) {
+                alert("هەڵە: " + err.message);
+            }
+        };
+
+        window.delRes = async (id) => {
+            if (confirm("دڵنیایت لە سڕینەوە؟")) {
+                await deleteDoc(doc(db, "resources", id));
+            }
+        };
+    </script>
+</body>
+</html>
