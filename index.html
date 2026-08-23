@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grade 12 Assistant | ئەسیستانتی پۆلی ١٢</title>
+  <meta name="google-site-verification" content="google404284d7f7663e23" />
+  
+  <!-- کۆدی GoatCounter بۆ ئامارەکان -->
+  <script data-goatcounter="https://omerjamal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <style>
+    :root {
+      --bg: #070d19;
+      --card-bg: rgba(19, 29, 51, 0.8);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #38bdf8;
+      --accent: #818cf8;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.18) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(129, 140, 248, 0.18) 0px, transparent 50%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 14px;
+      overflow-x: hidden;
+    }
+
+    /* Welcome Splash Screen */
+    #welcomeScreen {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 13, 25, 0.96);
+      backdrop-filter: blur(15px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      transition: opacity 0.5s ease, visibility 0.5s;
+    }
+
+    .welcome-card {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      border-radius: 24px;
+      padding: 30px 20px;
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+      animation: scaleUp 0.6s ease-out;
+    }
+
+    .welcome-logo {
+      font-size: 46px;
+      margin-bottom: 12px;
+      animation: float 3s infinite ease-in-out;
+      display: inline-block;
+    }
+
+    .welcome-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #38bdf8;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .welcome-text {
+      font-size: 14.5px;
+      color: #cbd5e1;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .welcome-quote {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fbbf24;
+      background: rgba(251, 191, 36, 0.12);
+      padding: 8px 14px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .welcome-author {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .enter-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .enter-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 650px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      opacity: 0;
+      transition: opacity 0.6s ease-in;
+    }
+
+    .container.visible {
+      opacity: 1;
+    }
+
+    header {
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .logo-badge {
+      display: inline-block;
+      width: 65px;
+      height: 65px;
+      line-height: 65px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      font-size: 30px;
+      box-shadow: 0 10px 25px rgba(14, 165, 233, 0.35);
+      animation: float 3.5s ease-in-out infinite;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 25px;
+      font-weight: 800;
+      background: linear-gradient(to right, #ffffff, #93c5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 13.5px;
+    }
+
+    /* Search Box */
+    .search-box {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 13px 44px 13px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
+      font-size: 15px;
+      backdrop-filter: blur(12px);
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+    }
+
+    .search-box .icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* Motivational Quote Box */
+    .quote-box {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      padding: 16px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .quote-display {
+      font-size: 14.5px;
+      color: #fef08a;
+      line-height: 1.7;
+      margin-bottom: 10px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quote-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 10px;
+      background: #fbbf24;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 12.5px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .quote-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Tabs */
+    .tab-container {
+      display: flex;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 5px;
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
+      gap: 6px;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 11px 8px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #0284c7, #4f46e5);
+      color: white;
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .subjects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Interactive Cards */
+    .subject-accordion {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
+    }
+
+    .subject-accordion:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .subject-header {
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .subj-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .subj-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      animation: pulseSoft 3s infinite ease-in-out;
+    }
+
+    .subj-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .subj-badge {
+      font-size: 12px;
+      color: var(--primary);
+      margin-top: 2px;
+    }
+
+    .accordion-arrow {
+      font-size: 18px;
+      color: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .subject-accordion.open .accordion-arrow {
+      transform: rotate(90deg);
+      color: var(--primary);
+    }
+
+    .subject-content {
+      display: none;
+      padding: 14px 16px;
+      background: rgba(10, 16, 30, 0.6);
+      border-top: 1px solid var(--card-border);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .subject-accordion.open .subject-content {
+      display: block;
+    }
+
+    .sub-item-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: #e2e8f0;
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sub-item-btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--primary);
+    }
+
+    .open-tag {
+      background: linear-gradient(135deg, #0284c7, #4f46e5);
+      color: white;
+      font-size: 11.5px;
+      padding: 4px 8px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Sub-tabs for University Section */
+    .sub-tab-container {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .sub-tab-btn {
+      flex: 1;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      border-radius: 12px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .sub-tab-btn.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    /* University Tables */
+    .uni-dept-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      text-align: right;
+    }
+
+    .uni-dept-table th {
+      padding: 8px;
+      color: var(--primary);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .uni-dept-table td {
+      padding: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      color: #cbd5e1;
+    }
+
+    .uni-dept-table .score-tag {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      padding: 3px 7px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    /* Predictor Card */
+    .calc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .input-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .input-group label {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 11px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .btn-predict {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #0284c7, #6366f1);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14.5px;
+      cursor: pointer;
+    }
+
+    .prediction-results {
+      margin-top: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pred-item {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 12px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Alert modal / Toast */
+    #customToast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid #f59e0b;
+      color: #fef08a;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      transition: transform 0.3s ease;
+      text-align: center;
+      max-width: 90%;
+    }
+
+    #customToast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Working Contacts */
+    .feature-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text);
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(56, 189, 248, 0.5);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 10px 10px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.8;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: 10px;
+    }
+
+    .footer-quote { color: #38bdf8; font-weight: 700; font-size: 14px; }
+    .footer-author { color: #cbd5e1; font-weight: 600; margin-top: 4px; }
+
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-7px); } }
+    @keyframes pulseSoft { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scaleUp { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+  </style>
+</head>
+<body>
+
+  <!-- Toast Alert -->
+  <div id="customToast">⚠️ ئەم بەشە لەژێر کارکردنی سەرۆک دایە و بەم زووانە دادەنرێت</div>
+
+  <!-- Welcome / Splash Screen -->
+  <div id="welcomeScreen">
+    <div class="welcome-card">
+      <div class="welcome-logo">📚</div>
+      <div class="welcome-title">سڵاو، بەخێربێیت بۆ وێبسایتی تایبەت بە پۆلی ١٢</div>
+      <div class="welcome-text">
+        ئەم وێبسایتە بۆ خزمەتی تۆی خۆشەویست دروست کراوە و کاری تێکراوە، هەموو شتەکان ئامادەن لەبەر دەستی تۆ و بێ ماندووبوون لەژێر دەستتن.
+      </div>
+      <div class="welcome-quote">« کەواتە بخوێنە، وە سوودی لێ ببینە »</div>
+      <div class="welcome-author">
+        دروستکراوە لەلایەن: <strong>عــومـەر جـەمـال</strong><br/>
+        Grade 12 Assistant
+      </div>
+      <button class="enter-btn" onclick="enterSite()">🚀 چوونە ژوورەوە</button>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container" id="mainContainer">
+    
+    <header>
+      <div class="logo-badge">📚</div>
+      <h1>Grade 12 Assistant</h1>
+      <p class="subtitle">سەکۆی سەرچاوە، کورتکراوە و ڕێبەری زانکۆی پۆلی ١٢</p>
+    </header>
+
+    <!-- Search Box -->
+    <div class="search-box">
+      <span class="icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="گەڕان بۆ هەر وانە، زانکۆ یان کۆنمرەیەک..." onkeyup="filterContent()">
+    </div>
+
+    <!-- Motivational Quotes -->
+    <div class="quote-box">
+      <div style="font-size: 13px; color: #94a3b8; margin-bottom: 6px;">✨ هاندان بۆ سەرکەوتن (وتەی ڕۆژ)</div>
+      <div class="quote-display" id="quoteText">« باوەڕت بە تواناکانی خۆت هەبێت، هەموو ڕۆژێک دەرفەتێکی نوێیە بۆ نزیکبوونەوە لە ئامانجەکەت. »</div>
+      <button class="quote-btn" onclick="newQuote()">🔄 وتەیەکی تر وەربگرە</button>
+    </div>
+
+    <!-- Advice Cards -->
+    <div class="subjects-list">
+      <div class="feature-card" onclick="showUnderWorkToast()">
+        <div class="subj-info">
+          <div class="subj-icon">💡</div>
+          <div>
+            <div class="subj-title">ئامۆژگاری من بۆ تۆی خوێندکار</div>
+            <div class="subj-badge">ڕێنمایی بۆ سەرکەوتن</div>
+          </div>
+        </div>
+        <span class="open-tag">کردنەوە 👁️</span>
+      </div>
+
+      <div class="feature-card" onclick="showUnderWorkToast()">
+        <div class="subj-info">
+          <div class="subj-icon">🎯</div>
+          <div>
+            <div class="subj-title">تەکنیکی باشتر بوون لە پۆلی دوانزە</div>
+            <div class="subj-badge">شێوازی خوێندن و نمرە بەرزکردنەوە</div>
+          </div>
+        </div>
+        <span class="open-tag">کردنەوە 👁️</span>
+      </div>
+    </div>
+
+    <!-- 3 Main Tabs: Scientific / Literary / University -->
+    <div class="tab-container">
+      <button class="tab-btn" id="tabScientific" onclick="switchMainTab('scientific')">🔬 زانستی</button>
+      <button class="tab-btn" id="tabLiterary" onclick="switchMainTab('literary')">📖 وێژەیی</button>
+      <button class="tab-btn active" id="tabUniversity" onclick="switchMainTab('university')">🎓 زانکۆ و کریدت</button>
+    </div>
+
+    <!-- ======================= 1. بەشی زانستی (هەموو بەشەکان دیارن و کلیک کار دەکات) ======================= -->
+    <div class="subjects-list" id="scientificSection" style="display: none;">
+      
+      <!-- ئەحیا -->
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">🧬</div><div><div class="subj-title">زیندەوەرزانی (ئەحیا)</div><div class="subj-badge">٨ بەشی سەرەکی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📚 مەلزەمەی مامۆستاکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>⚡ ئەنکی مەیت</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🎥 ڤیدیۆ نوێکانی م: هۆشیار</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📝 کورتکراوە</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 ئەسیلەی وزاری و ساڵانە</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🖼️ وێنەکان بە شەرح</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📄 وێنەکان بە پیدی ئێف</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>💡 زیندە تێبینی</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+      <!-- فیزیا -->
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">⚡</div><div><div class="subj-title">فیزیا</div><div class="subj-badge">٧ بەشی سەرەکی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📚 مەلزەمەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📏 یەکەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 پرسیاری وزاری و بانکەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🎥 ڤیدیۆکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📝 کورتکراوەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🔥 بابەتە زۆر گرنگەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>✍️ خۆ هەڵسەنگاندن</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+      <!-- بیرکاری -->
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">📐</div><div><div class="subj-title">بیرکاری</div><div class="subj-badge">٧ بەشی سەرەکی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📚 مەلزەمەکانی بیرکاری</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>✔️ ڕاست و هەڵەکان و هاوئەنجام</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 پرسیاری وزاری و بانک</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🎥 ڤیدیۆکانی م: عبدالغفور</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🎥 ڤیدیۆکانی م: ڕابەر</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🧱 بنچینەکانی بیرکاری</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📊 کورتکراوە و هێڵکاری</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+      <!-- کیمیا -->
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">🧪</div><div><div class="subj-title">کیمیا</div><div class="subj-badge">٦ بەشی سەرەکی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📚 مەلزەمەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🔥 بابەتە گرنگەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>💡 تێبینییە گرنگەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📝 کورتکراوەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 پرسیاری وزاری و پرسیارە گرنگەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>✍️ خۆ هەڵسەنگاندن</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+      <!-- کوردی -->
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">☀️</div><div><div class="subj-title">زمانی کوردی</div><div class="subj-badge">٧ بەشی سەرەکی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📖 ئەدەب</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>✏️ ڕێزمان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>✨ ڕەوانبێژی</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 پرسیار و بانک</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🎥 ڤیدیۆکانی م: هەڵۆ</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🎥 ڤیدیۆکانی م: باسل</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📝 کۆد و کورتکراوە</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+      <!-- عەرەبی -->
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">🌙</div><div><div class="subj-title">زمانی عەرەبی</div><div class="subj-badge">٦ بەشی سەرەکی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>✏️ قواعد</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📜 عەسرەکان و ئەدەب</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📝 تمرین و پرسیاری گرنگ</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📄 نص خارجي</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🎥 ڤیدیۆکانی م: ئامانج</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 بانک و پرسیاری وزاری</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+      <!-- ئاین -->
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">🕌</div><div><div class="subj-title">پەروەردەی ئیسلامی</div><div class="subj-badge">٤ بەشی سەرەکی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📝 کورتکراوە</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 پرسیاری وزاری</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>💡 تێبینی گرنگ</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>✍️ خۆ هەڵسەنگاندن</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+      <!-- ئینگلیزی -->
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">🌍</div><div><div class="subj-title">زمانی ئینگلیزی (English)</div><div class="subj-badge">١١ بەشی سەرەکی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📝 Grammar (ڕێزمان)</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🔊 Sound (دەنگەکان)</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🎬 Episode (ئەڵقەکان)</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>✨ English animation</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>🎥 Episode m:karzan</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>💡 English note</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📖 Activity book</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>👓 Reading</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 Asila wzari</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📝 Kurtkrawa</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📚 Malzama</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================= 2. بەشی وێژەیی ======================= -->
+    <div class="subjects-list" id="literarySection" style="display: none;">
+      
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">📊</div><div><div class="subj-title">ئابووری</div><div class="subj-badge">وانەی وێژەیی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📚 مەلزەمە و کورتکراوە</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 پرسیاری وزاری</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">🗺️</div><div><div class="subj-title">جوگرافیا</div><div class="subj-badge">وانەی وێژەیی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📚 مەلزەمە و نەخشەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 پرسیاری وزاری</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info"><div class="subj-icon">🏛️</div><div><div class="subj-title">مێژوو</div><div class="subj-badge">وانەی وێژەیی</div></div></div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📚 مەلزەمە و بەندەکان</span><span class="open-tag">کردنەوە 👁️</span></div>
+          <div class="sub-item-btn" onclick="showUnderWorkToast()"><span>📑 پرسیاری وزاری</span><span class="open-tag">کردنەوە 👁️</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ======================= 3. بەشی زانکۆ و کریدت (چالاک و کارا) ======================= -->
+    <div class="subjects-list" id="universitySection">
+      
+      <!-- Sub Tabs -->
+      <div class="sub-tab-container">
+        <button class="sub-tab-btn active" id="subTabPredict" onclick="switchSubUniTab('predict')">🎯 پێشبینیکەری نمرە و کریدت</button>
+        <button class="sub-tab-btn" id="subTabList" onclick="switchSubUniTab('list')">🏛️ هەموو زانکۆکان و بەشەکان</button>
+      </div>
+
+      <!-- پێشبینیکەری زیرەکی نمرە و کریدت -->
+      <div id="uniPredictContainer">
+        <div class="calc-card">
+          <div style="font-size: 14.5px; font-weight: 700; color: #38bdf8;">سیستمی زیرەکی پێشبینی وەرگیران لە زانکۆ</div>
+          
+          <div class="input-row">
+            <div class="input-group">
+              <label>نمرەکەت بنووسە:</label>
+              <input type="number" id="userScoreInput" placeholder="نموونە: 75.5" min="50" max="100">
+            </div>
+            <div class="input-group">
+              <label>شاری نیشتەجێبوون:</label>
+              <select id="userCitySelect">
+                <option value="hawler">هەولێر</option>
+                <option value="slemani">سلێمانی</option>
+                <option value="duhok">دهۆک</option>
+                <option value="koya">کۆیە</option>
+                <option value="garmiyan">گەرمیان</option>
+                <option value="halabja">هەڵەبجە</option>
+                <option value="zakho">زاخۆ</option>
+                <option value="soran">سۆران</option>
+                <option value="raparin">ڕاپەڕین</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>شێوازی هەژمارکردنی کریدت:</label>
+            <select id="creditTypeSelect">
+              <option value="none">ئاسایی (تێکڕای گشتی ٧ وانە)</option>
+              <option value="engineering">سیستمی کریدت - ئەندازیاری (لابردنی کەمترین زمان)</option>
+              <option value="science">سیستمی کریدت - کۆلێژە زانستییەکان (علوم)</option>
+              <option value="language">سیستمی کریدت - بەشە زمانەوانییەکان</option>
+            </select>
+          </div>
+
+          <button class="btn-predict" onclick="predictAdmissions()">🔍 پشکنین و دۆزینەوەی بەشەکان</button>
+
+          <div class="prediction-results" id="predictionResults">
+            <div style="font-size: 13.5px; color: #94a3b8; margin-bottom: 4px;" id="predSummaryText"></div>
+            <div id="predItemsList" style="display:flex; flex-direction:column; gap:8px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- لیستی هەموو زانکۆکان و کۆنمرەکانیان -->
+      <div id="uniListContainer" style="display: none;">
+        
+        <!-- 1. زانکۆی سەلاحەدین - هەولێر -->
+        <div class="subject-accordion">
+          <div class="subject-header" onclick="toggleAccordion(this)">
+            <div class="subj-info"><div class="subj-icon">🏛️</div><div><div class="subj-title">زانکۆی سەلاحەدین - هەولێر</div><div class="subj-badge">ئەندازیاری، زانست و مرۆڤایەتی</div></div></div>
+            <span class="accordion-arrow">◀</span>
+          </div>
+          <div class="subject-content">
+            <table class="uni-dept-table">
+              <tr><th>کۆلێژ و بەش</th><th>کەمترین نمرە</th></tr>
+              <tr><td>ئەندازیاری تەلارسازی (Architect)</td><td><span class="score-tag">94.8</span></td></tr>
+              <tr><td>ئەندازیاری شارستانی (Civil)</td><td><span class="score-tag">91.2</span></td></tr>
+              <tr><td>ئەندازیاری سۆفتوێر و کۆمپیوتەر</td><td><span class="score-tag">88.5</span></td></tr>
+              <tr><td>ئەندازیاری کارەبا و میکانیک</td><td><span class="score-tag">85.4</span></td></tr>
+              <tr><td>زانست - بایۆلۆجی گشتی</td><td><span class="score-tag">82.3</span></td></tr>
+              <tr><td>زانست - IT و کۆمپیوتەر</td><td><span class="score-tag">81.0</span></td></tr>
+              <tr><td>زانست - کیمیا</td><td><span class="score-tag">79.2</span></td></tr>
+              <tr><td>یاسا و پەیوەندییە نێودەوڵەتییەکان</td><td><span class="score-tag">76.4</span></td></tr>
+              <tr><td>پەروەردە - زمانی ئینگلیزی</td><td><span class="score-tag">73.2</span></td></tr>
+              <tr><td>کارگێڕی کار و ئابووری</td><td><span class="score-tag">68.5</span></td></tr>
+              <tr><td>کشتوکاڵ - بەشە جیاوازەکان</td><td><span class="score-tag">58.0</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. زانکۆی پزیشکی هەولێر (HMU) -->
+        <div class="subject-accordion">
+          <div class="subject-header" onclick="toggleAccordion(this)">
+            <div class="subj-info"><div class="subj-icon">🩺</div><div><div class="subj-title">زانکۆی پزیشکی هەولێر (HMU)</div><div class="subj-badge">هەموو کۆلێژە پزیشکییەکان</div></div></div>
+            <span class="accordion-arrow">◀</span>
+          </div>
+          <div class="subject-content">
+            <table class="uni-dept-table">
+              <tr><th>کۆلێژ و بەش</th><th>کەمترین نمرە</th></tr>
+              <tr><td>پزیشکی گشتی (عام)</td><td><span class="score-tag">97.8</span></td></tr>
+              <tr><td>پزیشکی ددان (Dentistry)</td><td><span class="score-tag">96.5</span></td></tr>
+              <tr><td>دەرمانسازی (Pharmacy)</td><td><span class="score-tag">95.4</span></td></tr>
+              <tr><td>زانستی تەندروستی - شیکاری نەخۆشییەکان</td><td><span class="score-tag">92.0</span></td></tr>
+              <tr><td>زانستی تەندروستی - بێهۆشکاری (تخدیر)</td><td><span class="score-tag">91.4</span></td></tr>
+              <tr><td>پەرستاری (Nursing)</td><td><span class="score-tag">89.2</span></td></tr>
+              <tr><td>مامانی (تەندروستی کۆمەڵ)</td><td><span class="score-tag">85.0</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. زانکۆی سلێمانی و پزیشکی سلێمانی -->
+        <div class="subject-accordion">
+          <div class="subject-header" onclick="toggleAccordion(this)">
+            <div class="subj-info"><div class="subj-icon">🏛️</div><div><div class="subj-title">زانکۆی سلێمانی و پزیشکی سلێمانی</div><div class="subj-badge">پزیشکی، ئەندازیاری، زانست</div></div></div>
+            <span class="accordion-arrow">◀</span>
+          </div>
+          <div class="subject-content">
+            <table class="uni-dept-table">
+              <tr><th>کۆلێژ و بەش</th><th>کەمترین نمرە</th></tr>
+              <tr><td>پزیشکی گشتی</td><td><span class="score-tag">98.1</span></td></tr>
+              <tr><td>پزیشکی ددان و دەرمانسازی</td><td><span class="score-tag">96.5</span></td></tr>
+              <tr><td>ئەندازیاری تەلارسازی</td><td><span class="score-tag">95.0</span></td></tr>
+              <tr><td>ئەندازیاری شارستانی و کارەبا</td><td><span class="score-tag">88.5</span></td></tr>
+              <tr><td>زانست - بایۆلۆجی و کۆمپیوتەر</td><td><span class="score-tag">83.0</span></td></tr>
+              <tr><td>زمان - ئینگلیزی وەرگێڕان</td><td><span class="score-tag">77.4</span></td></tr>
+              <tr><td>بازرگانی و کارگێڕی</td><td><span class="score-tag">69.0</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. زانکۆی کۆیە -->
+        <div class="subject-accordion">
+          <div class="subject-header" onclick="toggleAccordion(this)">
+            <div class="subj-info"><div class="subj-icon">🎓</div><div><div class="subj-title">زانکۆی کۆیە</div><div class="subj-badge">پزیشکی، ئەندازیاری، پەروەردە</div></div></div>
+            <span class="accordion-arrow">◀</span>
+          </div>
+          <div class="subject-content">
+            <table class="uni-dept-table">
+              <tr><th>کۆلێژ و بەش</th><th>کەمترین نمرە</th></tr>
+              <tr><td>پزیشکی گشتی</td><td><span class="score-tag">97.0</span></td></tr>
+              <tr><td>ئەندازیاری نەوت (Petroleum)</td><td><span class="score-tag">86.4</span></td></tr>
+              <tr><td>ئەندازیاری کیمیاوی و تەلارسازی</td><td><span class="score-tag">84.0</span></td></tr>
+              <tr><td>زانست - شیکاری کیمیایی و بایۆلۆجی</td><td><span class="score-tag">78.0</span></td></tr>
+              <tr><td>پەروەردە - ئینگلیزی</td><td><span class="score-tag">70.5</span></td></tr>
+              <tr><td>پەروەردە - بیرکاری و کوردی</td><td><span class="score-tag">62.5</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. زانکۆی دهۆک و زاخۆ -->
+        <div class="subject-accordion">
+          <div class="subject-header" onclick="toggleAccordion(this)">
+            <div class="subj-info"><div class="subj-icon">🏛️</div><div><div class="subj-title">زانکۆی دهۆک و زانکۆی زاخۆ</div><div class="subj-badge">پزیشکی، ئەندازیاری و زانست</div></div></div>
+            <span class="accordion-arrow">◀</span>
+          </div>
+          <div class="subject-content">
+            <table class="uni-dept-table">
+              <tr><th>کۆلێژ و بەش</th><th>کەمترین نمرە</th></tr>
+              <tr><td>پزیشکی گشتی (دهۆک / زاخۆ)</td><td><span class="score-tag">97.2</span></td></tr>
+              <tr><td>پزیشکی ددان و دەرمانسازی</td><td><span class="score-tag">95.5</span></td></tr>
+              <tr><td>پەرستاری و شیکاری پزیشکی</td><td><span class="score-tag">87.0</span></td></tr>
+              <tr><td>ئەندازیاری شارستانی و نەوت</td><td><span class="score-tag">83.5</span></td></tr>
+              <tr><td>زانست - بایۆلۆجی و کۆمپیوتەر</td><td><span class="score-tag">75.0</span></td></tr>
+              <tr><td>پەروەردە - زمانەکان</td><td><span class="score-tag">65.0</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 6. زانکۆکانی سۆران، ڕاپەڕین، گەرمیان، هەڵەبجە، چەرموو -->
+        <div class="subject-accordion">
+          <div class="subject-header" onclick="toggleAccordion(this)">
+            <div class="subj-info"><div class="subj-icon">🏔️</div><div><div class="subj-title">زانکۆکانی (سۆران، ڕاپەڕین، گەرمیان، هەڵەبجە، چەرموو)</div><div class="subj-badge">پزیشکی، پەرستاری، ئەندازیاری</div></div></div>
+            <span class="accordion-arrow">◀</span>
+          </div>
+          <div class="subject-content">
+            <table class="uni-dept-table">
+              <tr><th>زانکۆ و بەش</th><th>کەمترین نمرە</th></tr>
+              <tr><td>پزیشکی گشتی (گەرمیان)</td><td><span class="score-tag">96.5</span></td></tr>
+              <tr><td>پەرستاری (ڕاپەڕین)</td><td><span class="score-tag">88.5</span></td></tr>
+              <tr><td>شیکاری پزیشکی (چەرموو)</td><td><span class="score-tag">84.0</span></td></tr>
+              <tr><td>ئەندازیاری نەوت و شارستانی (سۆران)</td><td><span class="score-tag">84.5</span></td></tr>
+              <tr><td>یاسا و پەیوەندییە نێودەوڵەتییەکان</td><td><span class="score-tag">69.0</span></td></tr>
+              <tr><td>پەروەردە - ئینگلیزی و کۆمپیوتەر</td><td><span class="score-tag">67.0</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 7. پەیمانگە تەکنیکییەکان -->
+        <div class="subject-accordion">
+          <div class="subject-header" onclick="toggleAccordion(this)">
+            <div class="subj-info"><div class="subj-icon">🏢</div><div><div class="subj-title">پەیمانگە تەکنیکییەکان (پۆلیتەکنیک)</div><div class="subj-badge">تەندروستی، نەوت، IT و کارگێڕی</div></div></div>
+            <span class="accordion-arrow">◀</span>
+          </div>
+          <div class="subject-content">
+            <table class="uni-dept-table">
+              <tr><th>بەشی پەیمانگە</th><th>کەمترین نمرە</th></tr>
+              <tr><td>تەکنیکی تەندروستی (شیکاری نەخۆشییەکان)</td><td><span class="score-tag">84.0</span></td></tr>
+              <tr><td>تەکنیکی دەرمانسازی و پەرستاری</td><td><span class="score-tag">83.5</span></td></tr>
+              <tr><td>تەکنیکی تیشک و بێهۆشکاری</td><td><span class="score-tag">82.0</span></td></tr>
+              <tr><td>نەوت و گاز و پترۆکیمیایی</td><td><span class="score-tag">72.0</span></td></tr>
+              <tr><td>تەکنەلۆجیای زانیاری (IT) و تۆڕەکان</td><td><span class="score-tag">65.0</span></td></tr>
+              <tr><td>کارگێڕی کار، ژمێریاری و گومرگ</td><td><span class="score-tag">58.0</span></td></tr>
+              <tr><td>میکانیک و کارەبای ئۆتۆمبێل</td><td><span class="score-tag">55.0</span></td></tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ======================= پەیوەندی و تێلیگرام ======================= -->
+    <div class="section-title">
+      <span>📢</span> ئێمە لە تێلیگرام و پەیوەندی
+    </div>
+
+    <div class="subjects-list">
+      <!-- پەیوەندی بە سەرۆک -->
+      <a href="https://t.me/omerjamal01" target="_blank" class="feature-card">
+        <div class="subj-info">
+          <div class="subj-icon">🛠️</div>
+          <div>
+            <div class="subj-title">پەیوەندی کردن بە سەرۆک بۆ هەر کێشەیەک</div>
+            <div class="subj-badge">تێلیگرامی فەرمی: @omerjamal01</div>
+          </div>
+        </div>
+        <span class="open-tag">پەیوەندی 💬</span>
+      </a>
+
+      <!-- گروپ و کەناڵ -->
+      <div class="subject-accordion">
+        <div class="subject-header" onclick="toggleAccordion(this)">
+          <div class="subj-info">
+            <div class="subj-icon">✈️</div>
+            <div>
+              <div class="subj-title">ئێمە لە تێلیگرام (گروپ و کەناڵ)</div>
+              <div class="subj-badge">بۆ هەواڵ و گفتوگۆی پۆلی ١٢</div>
+            </div>
+          </div>
+          <span class="accordion-arrow">◀</span>
+        </div>
+        <div class="subject-content">
+          <a href="https://t.me/grade12assistant" target="_blank" class="sub-item-btn" style="text-decoration:none;">
+            <span>👥 گروپ بۆ گفتوگۆ و پرسیار</span>
+            <span class="open-tag">چوونە ژوورەوە 🔗</span>
+          </a>
+          <a href="https://t.me/grade12asistant" target="_blank" class="sub-item-btn" style="text-decoration:none;">
+            <span>📢 چەناڵ بۆ وەرگرتنی هەموو هەواڵ و زانیارییەک</span>
+            <span class="open-tag">چوونە ژوورەوە 🔗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p class="footer-quote">« شەونخونیمان کرد بۆ دروستکردنی ئەمە، بڵاوی بکەوە »</p>
+      <p style="margin-top: 4px;">خێرێکی بەدەست بێنە و هاوکارمان بە بۆ بەردەوامی.</p>
+      <p class="footer-author">« برای بچووکتان : عــومـەر جـەمـال »</p>
+      <p style="margin-top: 10px; font-size: 11.5px; opacity: 0.7;">Grade 12 Assistant مافی پارێزراوە بۆ © 2026</p>
+    </footer>
+
+  </div>
+
+  <script>
+    function enterSite() {
+      const welcome = document.getElementById('welcomeScreen');
+      const main = document.getElementById('mainContainer');
+      welcome.style.opacity = '0';
+      welcome.style.visibility = 'hidden';
+      main.classList.add('visible');
+    }
+
+    function switchMainTab(type) {
+      const sciSec = document.getElementById('scientificSection');
+      const litSec = document.getElementById('literarySection');
+      const uniSec = document.getElementById('universitySection');
+      const sciBtn = document.getElementById('tabScientific');
+      const litBtn = document.getElementById('tabLiterary');
+      const uniBtn = document.getElementById('tabUniversity');
+
+      sciSec.style.display = 'none';
+      litSec.style.display = 'none';
+      uniSec.style.display = 'none';
+      sciBtn.classList.remove('active');
+      litBtn.classList.remove('active');
+      uniBtn.classList.remove('active');
+
+      if (type === 'scientific') {
+        sciSec.style.display = 'flex';
+        sciBtn.classList.add('active');
+      } else if (type === 'literary') {
+        litSec.style.display = 'flex';
+        litBtn.classList.add('active');
+      } else {
+        uniSec.style.display = 'flex';
+        uniBtn.classList.add('active');
+      }
+    }
+
+    function switchSubUniTab(subType) {
+      const predCont = document.getElementById('uniPredictContainer');
+      const listCont = document.getElementById('uniListContainer');
+      const btnPred = document.getElementById('subTabPredict');
+      const btnList = document.getElementById('subTabList');
+
+      if (subType === 'predict') {
+        predCont.style.display = 'block';
+        listCont.style.display = 'none';
+        btnPred.classList.add('active');
+        btnList.classList.remove('active');
+      } else {
+        predCont.style.display = 'none';
+        listCont.style.display = 'block';
+        btnList.classList.add('active');
+        btnPred.classList.remove('active');
+      }
+    }
+
+    function toggleAccordion(header) {
+      header.parentElement.classList.toggle('open');
+    }
+
+    function showUnderWorkToast() {
+      const toast = document.getElementById('customToast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // داتابەیسی بەشەکان بۆ پێشبینیکەری نمرە
+    const sampleDepartments = [
+      { name: "پزیشکی گشتی", uni: "پزیشکی هەولێر / کۆیە / سلێمانی / دهۆک", minScore: 97.0 },
+      { name: "پزیشکی ددان", uni: "پزیشکی هەولێر / سلێمانی / دهۆک", minScore: 96.0 },
+      { name: "دەرمانسازی", uni: "پزیشکی هەولێر / دهۆک / سلێمانی", minScore: 95.0 },
+      { name: "تەکنیکی پزیشکی (شیکاری نەخۆشییەکان)", uni: "پەیمانگە و کۆلێژە تەکنیکییەکان", minScore: 84.0 },
+      { name: "پەرستاری (تمریض)", uni: "هەولێر / سلێمانی / دهۆک / ڕاپەڕین", minScore: 88.0 },
+      { name: "ئەندازیاری تەلارسازی (Architect)", uni: "سەلاحەدین / سلێمانی / دهۆک", minScore: 94.0 },
+      { name: "ئەندازیاری شارستانی (Civil)", uni: "سەلاحەدین / سلێمانی / کۆیە / سۆران", minScore: 88.0 },
+      { name: "ئەندازیاری سۆفتوێر و IT", uni: "سەلاحەدین / سلێمانی / کۆیە", minScore: 86.5 },
+      { name: "ئەندازیاری نەوت و گاز", uni: "کۆیە / سۆران / زاخۆ", minScore: 84.0 },
+      { name: "زانست - بایۆلۆجی و مایکرۆبایۆلۆجی", uni: "سەلاحەدین / سلێمانی / سۆران / کۆیە", minScore: 80.0 },
+      { name: "زانست - کۆمپیوتەر و IT", uni: "سەلاحەدین / سلێمانی / دهۆک", minScore: 78.0 },
+      { name: "یاسا و پەیوەندییە نێودەوڵەتییەکان", uni: "سەلاحەدین / سلێمانی / سۆران / گەرمیان", minScore: 74.0 },
+      { name: "پەروەردە - زمانی ئینگلیزی", uni: "سەلاحەدین / کۆیە / گەرمیان / سۆران", minScore: 70.5 },
+      { name: "تەکنەلۆجیای زانیاری (IT)", uni: "پەیمانگە تەکنیکییەکان", minScore: 65.0 },
+      { name: "کارگێڕی کار، ژمێریاری و ئابووری", uni: "زانکۆ و پەیمانگەکان", minScore: 58.0 }
+    ];
+
+    function predictAdmissions() {
+      const score = parseFloat(document.getElementById('userScoreInput').value);
+      const creditType = document.getElementById('creditTypeSelect').value;
+      const resultsContainer = document.getElementById('predictionResults');
+      const itemsList = document.getElementById('predItemsList');
+      const summary = document.getElementById('predSummaryText');
+
+      if (isNaN(score) || score < 50 || score > 100) {
+        alert("تکایە نمرەیەکی دروست لە نێوان ٥٠ بۆ ١٠٠ بنووسە!");
+        return;
+      }
+
+      let adjustedScore = score;
+      if (creditType !== 'none') adjustedScore += 1.5;
+
+      itemsList.innerHTML = '';
+      const matched = sampleDepartments.filter(d => adjustedScore >= (d.minScore - 3.0));
+
+      summary.innerHTML = `بەپێی نمرەکەت (<strong>${score}</strong>) لە شاری <strong>${document.getElementById('userCitySelect').selectedOptions[0].text}</strong>، ئەم بەشانە ئەگەری وەرگیرانت تێیاندا هەیە:`;
+
+      if (matched.length === 0) {
+        itemsList.innerHTML = `<div style="text-align:center; color:#94a3b8; padding:10px;">هیچ بەشێک لەم ئاستە نەدۆزرایەوە، تکایە پارالێل یان پەیمانگە تایبەتەکان تاقی بکەرەوە.</div>`;
+      } else {
+        matched.forEach(item => {
+          const isGuaranteed = adjustedScore >= item.minScore;
+          const statusText = isGuaranteed ? "شانسی زۆر بەرز (گەرەنتی)" : "شانسی مامناوەند (پارالێل/کێبڕکێ)";
+          const statusColor = isGuaranteed ? "#34d399" : "#fbbf24";
+
+          const div = document.createElement('div');
+          div.className = 'pred-item';
+          div.innerHTML = `
+            <div>
+              <div style="font-weight:700; color:#fff; font-size:14px;">${item.name}</div>
+              <div style="font-size:12px; color:#94a3b8; margin-top:2px;">${item.uni}</div>
+            </div>
+            <div style="text-align:left;">
+              <span style="font-size:11px; color:${statusColor}; font-weight:bold; display:block;">${statusText}</span>
+              <span style="font-size:11px; color:#64748b;">کەمترین: ${item.minScore}</span>
+            </div>
+          `;
+          itemsList.appendChild(div);
+        });
+      }
+
+      resultsContainer.style.display = 'flex';
+    }
+
+    function filterContent() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const accordions = document.querySelectorAll('.subject-accordion');
+      const features = document.querySelectorAll('.feature-card');
+
+      accordions.forEach(acc => {
+        const text = acc.textContent.toLowerCase();
+        if (text.includes(input)) {
+          acc.style.display = '';
+          if (input.trim() !== '') acc.classList.add('open');
+        } else {
+          acc.style.display = 'none';
+        }
+      });
+
+      features.forEach(feat => {
+        feat.style.display = feat.textContent.toLowerCase().includes(input) ? 'flex' : 'none';
+      });
+    }
+
+    const motivationalQuotes = [
+      "« سەرکەوتن بەخت نییە، بەڵکو بەرهەمی ماندووبوون و هەوڵدانی بەردەوامە. »",
+      "« هەرگیز لە خەونەکانت کۆڵ مەدە، ڕۆژە سەختەکان ئەوانەن کە پاڵەوان دروست دەکەن. »",
+      "« باوەڕت بە تواناکانی خۆت هەبێت، تۆ دەتوانیت باشترین نمرە بەدەست بهێنیت. »",
+      "« زەحمەتی ئەمڕۆ، دەبێتە سەربەرزی و شانازی بۆ سبەینێت. »",
+      "« گەورەترین تۆڵە لە سەختییەکانی ژیان، بەدەستهێنانی سەرکەوتنێکی گەورەیە. »",
+      "« ئەگەر ماندوو بوویت پشوو بدە، بەڵام هەرگیز کۆڵ مەدە! »",
+      "« هەموو کاتژمێرێک کە لە خوێندندا سەرفی دەکەیت، وەبەرهێنانە لە داهاتووی خۆتدا. »",
+      "« ترست لە تاقیکردنەوەکان نەبێت، تۆ لەوە بەهێزتریت کە بیری لێ دەکەیتەوە. »",
+      "« سەرکەوتن هی ئەو کەسانەیە کە کاتێک هەمووان دەوەستن، ئەوان بەردەوام دەبن. »",
+      "« داهاتووت لەمڕۆوە دەست پێ دەکات، نەک لە سبەینێوە. بەهێز بە! »"
+    ];
+
+    function newQuote() {
+      const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+      document.getElementById('quoteText').innerText = motivationalQuotes[randomIndex];
+    }
+  </script>
+
+</body>
+</html>
