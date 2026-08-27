@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ئاسیستانتی پۆلی ١٢ | Grade 12 Assistant</title>
+  
+  <!-- Supabase JS Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.8/dist/umd/supabase.min.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #030712;
+      --card-bg: rgba(17, 24, 39, 0.85);
+      --card-hover: rgba(31, 41, 55, 0.95);
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.35);
+      --accent: #818cf8;
+      --purple: #c084fc;
+      --gold: #fbbf24;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-glow: rgba(56, 189, 248, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(129, 140, 248, 0.15) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: #f8fafc;
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+
+    /* Header */
+    header {
+      padding: 30px 20px 15px;
+      text-align: center;
+      position: relative;
+    }
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--border-glow);
+      border-radius: 9999px;
+      font-size: 12px;
+      color: var(--primary);
+      margin-bottom: 12px;
+      backdrop-filter: blur(8px);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffffff 20%, var(--primary) 70%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    header p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 6px;
+    }
+
+    /* Navigation Tabs */
+    .nav-scroll {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      padding: 12px 16px 18px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-scroll::-webkit-scrollbar { display: none; }
+    
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: #94a3b8;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+    }
+    .tab-btn:hover {
+      border-color: var(--border-glow);
+      color: #fff;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #030712;
+      border-color: transparent;
+      box-shadow: 0 4px 15px var(--primary-glow);
+      transform: translateY(-2px);
+      font-weight: 700;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .category-group {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.3s ease-out;
+    }
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* Cards */
+    .item-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(31, 41, 55, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .item-card:hover {
+      background: var(--card-hover);
+      border-color: var(--border-glow);
+      transform: translateX(-3px);
+    }
+    .item-card:active { transform: scale(0.98); }
+    .item-title-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .item-icon {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Badges */
+    .type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-pdf { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .badge-video { background: rgba(56, 189, 248, 0.15); color: var(--primary); border: 1px solid var(--border-glow); }
+    .badge-image { background: rgba(192, 132, 252, 0.15); color: var(--purple); border: 1px solid rgba(192, 132, 252, 0.3); }
+    .badge-text { background: rgba(251, 191, 36, 0.15); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-quiz { background: rgba(34, 197, 94, 0.15); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.3); }
+
+    /* Universal Modal Viewer */
+    .viewer-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.96);
+      backdrop-filter: blur(14px);
+      z-index: 1000;
+      flex-direction: column;
+    }
+    .viewer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: rgba(17, 24, 39, 0.9);
+      border-bottom: 1px solid var(--border);
+    }
+    .viewer-close-btn {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .viewer-close-btn:hover { background: var(--danger); color: #fff; }
+    .viewer-body {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .viewer-body iframe { width: 100%; height: 100%; border: none; border-radius: 14px; background: #fff; }
+    .viewer-body video { width: 100%; max-height: 80vh; border-radius: 16px; outline: none; }
+    .viewer-body img { max-width: 100%; max-height: 85vh; border-radius: 14px; object-fit: contain; }
+    .text-box {
+      background: #111827;
+      border: 1px solid var(--border-glow);
+      padding: 24px;
+      border-radius: 20px;
+      max-width: 580px;
+      width: 100%;
+      line-height: 1.9;
+      font-size: 15px;
+      white-space: pre-wrap;
+      color: #e2e8f0;
+    }
+
+    /* Quiz Box */
+    .quiz-card {
+      background: #111827;
+      border: 1px solid var(--border-glow);
+      border-radius: 20px;
+      padding: 24px;
+      max-width: 480px;
+      width: 100%;
+    }
+    .quiz-q-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+    .quiz-btn {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      background: #1f2937;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: #f8fafc;
+      text-align: right;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .quiz-btn.correct { background: rgba(34, 197, 94, 0.25) !important; border-color: var(--success) !important; color: #4ade80 !important; }
+    .quiz-btn.wrong { background: rgba(239, 68, 68, 0.25) !important; border-color: var(--danger) !important; color: #f87171 !important; }
+
+    /* Admin Dock */
+    .admin-dock {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px solid var(--border-glow);
+      padding: 8px 20px;
+      border-radius: 9999px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      z-index: 900;
+    }
+    .admin-trigger {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .admin-trigger:hover { color: var(--primary); }
+
+    /* Admin Modal */
+    .admin-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.88);
+      backdrop-filter: blur(12px);
+      z-index: 1100;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .admin-panel {
+      background: #111827;
+      border: 1px solid var(--border-glow);
+      border-radius: 22px;
+      padding: 22px;
+      width: 100%;
+      max-width: 440px;
+    }
+    .admin-input-group { margin-bottom: 12px; }
+    .admin-input-group label { display: block; font-size: 12px; color: #94a3b8; margin-bottom: 5px; }
+    .admin-input-group input, .admin-input-group select, .admin-input-group textarea {
+      width: 100%;
+      padding: 11px;
+      background: #1f2937;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+    }
+    .btn-action {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      border-radius: 12px;
+      color: #030712;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-badge">✨ پلاتفۆرمی فەرمی پۆلی ١٢</div>
+    <h1>GRADE 12 ASSISTANT</h1>
+    <p>مەلزەمە، ڤیدیۆ، تێبینی و تاقیکردنەوەی ئۆتۆماتیکی</p>
+  </header>
+
+  <!-- Navigation Bar -->
+  <div class="nav-scroll">
+    <button class="tab-btn active" onclick="switchSubject('ئەحیا', this)">🧬 ئەحیا</button>
+    <button class="tab-btn" onclick="switchSubject('بیرکاری', this)">📐 بیرکاری</button>
+    <button class="tab-btn" onclick="switchSubject('فیزیا', this)">⚡ فیزیا</button>
+    <button class="tab-btn" onclick="switchSubject('کیمیا', this)">🧪 کیمیا</button>
+    <button class="tab-btn" onclick="switchSubject('ئینگلیزی', this)">👑 ئینگلیزی</button>
+    <button class="tab-btn" onclick="switchSubject('عەرەبی', this)">📖 عەرەبی</button>
+    <button class="tab-btn" onclick="switchSubject('کوردی', this)">☀️ کوردی</button>
+  </div>
+
+  <!-- Content Area -->
+  <div class="container" id="contentArea">
+    <div style="text-align: center; padding: 40px 0; color: #64748b;">
+      <p style="font-size: 14px;">چاوەڕوانبە، بابەتەکان باردەبن... ⏳</p>
+    </div>
+  </div>
+
+  <!-- Viewer Modal -->
+  <div class="viewer-modal" id="mediaViewer">
+    <div class="viewer-header">
+      <span id="viewerTitle" style="font-weight: 700; font-size: 14px; color: var(--primary);"></span>
+      <button class="viewer-close-btn" onclick="closeViewer()">داخستن ✕</button>
+    </div>
+    <div class="viewer-body" id="viewerBody"></div>
+  </div>
+
+  <!-- Admin Bar -->
+  <div class="admin-dock">
+    <button class="admin-trigger" onclick="openAdminModal()">🔒 بەڕێوەبردن (Admin)</button>
+  </div>
+
+  <!-- Admin Panel -->
+  <div class="admin-modal" id="adminModal">
+    <div class="admin-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="color:var(--primary); font-size:15px; font-weight:700;">زیادکردنی بابەت</h3>
+        <span onclick="closeAdminModal()" style="cursor:pointer; color:#ef4444; font-weight:bold; font-size:18px;">✕</span>
+      </div>
+
+      <!-- Password Block -->
+      <div id="passBlock">
+        <div class="admin-input-group">
+          <label>پاسۆردی بەڕێوەبەر:</label>
+          <input type="password" id="adminPin" placeholder="پاسۆردی ئەدمین بنووسە..." />
+        </div>
+        <button class="btn-action" onclick="checkAuth()">چوونەژوورەوە 🚀</button>
+      </div>
+
+      <!-- Inputs Block -->
+      <div id="uploadControls" style="display:none;">
+        <div class="admin-input-group">
+          <label>وانە:</label>
+          <select id="uploadSubject">
+            <option value="ئەحیا">ئەحیا</option>
+            <option value="بیرکاری">بیرکاری</option>
+            <option value="فیزیا">فیزیا</option>
+            <option value="کیمیا">کیمیا</option>
+            <option value="ئینگلیزی">ئینگلیزی</option>
+            <option value="عەرەبی">عەرەبی</option>
+            <option value="کوردی">کوردی</option>
+          </select>
+        </div>
+
+        <div class="admin-input-group">
+          <label>جۆری بابەت:</label>
+          <select id="uploadType" onchange="toggleTypeInputs()">
+            <option value="pdf">فایلی PDF (مەلزەمە)</option>
+            <option value="video">فایلی ڤیدیۆ (شەرح)</option>
+            <option value="image">وێنە / خشتە / نەخشە</option>
+            <option value="text">تێبینی و نووسین</option>
+            <option value="quiz">تاقیکردنەوەی ئۆتۆماتیکی (Quiz)</option>
+          </select>
+        </div>
+
+        <div class="admin-input-group">
+          <label>ناوی بەش (وەک: بەندی ١، ڕێزمان، وزاری):</label>
+          <input type="text" id="uploadCategory" placeholder="بۆ نموونە: بەندی یەکەم" />
+        </div>
+
+        <div class="admin-input-group">
+          <label>ناونیشانی فایل یان وانەکە:</label>
+          <input type="text" id="uploadTitle" placeholder="بۆ نموونە: مەلزەمەی پوختەی بەندی ١" />
+        </div>
+
+        <div class="admin-input-group">
+          <label>ئایکۆن یان ئیمۆجی:</label>
+          <input type="text" id="uploadIcon" value="📚" placeholder="ئیمۆجییەک دانێ..." />
+        </div>
+
+        <div class="admin-input-group" id="fileGroup">
+          <label>فایل هەڵبژێرە لە مۆبایلەکەت:</label>
+          <input type="file" id="uploadFile" />
+        </div>
+
+        <div class="admin-input-group" id="textGroup" style="display:none;">
+          <label>دەقی تێبینی:</label>
+          <textarea id="uploadText" rows="4" placeholder="تێبینییەکان لێرە بنووسە..."></textarea>
+        </div>
+
+        <div id="quizGroup" style="display:none;">
+          <div class="admin-input-group">
+            <label>پرسیارەکە:</label>
+            <input type="text" id="qText" placeholder="دەقی پرسیار..." />
+          </div>
+          <div class="admin-input-group">
+            <label>هەڵبژاردەی A:</label>
+            <input type="text" id="qOptA" placeholder="وەڵامی A" />
+          </div>
+          <div class="admin-input-group">
+            <label>هەڵبژاردەی B:</label>
+            <input type="text" id="qOptB" placeholder="وەڵامی B" />
+          </div>
+          <div class="admin-input-group">
+            <label>هەڵبژاردەی C:</label>
+            <input type="text" id="qOptC" placeholder="وەڵامی C" />
+          </div>
+          <div class="admin-input-group">
+            <label>هەڵبژاردەی D:</label>
+            <input type="text" id="qOptD" placeholder="وەڵامی D" />
+          </div>
+          <div class="admin-input-group">
+            <label>وەڵامی دروست:</label>
+            <select id="qCorrect">
+              <option value="A">هەڵبژاردەی A</option>
+              <option value="B">هەڵبژاردەی B</option>
+              <option value="C">هەڵبژاردەی C</option>
+              <option value="D">هەڵبژاردەی D</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-action" id="submitBtn" onclick="saveItem()">📤 بڵاوکردنەوە</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://krwrxxqgptpbltusktpv.supabase.co";
+    const SUPABASE_KEY = "Sb_publishable_lHpyzMVwBk4qGhYn7BcAtQ_xwsRJnlh";
+    
+    let supabaseClient;
+    try {
+      supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    } catch (e) {
+      console.error("Supabase Init Error:", e);
+    }
+
+    let currentSubject = 'ئەحیا';
+
+    function toggleTypeInputs() {
+      const type = document.getElementById('uploadType').value;
+      const fileGroup = document.getElementById('fileGroup');
+      const textGroup = document.getElementById('textGroup');
+      const quizGroup = document.getElementById('quizGroup');
+      const fileInput = document.getElementById('uploadFile');
+
+      fileGroup.style.display = 'none';
+      textGroup.style.display = 'none';
+      quizGroup.style.display = 'none';
+
+      if (type === 'pdf') {
+        fileGroup.style.display = 'block';
+        fileInput.accept = '.pdf';
+      } else if (type === 'video') {
+        fileGroup.style.display = 'block';
+        fileInput.accept = 'video/*';
+      } else if (type === 'image') {
+        fileGroup.style.display = 'block';
+        fileInput.accept = 'image/*';
+      } else if (type === 'text') {
+        textGroup.style.display = 'block';
+      } else if (type === 'quiz') {
+        quizGroup.style.display = 'block';
+      }
+    }
+
+    async function loadData() {
+      const container = document.getElementById('contentArea');
+      if (!supabaseClient) {
+        container.innerHTML = `<p style="text-align:center; color:#ef4444; padding:30px;">کێشە لە گرێدانی سێرڤەر!</p>`;
+        return;
+      }
+
+      const { data, error } = await supabaseClient
+        .from('items')
+        .select('*')
+        .eq('subject', currentSubject)
+        .order('id', { ascending: true });
+
+      if (error) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:40px 10px; color:#94a3b8;">
+            <p style="font-size:15px; font-weight:bold; color:var(--primary); margin-bottom:8px;">بەخێربێیت بۆ پۆلی ١٢</p>
+            <p style="font-size:13px;">تکایە لە بەشی بەڕێوەبردن (Admin) لە خوارەوە یەکەم بابەتی وانەکە زیاد بکە.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:45px 15px; color:#64748b;">
+            <p style="font-size:30px; margin-bottom:8px;">📂</p>
+            <p style="font-size:14px; color:#94a3b8;">هیچ بابەتێک بۆ ئەم وانەیە زیاد نەکراوە.</p>
+            <p style="font-size:12px; margin-top:4px;">دەتوانیت لە بەشی بەڕێوەبردنەوە زیادی بکەیت.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const categories = {};
+      data.forEach(item => {
+        if (!categories[item.category]) categories[item.category] = [];
+        categories[item.category].push(item);
+      });
+
+      let html = '';
+      for (const [catName, items] of Object.entries(categories)) {
+        html += `
+          <div class="category-group">
+            <div class="category-header">
+              <span>📁</span>
+              <span>${catName}</span>
+            </div>
+            ${items.map(item => {
+              let badge = '';
+              let clickFn = '';
+
+              if (item.type === 'pdf') {
+                badge = `<span class="type-badge badge-pdf">📄 مەلزەمە</span>`;
+                clickFn = `openMedia('${item.content}', '${item.title}', 'pdf')`;
+              } else if (item.type === 'video') {
+                badge = `<span class="type-badge badge-video">▶️ ڤیدیۆ</span>`;
+                clickFn = `openMedia('${item.content}', '${item.title}', 'video')`;
+              } else if (item.type === 'image') {
+                badge = `<span class="type-badge badge-image">🖼️ وێنە</span>`;
+                clickFn = `openMedia('${item.content}', '${item.title}', 'image')`;
+              } else if (item.type === 'text') {
+                badge = `<span class="type-badge badge-text">📝 تێبینی</span>`;
+                clickFn = `openMedia('${encodeURIComponent(item.content)}', '${item.title}', 'text')`;
+              } else if (item.type === 'quiz') {
+                badge = `<span class="type-badge badge-quiz">🎯 تاقیکردنەوە</span>`;
+                clickFn = `openMedia('${encodeURIComponent(item.content)}', '${item.title}', 'quiz')`;
+              }
+
+              return `
+                <div class="item-card" onclick="${clickFn}">
+                  <div class="item-title-box">
+                    <span class="item-icon">${item.icon || '📚'}</span>
+                    <span>${item.title}</span>
+                  </div>
+                  ${badge}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    function switchSubject(subject, btn) {
+      currentSubject = subject;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadData();
+    }
+
+    function openMedia(content, title, type) {
+      document.getElementById('viewerTitle').innerText = title;
+      const body = document.getElementById('viewerBody');
+      body.innerHTML = '';
+
+      if (type === 'pdf') {
+        const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(content)}&embedded=true`;
+        body.innerHTML = `<iframe src="${viewerUrl}"></iframe>`;
+      } else if (type === 'video') {
+        body.innerHTML = `<video src="${content}" controls autoplay playsinline></video>`;
+      } else if (type === 'image') {
+        body.innerHTML = `<img src="${content}" alt="${title}" />`;
+      } else if (type === 'text') {
+        body.innerHTML = `<div class="text-box">${decodeURIComponent(content)}</div>`;
+      } else if (type === 'quiz') {
+        const qData = JSON.parse(decodeURIComponent(content));
+        body.innerHTML = `
+          <div class="quiz-card">
+            <div class="quiz-q-title">❓ ${qData.question}</div>
+            <button class="quiz-btn" onclick="checkAnswer(this, 'A', '${qData.correct}')">A) ${qData.a}</button>
+            <button class="quiz-btn" onclick="checkAnswer(this, 'B', '${qData.correct}')">B) ${qData.b}</button>
+            <button class="quiz-btn" onclick="checkAnswer(this, 'C', '${qData.correct}')">C) ${qData.c}</button>
+            <button class="quiz-btn" onclick="checkAnswer(this, 'D', '${qData.correct}')">D) ${qData.d}</button>
+            <div id="quizResult" style="text-align:center; margin-top:14px; font-weight:700; font-size:14px;"></div>
+          </div>
+        `;
+      }
+      document.getElementById('mediaViewer').style.display = 'flex';
+    }
+
+    function checkAnswer(btn, chosen, correct) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.quiz-btn').forEach(b => b.disabled = true);
+      const res = document.getElementById('quizResult');
+
+      if (chosen === correct) {
+        btn.classList.add('correct');
+        res.innerHTML = '<span style="color:#4ade80;">ئافەرم! وەڵامەکەت تەواوە 🎉</span>';
+      } else {
+        btn.classList.add('wrong');
+        res.innerHTML = `<span style="color:#f87171;">وەڵامەکەت هەڵەیە! وەڵامی ڕاست: (${correct})</span>`;
+      }
+    }
+
+    function closeViewer() {
+      document.getElementById('viewerBody').innerHTML = '';
+      document.getElementById('mediaViewer').style.display = 'none';
+    }
+
+    function openAdminModal() { document.getElementById('adminModal').style.display = 'flex'; }
+    function closeAdminModal() { document.getElementById('adminModal').style.display = 'none'; }
+
+    function checkAuth() {
+      const pin = document.getElementById('adminPin').value.trim();
+      if (pin === 'omerjamal01@Om2007er@') {
+        document.getElementById('passBlock').style.display = 'none';
+        document.getElementById('uploadControls').style.display = 'block';
+        toggleTypeInputs();
+      } else {
+        alert('پاسۆردی ئەدمین هەڵەیە!');
+      }
+    }
+
+    async function saveItem() {
+      const subject = document.getElementById('uploadSubject').value;
+      const type = document.getElementById('uploadType').value;
+      const category = document.getElementById('uploadCategory').value.trim();
+      const title = document.getElementById('uploadTitle').value.trim();
+      let icon = document.getElementById('uploadIcon').value.trim();
+      const submitBtn = document.getElementById('submitBtn');
+
+      if (!category || !title) {
+        alert('تکایە ناوی بەش و ناونیشان بنووسە!');
+        return;
+      }
+
+      let contentValue = '';
+
+      if (type === 'pdf' || type === 'video' || type === 'image') {
+        const fileInput = document.getElementById('uploadFile');
+        if (fileInput.files.length === 0) {
+          alert('تکایە فایلێک هەڵبژێرە!');
+          return;
+        }
+
+        submitBtn.innerText = 'خەریکی بارکردنی فایلە... ⏳';
+        submitBtn.disabled = true;
+
+        const file = fileInput.files[0];
+        const fileName = `${Date.now()}_${file.name.replace(/\s+/g, '_')}`;
+
+        const { error: storageErr } = await supabaseClient.storage.from('materials').upload(fileName, file);
+        if (storageErr) {
+          alert('کێشە لە بارکردنی فایل لە Storage: ' + storageErr.message);
+          submitBtn.innerText = '📤 بڵاوکردنەوە';
+          submitBtn.disabled = false;
+          return;
+        }
+
+        const { data: pubData } = supabaseClient.storage.from('materials').getPublicUrl(fileName);
+        contentValue = pubData.publicUrl;
+
+      } else if (type === 'text') {
+        contentValue = document.getElementById('uploadText').value.trim();
+        if (!contentValue) {
+          alert('تکایە تێبینییەکە بنووسە!');
+          return;
+        }
+      } else if (type === 'quiz') {
+        const q = document.getElementById('qText').value.trim();
+        const a = document.getElementById('qOptA').value.trim();
+        const b = document.getElementById('qOptB').value.trim();
+        const c = document.getElementById('qOptC').value.trim();
+        const d = document.getElementById('qOptD').value.trim();
+        const correct = document.getElementById('qCorrect').value;
+
+        if (!q || !a || !b || !c || !d) {
+          alert('تکایە هەموو خانەکانی تاقیکردنەوە پڕبکەرەوە!');
+          return;
+        }
+        contentValue = JSON.stringify({ question: q, a, b, c, d, correct });
+      }
+
+      submitBtn.innerText = 'تۆمار دەکرێت... ⏳';
+      submitBtn.disabled = true;
+
+      const { error: dbErr } = await supabaseClient.from('items').insert([{
+        subject,
+        category,
+        title,
+        type,
+        icon,
+        content: contentValue
+      }]);
+
+      if (dbErr) {
+        alert('کێشە لە داتابەیس: ' + dbErr.message);
+      } else {
+        alert('بابەتەکە بە سەرکەوتوویی بڵاوکرایەوە! 🎉');
+        closeAdminModal();
+        loadData();
+      }
+
+      submitBtn.innerText = '📤 بڵاوکردنەوە';
+      submitBtn.disabled = false;
+    }
+
+    loadData();
+  </script>
+</body>
+</html>
