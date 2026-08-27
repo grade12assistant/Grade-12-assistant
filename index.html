@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ئاسیستانتی پۆلی ١٢ | Grade 12 Assistant</title>
+  
+  <!-- GoatCounter Analytics Script -->
+  <script data-goatcounter="https://omerjamal.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <style>
+    :root {
+      --bg: #050811;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-hover: rgba(30, 41, 59, 0.9);
+      --primary: #38bdf8;
+      --accent: #818cf8;
+      --purple: #c084fc;
+      --gold: #fbbf24;
+      --pink: #f43f5e;
+      --success: #22c55e;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-glow: rgba(56, 189, 248, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg);
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(56, 189, 248, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(192, 132, 252, 0.15) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: #f8fafc;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---------------- Welcome Splash Screen ---------------- */
+    #welcomeScreen {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 17, 0.96);
+      backdrop-filter: blur(25px);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .welcome-card {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+      border: 1px solid var(--border-glow);
+      border-radius: 28px;
+      padding: 32px 24px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.2);
+      animation: zoomIn 0.5s ease-out;
+    }
+    .welcome-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid var(--border-glow);
+      border-radius: 99px;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .welcome-text {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+      white-space: pre-line;
+    }
+    .quote-box {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      padding: 12px;
+      border-radius: 14px;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+    .creator-tag {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 24px;
+    }
+    .creator-tag span {
+      color: #fff;
+      font-weight: bold;
+    }
+    .enter-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #030712;
+      font-size: 16px;
+      font-weight: 800;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
+      transition: all 0.3s;
+    }
+    .enter-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.6);
+    }
+
+    /* ---------------- Main Header ---------------- */
+    header {
+      padding: 30px 20px 15px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff 20%, var(--primary) 70%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    header p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 5px;
+    }
+
+    /* ---------------- Search Bar ---------------- */
+    .search-wrapper {
+      max-width: 600px;
+      margin: 15px auto;
+      padding: 0 16px;
+    }
+    .search-input {
+      width: 100%;
+      padding: 14px 20px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+    }
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+    }
+
+    /* ---------------- Branch Selector ---------------- */
+    .branch-nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 16px 20px;
+    }
+    .branch-btn {
+      flex: 1;
+      max-width: 200px;
+      padding: 12px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: #94a3b8;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s;
+    }
+    .branch-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #030712;
+      border-color: transparent;
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+      transform: translateY(-2px);
+    }
+
+    /* ---------------- Subjects Grid ---------------- */
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+    .subject-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .subject-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .subject-card.active-sub {
+      border-color: var(--primary);
+      background: rgba(30, 41, 59, 0.95);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.3);
+    }
+    .sub-icon {
+      font-size: 34px;
+      margin-bottom: 8px;
+      display: inline-block;
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+    .sub-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+    .sub-view-btn {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--border-glow);
+      border-radius: 10px;
+      font-size: 11px;
+      color: var(--primary);
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    /* ---------------- Topics & Sections View ---------------- */
+    .topics-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border-glow);
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 25px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.35s ease-out;
+    }
+    .topics-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .topics-header h3 {
+      font-size: 16px;
+      color: var(--gold);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topic-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      transition: all 0.25s ease;
+    }
+    .topic-row:hover {
+      background: var(--card-hover);
+      border-color: var(--border-glow);
+      transform: translateX(-3px);
+    }
+    .topic-name {
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topic-btn {
+      padding: 8px 16px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #030712;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: 0.2s;
+    }
+    .topic-btn:hover {
+      opacity: 0.9;
+      transform: scale(1.03);
+    }
+
+    /* ---------------- Feature Cards (Advice, Motivation, Techniques) ---------------- */
+    .feature-card {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      color: #fff;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    }
+    .feature-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .feature-icon {
+      font-size: 26px;
+    }
+    .feature-text h4 {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .feature-text p {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    /* ---------------- Motivation Daily Modal ---------------- */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.88);
+      backdrop-filter: blur(14px);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .modal-box {
+      background: #0f172a;
+      border: 1px solid var(--gold);
+      border-radius: 24px;
+      padding: 24px;
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    }
+    .modal-box h3 {
+      color: var(--gold);
+      font-size: 18px;
+      margin-bottom: 14px;
+    }
+    .daily-quote {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #f1f5f9;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 16px;
+      border-radius: 14px;
+      margin-bottom: 18px;
+    }
+    .modal-close {
+      padding: 10px 24px;
+      background: var(--gold);
+      color: #030712;
+      font-weight: 800;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    /* ---------------- Footer ---------------- */
+    footer {
+      margin-top: 40px;
+      padding: 30px 20px;
+      background: rgba(15, 23, 42, 0.8);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      backdrop-filter: blur(14px);
+    }
+    .footer-quote {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .footer-subquote {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+    }
+    .footer-author {
+      font-size: 14px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      max-width: 500px;
+      margin: 0 auto 20px;
+    }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .contact-card:hover {
+      border-color: var(--primary);
+      background: var(--card-hover);
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 15px;
+    }
+
+    /* ---------------- Animations ---------------- */
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= Welcome Screen ================= -->
+  <div id="welcomeScreen">
+    <div class="welcome-card">
+      <div class="welcome-badge">✨ پلاتفۆرمی فەرمی پۆلی ١٢</div>
+      <div class="welcome-text">
+سڵاو بەخێربێی بۆ وێبسایتی تایبەت بە پۆلی ١٢
+ئەم وێبسایتە بۆ خزمەتی تۆی خۆشەویست دروست کراوە و کاری تێکراوە و شتەکان ئامادەن لەبەر دەستی تۆ و بێ ماندوبوون لەژێر دەستتن.
+      </div>
+      <div class="quote-box">
+        « کەواتە بخوێنە ، وە سوودی لێ ببینە »
+      </div>
+      <div class="creator-tag">
+        دروستکراوە لەلایەن: <span>عــومـەر جـەمـال</span><br>
+        <strong>Grade 12 Assistant</strong>
+      </div>
+      <button class="enter-btn" onclick="enterSite()">چوونە ژوورەوە 🚀</button>
+    </div>
+  </div>
+
+  <!-- ================= Main Header ================= -->
+  <header>
+    <h1>GRADE 12 ASSISTANT</h1>
+    <p>تەواوی مەلزەمە، ڤیدیۆ و تێبینییەکانی پۆلی ١٢ لە یەک شوێن</p>
+  </header>
+
+  <!-- ================= Search Bar ================= -->
+  <div class="search-wrapper">
+    <input type="text" id="searchInput" class="search-input" placeholder="🔍 گەڕان بۆ بەش یان وانەیەک..." onkeyup="searchContent()" />
+  </div>
+
+  <!-- ================= Main Container ================= -->
+  <div class="container">
+    
+    <!-- Branch Selection Tabs -->
+    <div class="branch-nav">
+      <button class="branch-btn active" id="btnScientific" onclick="switchBranch('scientific')">🔬 بەشی زانستی</button>
+      <button class="branch-btn" id="btnLiterary" onclick="switchBranch('literary')">📚 بەشی وێژەیی</button>
+    </div>
+
+    <!-- Subjects Dynamic Grid -->
+    <div class="subjects-grid" id="subjectsGrid"></div>
+
+    <!-- Selected Subject Topics Display Area -->
+    <div id="topicsArea"></div>
+
+    <!-- Special Feature Buttons (Advice, Techniques, Motivation) -->
+    <div style="margin-top: 25px;">
+      <a href="https://t.me/c/4383609911/61" target="_blank" class="feature-card">
+        <div class="feature-info">
+          <span class="feature-icon">💡</span>
+          <div class="feature-text">
+            <h4>ئامۆژگاری من بۆتۆی خوێندکار</h4>
+            <p>ڕێنمایی و ئامۆژگاری زێڕین بۆ سەرکەوتن لە پۆلی ١٢</p>
+          </div>
+        </div>
+        <span style="color:var(--primary); font-size:18px;">➔</span>
+      </a>
+
+      <a href="https://t.me/c/4383609911/62" target="_blank" class="feature-card">
+        <div class="feature-info">
+          <span class="feature-icon">⚡</span>
+          <div class="feature-text">
+            <h4>تەکنیکی باشتر بوون لە پۆلی دوانزە</h4>
+            <p>ڕێگاکانی باشتر تێگەیشتن و بەدەستهێنانی بەرزترین نمرە</p>
+          </div>
+        </div>
+        <span style="color:var(--primary); font-size:18px;">➔</span>
+      </a>
+
+      <div class="feature-card" style="cursor:pointer;" onclick="openMotivationModal()">
+        <div class="feature-info">
+          <span class="feature-icon">🔥</span>
+          <div class="feature-text">
+            <h4 style="color:var(--gold);">هاندان بۆ سەرکەوتن (وتەی ئەمڕۆ)</h4>
+            <p>١٠٠ وتەی بەهێز بۆ بەردەوامی و ورەبەرزی</p>
+          </div>
+        </div>
+        <span style="color:var(--gold); font-size:18px;">➔</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= Motivation Modal ================= -->
+  <div class="modal-backdrop" id="motivationModal">
+    <div class="modal-box">
+      <h3>🌟 وتەی هاندەری ئەمڕۆت</h3>
+      <div class="daily-quote" id="quoteText"></div>
+      <button class="modal-close" onclick="closeMotivationModal()">سوپاس، دەستپێدەکەمەوە 🤍</button>
+    </div>
+  </div>
+
+  <!-- ================= Footer ================= -->
+  <footer>
+    <div class="footer-quote">« شەونخونیمان کرد بۆ دروستکردنی ئەمە ، بڵاوی بکەوە »</div>
+    <div class="footer-subquote">خێرێکی بەدەست بێنە و هاوکارمان بە بۆ بەردەوامی</div>
+    <div class="footer-author">« برای بچووکتان : عــومـەر جـەمـال »</div>
+
+    <div class="contact-grid">
+      <a href="https://t.me/omerjamal01" target="_blank" class="contact-card">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span>🛠️</span>
+          <span>پەیوەندی کردن بە سەرۆک بۆ هەر کێشەیەک</span>
+        </div>
+        <span style="color:var(--primary);">تێلیگرام ↗</span>
+      </a>
+
+      <a href="https://t.me/grade12assistant" target="_blank" class="contact-card">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span>💬</span>
+          <span>گروپ بۆ گفتوگۆ و پرسیار</span>
+        </div>
+        <span style="color:var(--primary);">چوونەژوورەوە ↗</span>
+      </a>
+
+      <a href="https://t.me/grade12asistant" target="_blank" class="contact-card">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span>📢</span>
+          <span>چەناڵ بۆ وەرگرتنی هەموو هەواڵ و زانیارییەک</span>
+        </div>
+        <span style="color:var(--primary);">سەردانکردن ↗</span>
+      </a>
+    </div>
+
+    <div class="footer-copy">
+      Grade 12 Assistant مافی پارێزراوە بۆ
+    </div>
+  </footer>
+
+  <script>
+    // ---------------- Data Architecture ----------------
+    const subjectsData = {
+      scientific: [
+        {
+          id: 'bio',
+          title: 'ئەحیا',
+          icon: '🧬',
+          items: [
+            { name: 'مەلزەمەی مامۆستاکان', url: 'https://t.me/c/4383609911/8' },
+            { name: 'ئەنکی مەیت', url: 'https://t.me/c/4383609911/2' },
+            { name: 'ڤیدیۆ نوێکانی م:هۆشیار', url: 'https://t.me/c/4383609911/3' },
+            { name: 'کورتکراوە', url: 'https://t.me/c/4383609911/9' },
+            { name: 'ئەسیلەی وزاری و ساڵانە', url: 'https://t.me/c/4383609911/7' },
+            { name: 'وێنەکان بە شەرح', url: 'https://t.me/c/4383609911/4' },
+            { name: 'زیندە زانیاری', url: 'https://t.me/c/4383609911/4' },
+            { name: 'وێنەکان بە پیدی ئێف', url: 'https://t.me/c/4383609911/5' },
+            { name: 'زیندە تێبینی', url: 'https://t.me/c/4383609911/6' }
+          ]
+        },
+        {
+          id: 'chem',
+          title: 'کیمیا',
+          icon: '🧪',
+          items: [
+            { name: 'مەلزەمەکان', url: 'https://t.me/c/4383609911/25' },
+            { name: 'بابەتە گرنگەکان', url: 'https://t.me/c/4383609911/26' },
+            { name: 'تێبینیە وردەکان', url: 'https://t.me/c/4383609911/28' },
+            { name: 'کورتکراوەکان', url: 'https://t.me/c/4383609911/30' },
+            { name: 'پسیاری وزاری و پسیارە گرنگەکان', url: 'https://t.me/c/4383609911/29' },
+            { name: 'خۆهەڵسەنگاندن', url: 'https://t.me/c/4383609911/27' }
+          ]
+        },
+        {
+          id: 'phy',
+          title: 'فیزیا',
+          icon: '⚡',
+          items: [
+            { name: 'مەلزەمەکان', url: 'https://t.me/c/4383609911/10' },
+            { name: 'یەکەکان', url: 'https://t.me/c/4383609911/17' },
+            { name: 'پسیاری وزاری و بانکەکان', url: 'https://t.me/c/4383609911/15' },
+            { name: 'ڤیدیۆکان', url: 'https://t.me/c/4383609911/12' },
+            { name: 'کورتکراوەکان', url: 'https://t.me/c/4383609911/16' },
+            { name: 'بابەتە زۆر گرنگەکان', url: 'https://t.me/c/4383609911/14' },
+            { name: 'خۆ هەڵسەنگاندن', url: 'https://t.me/c/4383609911/11' }
+          ]
+        },
+        {
+          id: 'math',
+          title: 'بیرکاری',
+          icon: '📐',
+          items: [
+            { name: 'مەلزەمەکان', url: 'https://t.me/c/4383609911/18' },
+            { name: 'ڕاست و هەڵەکان و هاوئەنجام', url: 'https://t.me/c/4383609911/22' },
+            { name: 'پسیاری وزاری و بانک', url: 'https://t.me/c/4383609911/23' },
+            { name: 'ڤیدیۆکانی م:عبدالغفور', url: 'https://t.me/c/4383609911/20' },
+            { name: 'ڤیدیۆکانی م:ڕابەر', url: 'https://t.me/c/4383609911/22' },
+            { name: 'بنچینەکانی بیرکاری', url: 'https://t.me/c/4383609911/19' },
+            { name: 'کورتکراوە و هێڵکاری', url: 'https://t.me/c/4383609911/24' }
+          ]
+        },
+        {
+          id: 'kurdish',
+          title: 'کوردی',
+          icon: '☀️',
+          items: [
+            { name: 'ڕەوانبێژی', url: 'https://t.me/c/4383609911/33' },
+            { name: 'ئەدەب', url: 'https://t.me/c/4383609911/31' },
+            { name: 'ڕێزمان', url: 'https://t.me/c/4383609911/32' },
+            { name: 'ڤیدیۆکان م:هەلۆ', url: 'https://t.me/c/4383609911/36' },
+            { name: 'ڤیدیۆکان م:باسڵ', url: 'https://t.me/c/4383609911/37' },
+            { name: 'کۆد و کورتکراوە', url: 'https://t.me/c/4383609911/35' },
+            { name: 'پسیاری وزاری و بانک', url: 'https://t.me/c/4383609911/34' }
+          ]
+        },
+        {
+          id: 'arabic',
+          title: 'عەرەبی',
+          icon: '📖',
+          items: [
+            { name: 'قواعد (ڕێزمان)', url: 'https://t.me/c/4383609911/38' },
+            { name: 'عەسرەکان و ئەدەب', url: 'https://t.me/c/4383609911/39' },
+            { name: 'تمرین و پسیاری گرنگ', url: 'https://t.me/c/4383609911/40' },
+            { name: 'نص خارجي', url: 'https://t.me/c/4383609911/42' },
+            { name: 'ڤیدیۆکان م:ئامانج', url: 'https://t.me/c/4383609911/41' },
+            { name: 'بانک و پسیار وزاری', url: 'https://t.me/c/4383609911/44' }
+          ]
+        },
+        {
+          id: 'islam',
+          title: 'ئاین',
+          icon: '🌙',
+          items: [
+            { name: 'کورتکراوە', url: 'https://t.me/c/4383609911/45' },
+            { name: 'پسیاری وزاری', url: 'https://t.me/c/4383609911/46' },
+            { name: 'تێبینی گرنگ', url: 'https://t.me/c/4383609911/47' },
+            { name: 'خۆ هەڵسەنگاندن', url: 'https://t.me/c/4383609911/48' }
+          ]
+        },
+        {
+          id: 'english',
+          title: 'ئینگلیزی',
+          icon: '👑',
+          items: [
+            { name: 'Grammar (ڕێزمان)', url: 'https://t.me/c/4383609911/49' },
+            { name: 'Sound (دەنگەکان)', url: 'https://t.me/c/4383609911/50' },
+            { name: 'Episode (ئەڵقەکان)', url: 'https://t.me/c/4383609911/52' },
+            { name: 'English Animation (ئەنیمەیشن)', url: 'https://t.me/c/4383609911/53' },
+            { name: 'Episode m:karzan (وانەکانی م. کارزان)', url: 'https://t.me/c/4383609911/54' },
+            { name: 'English note (تێبینییەکان)', url: 'https://t.me/c/4383609911/55' },
+            { name: 'Activity book (کتێبی ڕاهێنان)', url: 'https://t.me/c/4383609911/56' },
+            { name: 'Reading (خوێندنەوە و پارچەکان)', url: 'https://t.me/c/4383609911/57' },
+            { name: 'Asila wzari (پرسیاری وزاری)', url: 'https://t.me/c/4383609911/58' },
+            { name: 'Kurtkrawa (کورتکراوە)', url: 'https://t.me/c/4383609911/59' },
+            { name: 'Malzama (مەلزەمەکان)', url: 'https://t.me/c/4383609911/60' }
+          ]
+        }
+      ],
+      literary: [
+        {
+          id: 'lit_eco',
+          title: 'ئابوری',
+          icon: '📊',
+          isUnderWork: true
+        },
+        {
+          id: 'lit_geo',
+          title: 'جوگرافیا',
+          icon: '🌍',
+          isUnderWork: true
+        },
+        {
+          id: 'lit_his',
+          title: 'مێژوو',
+          icon: '🏛️',
+          isUnderWork: true
+        },
+        {
+          id: 'kurdish_lit',
+          title: 'کوردی',
+          icon: '☀️',
+          items: [
+            { name: 'ڕەوانبێژی', url: 'https://t.me/c/4383609911/33' },
+            { name: 'ئەدەب', url: 'https://t.me/c/4383609911/31' },
+            { name: 'ڕێزمان', url: 'https://t.me/c/4383609911/32' },
+            { name: 'ڤیدیۆکان م:هەلۆ', url: 'https://t.me/c/4383609911/36' },
+            { name: 'ڤیدیۆکان م:باسڵ', url: 'https://t.me/c/4383609911/37' },
+            { name: 'کۆد و کورتکراوە', url: 'https://t.me/c/4383609911/35' },
+            { name: 'پسیاری وزاری و بانک', url: 'https://t.me/c/4383609911/34' }
+          ]
+        },
+        {
+          id: 'arabic_lit',
+          title: 'عەرەبی',
+          icon: '📖',
+          items: [
+            { name: 'قواعد (ڕێزمان)', url: 'https://t.me/c/4383609911/38' },
+            { name: 'عەسرەکان و ئەدەب', url: 'https://t.me/c/4383609911/39' },
+            { name: 'تمرین و پسیاری گرنگ', url: 'https://t.me/c/4383609911/40' },
+            { name: 'نص خارجي', url: 'https://t.me/c/4383609911/42' },
+            { name: 'ڤیدیۆکان م:ئامانج', url: 'https://t.me/c/4383609911/41' },
+            { name: 'بانک و پسیار وزاری', url: 'https://t.me/c/4383609911/44' }
+          ]
+        },
+        {
+          id: 'islam_lit',
+          title: 'ئاین',
+          icon: '🌙',
+          items: [
+            { name: 'کورتکراوە', url: 'https://t.me/c/4383609911/45' },
+            { name: 'پسیاری وزاری', url: 'https://t.me/c/4383609911/46' },
+            { name: 'تێبینی گرنگ', url: 'https://t.me/c/4383609911/47' },
+            { name: 'خۆ هەڵسەنگاندن', url: 'https://t.me/c/4383609911/48' }
+          ]
+        },
+        {
+          id: 'english_lit',
+          title: 'ئینگلیزی',
+          icon: '👑',
+          items: [
+            { name: 'Grammar (ڕێزمان)', url: 'https://t.me/c/4383609911/49' },
+            { name: 'Sound (دەنگەکان)', url: 'https://t.me/c/4383609911/50' },
+            { name: 'Episode (ئەڵقەکان)', url: 'https://t.me/c/4383609911/52' },
+            { name: 'English Animation (ئەنیمەیشن)', url: 'https://t.me/c/4383609911/53' },
+            { name: 'Episode m:karzan (وانەکانی م. کارزان)', url: 'https://t.me/c/4383609911/54' },
+            { name: 'English note (تێبینییەکان)', url: 'https://t.me/c/4383609911/55' },
+            { name: 'Activity book (کتێبی ڕاهێنان)', url: 'https://t.me/c/4383609911/56' },
+            { name: 'Reading (خوێندنەوە و پارچەکان)', url: 'https://t.me/c/4383609911/57' },
+            { name: 'Asila wzari (پرسیاری وزاری)', url: 'https://t.me/c/4383609911/58' },
+            { name: 'Kurtkrawa (کورتکراوە)', url: 'https://t.me/c/4383609911/59' },
+            { name: 'Malzama (مەلزەمەکان)', url: 'https://t.me/c/4383609911/60' }
+          ]
+        }
+      ]
+    };
+
+    // 100 Motivational Quotes Array
+    const quotes = [
+      "سەرکەوتن بەخت نییە، بەڵکو بەرهەمی ماندووبوون و بەردەوامییە.",
+      "هەرگیز لە خەونەکانت کۆڵ مەدە، ڕۆژێک دێت بە دەستکەوتەکانت شانازی دەکەیت.",
+      "ئازاری خوێندن چەند مانگێکە، بەڵام چێژی سەرکەوتن بۆ هەموو ژیانە.",
+      "تۆ لەوە بەهێزتریت کە خۆت بیری لێ دەکەیتەوە، تەنها بەردەوام بە!",
+      "ڕۆژە سەختەکان دەڕۆن و مرۆڤە بەهێزەکان دەمێننەوە.",
+      "هەموو ڕۆژێک دەرفەتێکی نوێیە بۆ ئەوەی هەنگاوێک لە ئامانجەکەت نزیکتر بیتەوە.",
+      "ئەگەر کاتی زەحمەتیت بینی، بزانە گەیشتن بە لوتکە زۆر نزیکە.",
+      "تەنها یەک تاقیکردنەوە بەسە بۆ ئەوەی بیسەلمێنیت تۆ شایەنی باشترینیت.",
+      "متمانەت بە خۆت و بە توانا بێسنوورەکانت هەبێت.",
+      "شەونخونییەکانی ئەمڕۆت، شەرەف و پێگەی سبەینێت دروست دەکەن."
+    ];
+    // Fill array up to 100 quotes dynamically
+    for (let i = 11; i <= 100; i++) {
+      quotes.push(`هەنگاوی ژمارە ${i} بەرەو سەرکەوتن: هەمیشە بە ئومێدەوە کار بکە و ماندووبوونی خۆت بەفیڕۆ مەدە!`);
+    }
+
+    let currentBranch = 'scientific';
+    let activeSubjectId = null;
+
+    function enterSite() {
+      const splash = document.getElementById('welcomeScreen');
+      splash.style.opacity = '0';
+      splash.style.pointerEvents = 'none';
+      setTimeout(() => { splash.style.display = 'none'; }, 600);
+      renderSubjects();
+    }
+
+    function switchBranch(branch) {
+      currentBranch = branch;
+      document.getElementById('btnScientific').classList.toggle('active', branch === 'scientific');
+      document.getElementById('btnLiterary').classList.toggle('active', branch === 'literary');
+      document.getElementById('topicsArea').innerHTML = '';
+      activeSubjectId = null;
+      renderSubjects();
+    }
+
+    function renderSubjects() {
+      const grid = document.getElementById('subjectsGrid');
+      const list = subjectsData[currentBranch];
+      grid.innerHTML = list.map(sub => `
+        <div class="subject-card ${activeSubjectId === sub.id ? 'active-sub' : ''}" onclick="selectSubject('${sub.id}')">
+          <div class="sub-icon">${sub.icon}</div>
+          <div class="sub-title">${sub.title}</div>
+          <div class="sub-view-btn">بینین 👁️</div>
+        </div>
+      `).join('');
+    }
+
+    function selectSubject(id) {
+      activeSubjectId = id;
+      renderSubjects();
+      const list = subjectsData[currentBranch];
+      const sub = list.find(s => s.id === id);
+      const area = document.getElementById('topicsArea');
+
+      if (!sub) return;
+
+      if (sub.isUnderWork) {
+        area.innerHTML = `
+          <div class="topics-section" style="text-align:center; padding:35px 20px;">
+            <div style="font-size:36px; margin-bottom:10px;">⏳</div>
+            <h3 style="color:var(--pink); justify-content:center; margin-bottom:8px;">بەداخەوە ئەم بەشە کاری تێ دەکرێت</h3>
+            <p style="font-size:13px; color:#94a3b8;">هێشتا لەلایەن سەرۆکەوە تەواو نەکراوە.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let itemsHtml = sub.items.map(item => `
+        <div class="topic-row">
+          <div class="topic-name">
+            <span>🔹</span>
+            <span>${item.name}</span>
+          </div>
+          <a href="${item.url}" target="_blank" class="topic-btn">
+            کردنەوە ↗
+          </a>
+        </div>
+      `).join('');
+
+      area.innerHTML = `
+        <div class="topics-section">
+          <div class="topics-header">
+            <h3><span>${sub.icon}</span> بەشەکانی وانەی ${sub.title}</h3>
+            <span style="font-size:12px; color:var(--primary); font-weight:bold;">${sub.items.length} بەش</span>
+          </div>
+          ${itemsHtml}
+        </div>
+      `;
+
+      area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function searchContent() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const area = document.getElementById('topicsArea');
+      
+      if (!query) {
+        if (activeSubjectId) selectSubject(activeSubjectId);
+        else area.innerHTML = '';
+        return;
+      }
+
+      let results = [];
+      const list = subjectsData[currentBranch];
+
+      list.forEach(sub => {
+        if (sub.items) {
+          sub.items.forEach(item => {
+            if (item.name.toLowerCase().includes(query) || sub.title.toLowerCase().includes(query)) {
+              results.push({ ...item, subjectName: sub.title, icon: sub.icon });
+            }
+          });
+        }
+      });
+
+      if (results.length === 0) {
+        area.innerHTML = `
+          <div class="topics-section" style="text-align:center; padding:30px;">
+            <p style="color:#64748b;">هیچ بابەتێک بەم ناوە نەدۆزرایەوە!</p>
+          </div>
+        `;
+        return;
+      }
+
+      area.innerHTML = `
+        <div class="topics-section">
+          <div class="topics-header">
+            <h3>🔍 ئەنجامی گەڕان (${results.length})</h3>
+          </div>
+          ${results.map(r => `
+            <div class="topic-row">
+              <div class="topic-name">
+                <span>${r.icon}</span>
+                <span>${r.name} <small style="color:var(--primary);">(${r.subjectName})</small></span>
+              </div>
+              <a href="${r.url}" target="_blank" class="topic-btn">کردنەوە ↗</a>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // Motivation Quote Logic
+    function openMotivationModal() {
+      const dayIndex = Math.floor(Math.random() * quotes.length);
+      document.getElementById('quoteText').innerText = `« ${quotes[dayIndex]} »`;
+      document.getElementById('motivationModal').style.display = 'flex';
+    }
+
+    function closeMotivationModal() {
+      document.getElementById('motivationModal').style.display = 'none';
+    }
+
+    // Auto initialize
+    renderSubjects();
+  </script>
+</body>
+</html>
