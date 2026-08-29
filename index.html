@@ -1,0 +1,1682 @@
+هۆکاری دەرکەوتنی ئەو دەقانە لە وێبسایتەکەت ئەوەبوو کە کاتی کۆپیکردن، دەقی سەرەوەی چاتەکەش لەگەڵیدا کۆپی کرابوو بۆ ناو فایلی `index.html`.
+
+تەواوی کێشەکان و داواکارییەکان بەم شێوەیە چاککران:
+
+1. **پاککردنەوەی تەواوی دەقە زیادەکان:** پەڕەکە لە سفرەوە پاک و خاوێن و پڕۆفیشناڵ کرایەوە.
+2. **لابردنی ئیمۆجی (🚀):** دوگمەی چوونەژوورەوە بە شێوازێکی پڕۆفیشناڵی بریقەدار بە دەقی «دەستپێکردن» گۆڕدرا.
+3. **ڕێکخستنەوەی چوارگۆشەی وتەکان:** وتە هاندەرەکان بە ئیمۆجی گونجاو و دیزاینی شووشەیی (Glassmorphic) نیۆنی زێڕین و جوڵەی نەرم داڕێژرانەوە.
+4. **نوێکردنەوەی تەواوی خشتەکان:** خشتەی زانکۆکان فراوانتر و ڕێکخراوتر کران بە کارتی شووشەیی، نمرەی بریقەدار و هێڵی جیاکەرەوەی مۆدێرن.
+
+تەواوی کۆدی خوارەوە لە ناو فایلی `index.html` بە تەواوی جێگرەوە (Replace) بکە:
+
+```html
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Grade 12 Assistant</title>
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;800;900&family=Outfit:wght@600;800;900&display=swap" />
+
+  <style>
+    :root {
+      --bg: #030712;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-hover: rgba(30, 41, 59, 0.95);
+      --cyan-neon: #00f2fe;
+      --cyan-glow: rgba(0, 242, 254, 0.4);
+      --purple-neon: #9d4edd;
+      --purple-glow: rgba(157, 78, 221, 0.4);
+      --gold-neon: #fbbf24;
+      --gold-glow: rgba(251, 191, 36, 0.4);
+      --pink-neon: #ff007f;
+      --pink-glow: rgba(255, 0, 127, 0.4);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-cyan: rgba(0, 242, 254, 0.35);
+      --border-purple: rgba(157, 78, 221, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(157, 78, 221, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255, 0, 127, 0.05) 0%, transparent 50%);
+      background-attachment: fixed;
+      color: #f8fafc;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Welcome Splash Screen */
+    #welcomeScreen {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.98);
+      backdrop-filter: blur(30px);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .welcome-card {
+      background: linear-gradient(145deg, rgba(20, 29, 47, 0.95), rgba(10, 15, 29, 0.98));
+      border: 1.5px solid var(--border-cyan);
+      border-radius: 28px;
+      padding: 34px 22px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 35px var(--cyan-glow), inset 0 0 20px rgba(0, 242, 254, 0.1);
+      animation: neonPulse 3s infinite alternate;
+    }
+    .welcome-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      text-shadow: 0 0 12px var(--cyan-glow);
+    }
+    .welcome-text {
+      font-size: 14px;
+      line-height: 1.9;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+      white-space: pre-line;
+    }
+    .welcome-quote {
+      background: rgba(251, 191, 36, 0.08);
+      border: 1px solid var(--gold-neon);
+      padding: 14px;
+      border-radius: 16px;
+      color: var(--gold-neon);
+      font-weight: 800;
+      font-size: 14.5px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px var(--gold-glow);
+    }
+    .welcome-creator {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 24px;
+    }
+    .welcome-creator span {
+      color: var(--cyan-neon);
+      font-weight: bold;
+    }
+    .enter-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--cyan-neon), var(--purple-neon));
+      color: #030712;
+      font-size: 16px;
+      font-weight: 900;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px var(--cyan-glow);
+      transition: all 0.3s ease;
+    }
+    .enter-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(157, 78, 221, 0.6);
+    }
+
+    /* Header Banner */
+    .header-box {
+      max-width: 600px;
+      margin: 25px auto 15px;
+      padding: 16px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.85), rgba(20, 29, 47, 0.95));
+      border: 1.5px solid var(--border-cyan);
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 242, 254, 0.2);
+      backdrop-filter: blur(14px);
+    }
+    .header-box h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, #ffffff 10%, var(--cyan-neon) 60%, var(--purple-neon) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    /* Motivational Quote Box */
+    .quote-display-box {
+      max-width: 600px;
+      margin: 0 auto 20px;
+      padding: 0 16px;
+    }
+    .quote-card {
+      background: linear-gradient(145deg, rgba(20, 25, 45, 0.85), rgba(15, 23, 42, 0.9));
+      border: 1.5px solid var(--gold-neon);
+      border-radius: 20px;
+      padding: 16px 20px;
+      text-align: center;
+      color: #fef08a;
+      font-size: 14px;
+      line-height: 1.85;
+      font-weight: 700;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.2), inset 0 0 12px rgba(251, 191, 36, 0.1);
+      backdrop-filter: blur(14px);
+    }
+
+    /* Main Grid */
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+    .core-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 22px;
+      padding: 22px 16px;
+      text-align: center;
+      cursor: pointer;
+      backdrop-filter: blur(14px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .core-card:hover, .core-card.active {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .core-card.c-sci { border-color: var(--border-cyan); }
+    .core-card.c-sci.active, .core-card.c-sci:hover { border-color: var(--cyan-neon); box-shadow: 0 0 25px var(--cyan-glow); }
+    .core-card.c-lit { border-color: var(--border-purple); }
+    .core-card.c-lit.active, .core-card.c-lit:hover { border-color: var(--purple-neon); box-shadow: 0 0 25px var(--purple-glow); }
+    .core-card.c-yt { border-color: rgba(255, 0, 0, 0.3); }
+    .core-card.c-yt.active, .core-card.c-yt:hover { border-color: #ff0000; box-shadow: 0 0 25px rgba(255, 0, 0, 0.35); }
+    .core-card.c-uni { border-color: rgba(251, 191, 36, 0.3); }
+    .core-card.c-uni.active, .core-card.c-uni:hover { border-color: var(--gold-neon); box-shadow: 0 0 25px var(--gold-glow); }
+
+    .core-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .core-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Panels */
+    .content-panel {
+      display: none;
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-cyan);
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 25px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      animation: fadeIn 0.35s ease-out;
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-header h3 {
+      font-size: 15.5px;
+      color: var(--cyan-neon);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topic-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(30, 41, 59, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 13px 16px;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .topic-row:hover {
+      background: var(--card-hover);
+      border-color: var(--cyan-neon);
+      transform: translateX(-3px);
+      box-shadow: 0 4px 18px var(--cyan-glow);
+    }
+    .topic-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .topic-btn-icon {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--cyan-neon);
+      background: rgba(0, 242, 254, 0.1);
+      padding: 5px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-cyan);
+    }
+
+    /* Sub Navigation */
+    .sub-level-box {
+      display: none;
+      animation: fadeIn 0.3s ease-out;
+    }
+    .back-btn-sub {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Features List */
+    .feature-card {
+      background: linear-gradient(145deg, rgba(20, 29, 47, 0.85), rgba(15, 23, 42, 0.95));
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      color: #fff;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      border-color: var(--cyan-neon);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    }
+    .feature-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .feature-icon { font-size: 24px; }
+    .feature-text h4 { font-size: 14px; font-weight: 800; color: #fff; }
+    .feature-text p { font-size: 11.5px; color: #94a3b8; margin-top: 2px; }
+
+    /* YouTube Section */
+    .yt-search-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .yt-input {
+      flex: 1;
+      padding: 12px 16px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+    }
+    .yt-input:focus { border-color: #ff0000; }
+    .yt-btn {
+      padding: 12px 18px;
+      background: linear-gradient(135deg, #ff0000, #990000);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .yt-player-container {
+      width: 100%;
+      height: 270px;
+      background: #000;
+      border-radius: 18px;
+      overflow: hidden;
+      display: none;
+    }
+    .yt-player-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Modal Styling */
+    .custom-modal-backdrop, .table-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.88);
+      backdrop-filter: blur(16px);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    .custom-modal-box {
+      background: linear-gradient(145deg, rgba(20, 29, 47, 0.95), rgba(10, 15, 29, 0.98));
+      border: 1.5px solid var(--pink-neon);
+      border-radius: 24px;
+      padding: 26px 20px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 35px var(--pink-glow);
+    }
+    .custom-modal-close-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, var(--pink-neon), var(--purple-neon));
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    /* Clean Wide Table Modal */
+    .table-modal-box {
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(10, 15, 29, 0.99));
+      border: 1.5px solid var(--cyan-neon);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 850px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 40px var(--cyan-glow);
+      overflow: hidden;
+    }
+    .table-modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(20, 29, 47, 0.8);
+    }
+    .table-modal-header h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--cyan-neon);
+    }
+    .table-modal-search {
+      padding: 12px 18px;
+      background: rgba(10, 15, 29, 0.8);
+      border-bottom: 1px solid var(--border);
+    }
+    .table-search-input {
+      width: 100%;
+      padding: 10px 16px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 13.5px;
+      outline: none;
+    }
+    .table-modal-content {
+      padding: 12px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .custom-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 6px;
+      font-size: 13px;
+      text-align: center;
+    }
+    .custom-table th {
+      background: rgba(30, 41, 59, 0.95);
+      color: var(--gold-neon);
+      padding: 12px 8px;
+      font-weight: 800;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .custom-table td {
+      background: rgba(20, 29, 47, 0.75);
+      padding: 10px 8px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+    .table-score-highlight {
+      color: var(--cyan-neon);
+      font-weight: 800;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      padding: 35px 20px 25px;
+      background: rgba(10, 15, 29, 0.95);
+      border-top: 1.5px solid var(--border-cyan);
+      text-align: center;
+    }
+    .footer-quote {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--cyan-neon);
+      margin-bottom: 6px;
+    }
+    .footer-subquote {
+      font-size: 13px;
+      color: #cbd5e1;
+      margin-bottom: 18px;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto 24px;
+    }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 18px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 700;
+      transition: all 0.25s ease;
+    }
+    .contact-card:hover {
+      border-color: var(--cyan-neon);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+    .footer-credits-box {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .footer-creators {
+      font-size: 14px;
+      color: var(--gold-neon);
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    @keyframes neonPulse {
+      0% { box-shadow: 0 0 25px var(--cyan-glow); }
+      100% { box-shadow: 0 0 40px var(--purple-glow); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Welcome Splash Screen -->
+  <div id="welcomeScreen">
+    <div class="welcome-card">
+      <div class="welcome-title">بەخێربێی بۆ سایتی فەرمی پۆلی دوانزە</div>
+      <div class="welcome-text">ئێمە ماندوبوین و شەونخونیمان کرد
+هەتا هەموو شتێکمان کۆکردەوە لێرە بۆتان</div>
+      <div class="welcome-quote">« تەنها دەست پێ بکە و مەوەستە »</div>
+      <div class="welcome-creator">دروست کراوە لەلایەن : <span>EGO & Omer Surchi</span></div>
+      <button class="enter-btn" onclick="enterSite()">دەستپێکردن</button>
+    </div>
+  </div>
+
+  <!-- Header Banner -->
+  <div class="header-box">
+    <h1>Grade 12 Assistant</h1>
+  </div>
+
+  <!-- Quotes Box -->
+  <div class="quote-display-box">
+    <div class="quote-card" id="quoteText">« ... »</div>
+  </div>
+
+  <!-- Main 4 Core Tabs -->
+  <div class="container">
+    <div class="main-grid">
+      <div class="core-card c-sci active" id="tab-sci" onclick="switchCore('sci')">
+        <div class="core-icon">🔬</div>
+        <div class="core-title">زانستی</div>
+      </div>
+      <div class="core-card c-lit" id="tab-lit" onclick="switchCore('lit')">
+        <div class="core-icon">📚</div>
+        <div class="core-title">وێژەی</div>
+      </div>
+      <div class="core-card c-yt" id="tab-yt" onclick="switchCore('yt')">
+        <div class="core-icon">📺</div>
+        <div class="core-title">یوتوب</div>
+      </div>
+      <div class="core-card c-uni" id="tab-uni" onclick="switchCore('uni')">
+        <div class="core-icon">🎓</div>
+        <div class="core-title">زانکۆ</div>
+      </div>
+    </div>
+
+    <!-- 1. Scientific Panel -->
+    <div class="content-panel" id="panel-sci" style="display: block;">
+      <div class="panel-header">
+        <h3>🔬 بەشەکانی وانەی زانستی</h3>
+      </div>
+      <a href="https://t.me/+C60WqBNdm34yZWZi" target="_blank" class="topic-row">
+        <div class="topic-info"><span>🧬</span><span>زیندەزانی</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+      <a href="https://t.me/grade12channel0/12" target="_blank" class="topic-row">
+        <div class="topic-info"><span>⚡</span><span>فیزیا</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+      <a href="https://t.me/grade12channel0/11" target="_blank" class="topic-row">
+        <div class="topic-info"><span>🧪</span><span>کیمیا</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+      <a href="https://t.me/grade12channel0/15" target="_blank" class="topic-row">
+        <div class="topic-info"><span>📐</span><span>بیرکاری</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+      <a href="https://t.me/grade12channel0/9" target="_blank" class="topic-row">
+        <div class="topic-info"><span>📖</span><span>عەرەبی</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+      <a href="https://t.me/englishwithego" target="_blank" class="topic-row">
+        <div class="topic-info"><span>👑</span><span>ئینگلیزی</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+      <a href="https://t.me/grade12channel0/10" target="_blank" class="topic-row">
+        <div class="topic-info"><span>☀️</span><span>کوردی</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+      <a href="https://t.me/grade12channel0/275" target="_blank" class="topic-row">
+        <div class="topic-info"><span>🌙</span><span>ئاین</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+    </div>
+
+    <!-- 2. Literary Panel -->
+    <div class="content-panel" id="panel-lit">
+      <div class="panel-header">
+        <h3 style="color: var(--purple-neon);">📚 بەشەکانی وانەی وێژەیی</h3>
+      </div>
+      <div class="topic-row" onclick="openUnderWorkModal('مێژوو')">
+        <div class="topic-info"><span>🏛️</span><span>مێژوو</span></div>
+        <span class="topic-btn-icon" style="color: #f87171; border-color: rgba(248, 113, 113, 0.35);">لەژێر کارکردن ⏳</span>
+      </div>
+      <div class="topic-row" onclick="openUnderWorkModal('جوگرافیا')">
+        <div class="topic-info"><span>🌍</span><span>جوگرافیا</span></div>
+        <span class="topic-btn-icon" style="color: #f87171; border-color: rgba(248, 113, 113, 0.35);">لەژێر کارکردن ⏳</span>
+      </div>
+      <div class="topic-row" onclick="openUnderWorkModal('بیرکاری')">
+        <div class="topic-info"><span>📐</span><span>بیرکاری وێژەیی</span></div>
+        <span class="topic-btn-icon" style="color: #f87171; border-color: rgba(248, 113, 113, 0.35);">لەژێر کارکردن ⏳</span>
+      </div>
+      <div class="topic-row" onclick="openUnderWorkModal('ئابوری')">
+        <div class="topic-info"><span>📊</span><span>ئابوری</span></div>
+        <span class="topic-btn-icon" style="color: #f87171; border-color: rgba(248, 113, 113, 0.35);">لەژێر کارکردن ⏳</span>
+      </div>
+      <a href="https://t.me/grade12channel0/10" target="_blank" class="topic-row">
+        <div class="topic-info"><span>☀️</span><span>کوردی</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+      <a href="https://t.me/englishwithego" target="_blank" class="topic-row">
+        <div class="topic-info"><span>👑</span><span>ئینگلیزی</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+      <a href="https://t.me/grade12channel0/9" target="_blank" class="topic-row">
+        <div class="topic-info"><span>📖</span><span>عەرەبی</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+      <a href="https://t.me/grade12channel0/275" target="_blank" class="topic-row">
+        <div class="topic-info"><span>🌙</span><span>ئاین</span></div>
+        <span class="topic-btn-icon">کردنەوە ↗</span>
+      </a>
+    </div>
+
+    <!-- 3. YouTube Panel -->
+    <div class="content-panel" id="panel-yt">
+      <div class="panel-header">
+        <h3 style="color: #ff0000;">📺 سەیرکردنی ڤیدیۆی یوتوب (بێ ڕیکلام)</h3>
+      </div>
+      <div class="yt-search-box">
+        <input type="text" id="ytUrlInput" class="yt-input" placeholder="لینکی ڤیدیۆی یوتوب لێرە دابنێ..." />
+        <button class="yt-btn" onclick="playYouTubeVideo()">لێدان ▶</button>
+      </div>
+      <div class="yt-player-container" id="ytContainer">
+        <iframe id="ytFrame" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- 4. University Panel -->
+    <div class="content-panel" id="panel-uni">
+      <div id="uniMainView">
+        <div class="panel-header">
+          <h3 style="color: var(--gold-neon);">🎓 بەشی زانکۆکان</h3>
+        </div>
+        <div class="topic-row" onclick="showUniSubMenu('minGrades')">
+          <div class="topic-info"><span>🏫</span><span>١: زانکۆکان و کەمترین کۆنمرە</span></div>
+          <span class="topic-btn-icon" style="color: var(--gold-neon); border-color: rgba(251, 191, 36, 0.35);">کردنەوە ➔</span>
+        </div>
+        <div class="topic-row" onclick="openCustomAlert('🧮 هەژمارکردنی نمرە و کریدیت', 'ئەم بەشە بەم زووانە بە سیستەمی زیرەک کارا دەکرێت.')">
+          <div class="topic-info"><span>🧮</span><span>٢: هەژمارکردنی نمرە و کریدیت</span></div>
+          <span class="topic-btn-icon" style="color: var(--gold-neon); border-color: rgba(251, 191, 36, 0.35);">زانیاری ↗</span>
+        </div>
+        <div class="topic-row" onclick="openCustomAlert('📌 خاڵە گرنگەکان', 'ئەم بەشە بەم زووانە دادەنرێت.')">
+          <div class="topic-info"><span>📌</span><span>٣: ئەم خاڵانە بزانە پێش چوونە زانکۆ</span></div>
+          <span class="topic-btn-icon" style="color: var(--gold-neon); border-color: rgba(251, 191, 36, 0.35);">زانیاری ↗</span>
+        </div>
+      </div>
+
+      <div id="subUniSelection" class="sub-level-box">
+        <button class="back-btn-sub" onclick="backToUniMain()">⬅ گەڕانەوە بۆ بەشی سەرەکی زانکۆ</button>
+        <div class="panel-header">
+          <h3 style="color: var(--gold-neon);">📊 کەمترین کۆنمرە - بەشەکان</h3>
+        </div>
+        <div class="topic-row" onclick="showUniList('unis')">
+          <div class="topic-info"><span>🏛️</span><span>١: زانکۆکان</span></div>
+          <span class="topic-btn-icon" style="color: var(--cyan-neon);">بینین ➔</span>
+        </div>
+        <div class="topic-row" onclick="showUniList('polys')">
+          <div class="topic-info"><span>⚙️</span><span>٢: پۆلیتەکنیکیەکان</span></div>
+          <span class="topic-btn-icon" style="color: var(--cyan-neon);">بینین ➔</span>
+        </div>
+      </div>
+
+      <div id="subUniversitiesList" class="sub-level-box">
+        <button class="back-btn-sub" onclick="backToUniSelection()">⬅ گەڕانەوە</button>
+        <div class="panel-header">
+          <h3 style="color: var(--cyan-neon);">🏛️ لیستی هەموو زانکۆکان</h3>
+        </div>
+        <div class="topic-row" onclick="openUniCutoffTable('hmu')"><div class="topic-info"><span>🩺</span><span>زانکۆی هەولێری پزیشکی</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('salahaddin')"><div class="topic-info"><span>🏛️</span><span>زانکۆی سەلاحەدین</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('koya')"><div class="topic-info"><span>📚</span><span>زانکۆی کۆیە</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('soran')"><div class="topic-info"><span>🏔️</span><span>زانکۆی سۆران</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('sulaimani')"><div class="topic-info"><span>🌲</span><span>زانکۆی سلێمانی</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('raparin')"><div class="topic-info"><span>🌊</span><span>زانکۆی ڕاپەڕین</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('garmian')"><div class="topic-info"><span>☀️</span><span>زانکۆی گەرمیان</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('halabja')"><div class="topic-info"><span>🌸</span><span>زانکۆی هەڵەبجە</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('duhok')"><div class="topic-info"><span>🍇</span><span>زانکۆی دهۆک</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('charmu')"><div class="topic-info"><span>🌾</span><span>زانکۆی چەرمۆ</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('zakho')"><div class="topic-info"><span>🌉</span><span>زانکۆی زاخۆ</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+      </div>
+
+      <div id="subPolyList" class="sub-level-box">
+        <button class="back-btn-sub" onclick="backToUniSelection()">⬅ گەڕانەوە</button>
+        <div class="panel-header">
+          <h3 style="color: var(--cyan-neon);">⚙️ لیستی پۆلیتەکنیکیەکان</h3>
+        </div>
+        <div class="topic-row" onclick="openUniCutoffTable('poly_erbil')"><div class="topic-info"><span>🏰</span><span>زانکۆی پۆلیتەکنیکی هەولێر</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('poly_suli')"><div class="topic-info"><span>🌲</span><span>زانکۆی پۆلیتەکنیکی سلێمانی</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+        <div class="topic-row" onclick="openUniCutoffTable('poly_duhok')"><div class="topic-info"><span>🍇</span><span>زانکۆی پۆلیتەکنیکی دهۆک</span></div><span class="topic-btn-icon">خشتە 📊</span></div>
+      </div>
+    </div>
+
+    <!-- Extra Core Features -->
+    <div style="margin-top: 20px;">
+      <a href="https://t.me/grade12channel0/1307" target="_blank" class="feature-card">
+        <div class="feature-info">
+          <span class="feature-icon">🔥</span>
+          <div class="feature-text">
+            <h4>بەشی هاندان</h4>
+            <p>ورەبەرزکردنەوە و ئامۆژگاری بەردەوامی</p>
+          </div>
+        </div>
+        <span style="color:var(--cyan-neon); font-size:18px;">➔</span>
+      </a>
+
+      <a href="https://t.me/grade12channel0/1132" target="_blank" class="feature-card">
+        <div class="feature-info">
+          <span class="feature-icon">⚡</span>
+          <div class="feature-text">
+            <h4>تەکنیکی باشتر بوون لە پۆلی ١٢</h4>
+            <p>ڕێگاکانی بەرزکردنەوەی ئاستی زیرەکی و نمرەکان</p>
+          </div>
+        </div>
+        <span style="color:var(--cyan-neon); font-size:18px;">➔</span>
+      </a>
+
+      <a href="https://t.me/grade12channel0/228" target="_blank" class="feature-card">
+        <div class="feature-info">
+          <span class="feature-icon">📝</span>
+          <div class="feature-text">
+            <h4>بەشی پرسیار و ئەسیلەکان</h4>
+            <p>بانکی پرسیار و ئەسیلەی وزاری ساڵانی پێشوو</p>
+          </div>
+        </div>
+        <span style="color:var(--cyan-neon); font-size:18px;">➔</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Custom Alert Modal -->
+  <div class="custom-modal-backdrop" id="customAlertModal">
+    <div class="custom-modal-box">
+      <div style="font-size:36px; margin-bottom:10px;" id="modalIcon">💡</div>
+      <div style="font-size:16px; font-weight:800; color:#fff; margin-bottom:8px;" id="modalTitle">ئاگاداری</div>
+      <div style="font-size:13.5px; line-height:1.8; color:#cbd5e1;" id="modalDesc">لەژێر کارکردندایە</div>
+      <button class="custom-modal-close-btn" onclick="closeCustomModal()">داخستن ✕</button>
+    </div>
+  </div>
+
+  <!-- University Cutoffs Table Modal -->
+  <div class="table-modal-backdrop" id="tableModal">
+    <div class="table-modal-box">
+      <div class="table-modal-header">
+        <h3 id="tableModalTitle">خشتەی کۆنمرەکان</h3>
+        <button onclick="closeTableModal()" style="background:transparent; border:none; color:#f87171; font-size:22px; font-weight:bold; cursor:pointer;">✕</button>
+      </div>
+      <div class="table-modal-search">
+        <input type="text" id="tableSearchInput" class="table-search-input" placeholder="🔍 گەڕان بەپێی بەش، کۆلێژ یان لق..." onkeyup="filterTable()" />
+      </div>
+      <div class="table-modal-content">
+        <table class="custom-table" id="uniDataTable">
+          <thead>
+            <tr>
+              <th>کۆلێژ / بەش</th>
+              <th>لق</th>
+              <th>زانکۆلاین</th>
+              <th>پارالێل</th>
+              <th>ئێواران</th>
+            </tr>
+          </thead>
+          <tbody id="uniTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-quote">« شەونخونیمان کرد بۆ دروستکردنی ئەمە ، بڵاوی بکەوە »</div>
+    <div class="footer-subquote">خێرێکی بەدەست بێنە و هاوکارمان بە بۆ بەردەوامی</div>
+
+    <div class="contact-grid">
+      <a href="https://t.me/omerjamal01" target="_blank" class="contact-card">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span>🛠️</span>
+          <span>بۆ هەر کێشەیەک پەیوەندی بکە بە سەرۆک</span>
+        </div>
+        <span style="color:var(--cyan-neon);">تێلیگرام ↗</span>
+      </a>
+
+      <a href="https://t.me/grade12assistant" target="_blank" class="contact-card">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span>💬</span>
+          <span>گروپ بۆ گفتوگۆ و پرسیار</span>
+        </div>
+        <span style="color:var(--cyan-neon);">چوونەژوورەوە ↗</span>
+      </a>
+
+      <a href="https://t.me/grade12asistant" target="_blank" class="contact-card">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span>📢</span>
+          <span>کەناڵ بۆ وەرگرتنی زانیاری</span>
+        </div>
+        <span style="color:var(--cyan-neon);">سەردانکردن ↗</span>
+      </a>
+    </div>
+
+    <div class="footer-credits-box">
+      <div class="footer-creators">دروست کراوە لەلایەن : EGO & Omer Surchi</div>
+      <div class="footer-copy">بەرهەمەکە پارێزراوە بۆ Grade 12 Assistant</div>
+    </div>
+  </footer>
+
+  <script>
+    const quotesList = [
+      "💪 سەرکەوتن بەخت نییە، بەڵکو بەرهەمی ماندووبوون و شەونخونییە.",
+      "✨ ئازاری خوێندنی ئەمڕۆ، چێژی سەرکەوتنی سبەینێیە.",
+      "🔥 تۆ لەوە بەهێزتریت کە بیرت لێدەکردەوە، بەردەوام بە بەرەو ئامانجەکەت!",
+      "🌟 ڕۆژە سەختەکان تێدەپەڕن و سەرکەوتنە مەزنەکان بۆ هەمیشە دەمێننەوە.",
+      "👑 متمانەت بە تواناکانت هەبێت، لوتکەی سەرکەوتن شایەنی هەوڵەکانتە.",
+      "🎯 شەونخونییەکانی ئەمڕۆت، شەرەف و پێگەی داهاتووت بنیاد دەنێن.",
+      "🌱 هەرگیز کۆڵ مەدە، ڕۆژێک دێت بە دەستکەوتەکانت شانازی بە خۆتەوە دەکەیت.",
+      "💎 بەهێز بە و باوەڕت بە خەونەکانت هەبێت، هەموو ئاواتەکانت دەبن بە ڕاستی.",
+      "🚀 تاقیکردنەوەکان تەنها پردێکن بۆ ئەوەی بگەیت بە لوتکەی ئاواتەکانت.",
+      "🏆 گەورەترین سەرکەوتن ئەوەیە لە دوای هەموو ماندووبوونێک بە ئاسوودەیی پێبکەنیت."
+    ];
+
+    function setRandomQuote() {
+      const quoteIndex = Math.floor(Math.random() * quotesList.length);
+      document.getElementById('quoteText').innerText = quotesList[quoteIndex];
+    }
+
+    function enterSite() {
+      const splash = document.getElementById('welcomeScreen');
+      splash.style.opacity = '0';
+      splash.style.pointerEvents = 'none';
+      setTimeout(() => { splash.style.display = 'none'; }, 600);
+      setRandomQuote();
+    }
+
+    function switchCore(tab) {
+      document.querySelectorAll('.core-card').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.content-panel').forEach(p => p.style.display = 'none');
+
+      document.getElementById(`tab-${tab}`).classList.add('active');
+      document.getElementById(`panel-${tab}`).style.display = 'block';
+    }
+
+    function openUnderWorkModal(subject) {
+      openCustomAlert('لەژێر کارکردندایە ⏳', `بەشی (${subject}) بەم زووانە کارا دەکرێت.`);
+    }
+
+    function openCustomAlert(title, desc) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalDesc').innerText = desc;
+      document.getElementById('customAlertModal').style.display = 'flex';
+    }
+
+    function closeCustomModal() {
+      document.getElementById('customAlertModal').style.display = 'none';
+    }
+
+    function showUniSubMenu(type) {
+      document.getElementById('uniMainView').style.display = 'none';
+      document.getElementById('subUniSelection').style.display = 'block';
+    }
+
+    function backToUniMain() {
+      document.getElementById('subUniSelection').style.display = 'none';
+      document.getElementById('subUniversitiesList').style.display = 'none';
+      document.getElementById('subPolyList').style.display = 'none';
+      document.getElementById('uniMainView').style.display = 'block';
+    }
+
+    function showUniList(type) {
+      document.getElementById('subUniSelection').style.display = 'none';
+      if (type === 'unis') {
+        document.getElementById('subUniversitiesList').style.display = 'block';
+      } else {
+        document.getElementById('subPolyList').style.display = 'block';
+      }
+    }
+
+    function backToUniSelection() {
+      document.getElementById('subUniversitiesList').style.display = 'none';
+      document.getElementById('subPolyList').style.display = 'none';
+      document.getElementById('subUniSelection').style.display = 'block';
+    }
+
+    /* COMPLETE DATASETS */
+    const universitiesData = {
+      hmu: {
+        title: "زانکۆی هەولێری پزیشکی (HMU)",
+        rows: [
+          ["پزیشکی گشتی", "زانستی", "98.0", "97.429", "-"],
+          ["ددانسازی", "زانستی", "96.857", "96.444", "-"],
+          ["دەرمانسازی", "زانستی", "96.1", "95.8", "-"],
+          ["پەرستاری", "زانستی", "93.6", "92.3", "-"],
+          ["مامانی", "زانستی", "87.3", "84.3", "-"],
+          ["مایکرۆبایۆلۆجی پزیشکی", "زانستی", "94.4", "92.9", "-"],
+          ["کیمیای ژیانی کلینیکی", "زانستی", "91.7", "89.2", "-"],
+          ["چارەسەری سروشتی", "زانستی", "90.7", "87.7", "-"],
+          ["تەندروستی کۆمەڵ", "زانستی", "86.4", "82.4", "-"],
+          ["خۆراکزانى و پارێزى", "زانستی", "83.6", "81.6", "-"]
+        ]
+      },
+      salahaddin: {
+        title: "زانکۆی سەلاحەدین",
+        rows: [
+          ["پزیشکی ڤێتێرنەری - ڤێتێرنەری", "زانستی", "91.6", "88.7", "-"],
+          ["ئەندازیاری - تەلارسازی", "زانستی", "95.2", "94.9", "-"],
+          ["ئەندازیاری - پرۆگرامسازی", "زانستی", "95.2", "90.7", "-"],
+          ["ئەندازیاری - شارستانی", "زانستی", "92.1", "90.7", "-"],
+          ["ئەندازیاری - کیمیا و پترۆکیمیا", "زانستی", "86.7", "84.7", "-"],
+          ["ئەندازیاری - کارەبا و وزە", "زانستی", "87.7", "84.7", "-"],
+          ["ئەندازیاری - کارەبا و کۆمپیوتەر", "زانستی", "89.8", "86.8", "-"],
+          ["ئەندازیاری - کارەبا و ئەلیکترۆنی", "زانستی", "88.4", "84.1", "-"],
+          ["ئەندازیاری - ئەندازیاری فڕۆکەوانی", "زانستی", "85.4", "-", "-"],
+          ["ئەندازیاری - میکانیک و مێکاترۆنیک", "زانستی", "86.0", "83.8", "-"],
+          ["ئەندازیاری - ڕووپێوان", "زانستی", "81.3", "78.1", "-"],
+          ["ئەندازیاری - سەرچاوەکانی ئاو", "زانستی", "78.3", "75.9", "-"],
+          ["زانست - بایۆلۆجی پزیشکی", "زانستی", "91.3", "90.0", "-"],
+          ["زانست - بایۆلۆجی گشتی", "زانستی", "89.4", "88.2", "-"],
+          ["زانست - کیمیا", "زانستی", "83.6", "81.6", "-"],
+          ["زانست - تەکنەلۆجیای زانیاری IT", "زانستی", "87.0", "84.9", "-"],
+          ["زانست - زانستەکانی کۆمپیوتەر", "زانستی", "85.0", "84.1", "-"],
+          ["زانست - فیزیای پزیشکی", "زانستی", "84.2", "80.5", "-"],
+          ["زانست - فیزیای گشتی", "زانستی", "75.9", "71.6", "-"],
+          ["زانست - زانستەکانی زەوی و نەوت", "زانستی", "69.6", "64.4", "-"],
+          ["زانست - ماتماتیک", "زانستی", "67.0", "63.2", "-"],
+          ["زانست - زانست و تەندروستی ژینگە", "زانستی", "64.5", "61.6", "-"],
+          ["کشتوکاڵ - سامانی ئاژەڵ و گیانەوەره ئاوییەکان", "زانستی", "58.1", "53.9", "-"],
+          ["کشتوکاڵ - خاک و ئاو", "زانستی", "60.9", "55.7", "-"],
+          ["کشتوکاڵ - سامانی ماسی", "زانستی", "60.0", "55.0", "-"],
+          ["کشتوکاڵ - دارستان", "زانستی", "59.0", "55.0", "-"],
+          ["کشتوکاڵ - پاراستنی ڕووەک", "زانستی", "60.4", "54.8", "-"],
+          ["کشتوکاڵ - ڕەگەزناسی", "زانستی", "60.8", "54.4", "-"],
+          ["کشتوکاڵ - پیشەسازی خۆراک", "زانستی", "58.6", "54.2", "-"],
+          ["کشتوکاڵ - بەروبوومی کێڵگە", "زانستی", "59.0", "54.0", "-"],
+          ["زانستە سیاسییەکان - پەیوەندییە نێودەوڵەتییەکان و دیپلۆماسی", "هاوبەش", "62.5", "62.8", "-"],
+          ["زانستە سیاسییەکان - سیستەمە سیاسییەکان و سیاسەتی گشتی", "هاوبەش", "63.2", "57.5", "-"],
+          ["یاسا", "هاوبەش", "84.4", "80.8", "-"],
+          ["زمان - زمانی ئینگلیزی", "هاوبەش", "79.2", "75.9", "-"],
+          ["زمان - زمانی عەرەبی", "هاوبەش", "66.2", "61.5", "-"],
+          ["زمان - زمانی کوردی", "هاوبەش", "62.5", "59.5", "-"],
+          ["زمان - زمانی فارسی", "هاوبەش", "58.2", "57.2", "-"],
+          ["زمان - زمانی ئەڵمانی", "هاوبەش", "61.1", "58.5", "-"],
+          ["زمان - زمانی فەڕەنسی", "هاوبەش", "58.2", "57.2", "-"],
+          ["زمان - وەرگێڕان", "هاوبەش", "74.4", "71.0", "-"],
+          ["زمان - زمانی چینی", "هاوبەش", "60.2", "57.6", "-"],
+          ["زمان - زمانی تورکی", "هاوبەش", "58.0", "57.7", "-"],
+          ["بەڕێوەبردن و ئابووری - کارگێڕی کار", "هاوبەش", "72.4", "68.0", "63.4"],
+          ["بەڕێوەبردن و ئابووری - ئابووری", "هاوبەش", "66.0", "61.6", "58.9"],
+          ["بەڕێوەبردن و ئابووری - ژمێریاری", "هاوبەش", "72.0", "67.9", "62.0"],
+          ["بەڕێوەبردن و ئابووری - زانستی دارایی و بانک", "هاوبەش", "65.9", "62.7", "-"],
+          ["بەڕێوەبردن و ئابووری - ئامار", "هاوبەش", "60.4", "58.4", "-"],
+          ["بەڕێوەبردن و ئابووری - کارگێڕی ڕێکخراوی گەشتیاری", "هاوبەش", "64.9", "61.0", "57.9"],
+          ["پەروەردە - زمانی ئینگلیزی", "هاوبەش", "82.7", "77.9", "70.8"],
+          ["پەروەردە - زمانی سریانی", "هاوبەش", "55.6", "53.9", "-"],
+          ["پەروەردە - پەروەردەی تایبەت", "هاوبەش", "61.2", "58.5", "57.2"],
+          ["پەروەردە - زمانی عەرەبی", "هاوبەش", "72.6", "66.6", "61.1"],
+          ["پەروەردە - زمانی کوردی", "هاوبەش", "69.1", "63.8", "59.6"],
+          ["پەروەردە - ماتماتیک", "زانستی", "68.7", "64.5", "-"],
+          ["پەروەردە - کیمیا", "زانستی", "74.8", "70.3", "-"],
+          ["پەروەردە - فیزیک", "زانستی", "72.6", "68.3", "-"],
+          ["پەروەردە - ڕێنمایی پەروەردەیی و دەروونی", "هاوبەش", "61.8", "58.9", "-"],
+          ["پەروەردە - بایۆلۆجی", "زانستی", "78.9", "74.4", "-"],
+          ["پەروەردەی بنەڕەت - زمانی ئینگلیزی", "هاوبەش", "78.8", "75.1", "69.3"],
+          ["پەروەردەی بنەڕەت - زانستی گشتی", "زانستی", "71.9", "67.0", "61.8"],
+          ["پەروەردەی بنەڕەت - زانستە کۆمەڵایەتییەکان", "وێژەیی", "66.8", "62.7", "59.3"],
+          ["پەروەردەی بنەڕەت - زمانی عەرەبی", "هاوبەش", "70.8", "65.4", "60.6"],
+          ["پەروەردەی بنەڕەت - زمانی کوردی", "هاوبەش", "67.5", "63.1", "59.5"],
+          ["پەروەردەی بنەڕەت - ماتماتیک", "زانستی", "65.7", "63.3", "57.8"],
+          ["پەروەردەی بنەڕەت - باخچەی منداڵان", "هاوبەش", "65.1", "60.8", "57.8"],
+          ["ئاداب - مێژوو", "وێژەیی", "62.0", "59.9", "-"],
+          ["ئاداب - جوگرافیا", "هاوبەش", "61.9", "60.2", "-"],
+          ["ئاداب - ڕاگەیاندن", "هاوبەش", "63.0", "60.6", "-"],
+          ["ئاداب - دەروونناسی", "هاوبەش", "62.4", "59.4", "-"],
+          ["ئاداب - شوێنەوار", "هاوبەش", "59.4", "56.9", "-"],
+          ["ئاداب - کۆمەڵناسی", "هاوبەش", "57.4", "57.4", "-"],
+          ["ئاداب - فەلسەفە", "وێژەیی", "60.4", "59.9", "-"],
+          ["ئاداب - کاری کۆمەڵایەتی", "هاوبەش", "57.4", "57.0", "-"],
+          ["زانستە ئیسلامییەکان - خوێندنی ئیسلامی", "هاوبەش", "60.6", "55.6", "-"],
+          ["زانستە ئیسلامییەکان - شەریعە", "هاوبەش", "57.4", "57.5", "-"],
+          ["زانستە ئیسلامییەکان - پەروەردەی ئایینی", "هاوبەش", "57.3", "56.1", "-"],
+          ["پەروەردەی شەقڵاوە - زمانی ئینگلیزی", "هاوبەش", "76.8", "72.6", "-"],
+          ["پەروەردەی شەقڵاوە - بایۆلۆجی", "زانستی", "74.7", "70.8", "-"],
+          ["پەروەردەی شەقڵاوە - فیزیک", "زانستی", "68.7", "64.1", "-"],
+          ["پەروەردەی شەقڵاوە - زمانی عەرەبی", "هاوبەش", "69.2", "63.2", "-"],
+          ["پەروەردەی شەقڵاوە - زمانی کوردی", "هاوبەش", "-", "-", "-"],
+          ["پەروەردەی مەخموور - زمانی کوردی", "هاوبەش", "62.7", "59.7", "-"],
+          ["پەروەردەی مەخموور - زمانی عەرەبی", "هاوبەش", "65.7", "61.0", "-"],
+          ["هونەرە جوانەکان - وێنەکێشان و دیزاین", "هاوبەش", "63.5", "66.5", "-"],
+          ["هونەرە جوانەکان - میوزیک", "هاوبەش", "78.3", "50.0", "-"],
+          ["هونەرە جوانەکان - سینەما و شانۆ", "هاوبەش", "68.3", "50.0", "-"]
+        ]
+      },
+      koya: {
+        title: "زانکۆی کۆیە",
+        rows: [
+          ["فاکەڵتی پزیشکی - پزیشکی گشتی", "زانستی", "98.4 / 97.6", "97.7 / 97.3", "-"],
+          ["ئەندازیاری - تەلارسازی", "زانستی", "95.16", "94.4", "-"],
+          ["ئەندازیاری - پرۆگرامسازی", "زانستی", "95.599", "94.2", "-"],
+          ["ئەندازیاری - شارستانی", "زانستی", "92.1", "90.28", "-"],
+          ["ئەندازیاری - نەوت", "زانستی", "90.546", "85.56", "-"],
+          ["ئەندازیاری - کیمیاوی", "زانستی", "86.966", "81.3", "-"],
+          ["ئەندازیاری - جیۆتەکنیک", "زانستی", "78.199", "82.637", "-"],
+          ["ئەندازیاری - دروست کردن", "زانستی", "75.16", "77.7", "-"],
+          ["تەندروستی - میدیکاڵ مایکرۆبایۆلۆجی", "زانستی", "93.6", "91.19", "-"],
+          ["تەندروستی - بایۆلۆجی", "زانستی", "90.899", "87.399", "-"],
+          ["تەندروستی - زانستی تاقیگەی پزیشکی", "زانستی", "91.6", "89.146", "-"],
+          ["تەندروستی - کیمیا", "زانستی", "84.566", "78.6", "-"],
+          ["تەندروستی - کلینیکاڵ سایکۆلۆجی", "زانستی", "76.667", "72.286", "-"],
+          ["تەندروستی - فیزیک", "زانستی", "73.5", "67.072", "-"],
+          ["تەندروستی - کۆمپیوتەر", "زانستی", "84.433", "82.533", "-"],
+          ["مرۆڤایەتی - یاسا / قانون", "هاوبەش", "84.1", "79.599", "-"],
+          ["مرۆڤایەتی - ئینگلیزی", "هاوبەش", "76.699", "71.784", "65.1"],
+          ["مرۆڤایەتی - کارگێڕی", "هاوبەش", "65.8", "57.5", "61.1"],
+          ["مرۆڤایەتی - ژمێریاری", "زانستی", "61.615", "58.217", "-"],
+          ["پەروەردە - زمانی ئینگلیزی", "هاوبەش", "81.7", "75.272", "69.1"],
+          ["پەروەردە - زمانی عەرەبی", "هاوبەش", "69.985", "63.557", "59.9"],
+          ["پەروەردە - مێژوو", "وێژەیی", "64.4", "59.7", "55.3"],
+          ["پەروەردە - زمانی کوردی", "هاوبەش", "69.965", "60.013", "57.3"],
+          ["پەروەردە - جوگرافیا", "هاوبەش", "64.999", "60.244", "55.0"],
+          ["پەروەردە - پەروەردە و دەروونزانی", "هاوبەش", "62.108", "58.2", "55.1"],
+          ["پەروەردە - پەروەردەی ئاینی", "هاوبەش", "59.999", "62.363", "50.037"]
+        ]
+      },
+      soran: {
+        title: "زانکۆی سۆران",
+        rows: [
+          ["ئەندازیاری - شارستانی و ژینگە (گشتی)", "زانستی", "88.4", "86.1", "-"],
+          ["ئەندازیاری - شارستانی و ژینگە (ژینگە)", "زانستی", "74.0", "80.2", "-"],
+          ["ئەندازیاری - نەوت", "زانستی", "81.1", "76.4", "-"],
+          ["ئەندازیاری - کیمیا", "زانستی", "78.4", "74.3", "-"],
+          ["ئەندازیاری - میکاترۆنیک و ڕۆبۆتیک", "زانستی", "75.8", "73.5", "-"],
+          ["زانست - پەرستاری", "زانستی", "92.8", "91.7", "-"],
+          ["زانست - بایۆلۆجی", "زانستی", "86.3", "80.3", "-"],
+          ["زانست - کیمیا", "زانستی", "79.9", "74.9", "-"],
+          ["زانست - فیزیا", "زانستی", "70.8", "64.5", "-"],
+          ["زانست - کۆمپیوتەر", "زانستی", "80.8", "75.0", "-"],
+          ["زانست - پترۆلیۆم جیۆساینس", "زانستی", "64.1", "59.3", "-"],
+          ["زانست - ماتماتیک", "زانستی", "-", "-", "-"],
+          ["ئاداب - زمانی ئینگلیزی", "هاوبەش", "76.1", "70.3", "55.6"],
+          ["ئاداب - زمانی عەرەبی", "هاوبەش", "-", "-", "-"],
+          ["ئاداب - مێژوو", "وێژەیی", "60.2", "56.7", "53.1"],
+          ["ئاداب - زمانی کوردی", "هاوبەش", "-", "-", "-"],
+          ["ئاداب - جوگرافیا", "هاوبەش", "62.9", "58.1", "54.6"],
+          ["ئاداب - دەروونناسی", "هاوبەش", "58.5", "56.0", "54.2"],
+          ["ئاداب - کۆمەڵناسی", "هاوبەش", "57.7", "54.9", "53.4"],
+          ["پەروەردە - زمانی ئینگلیزی", "هاوبەش", "-", "-", "-"],
+          ["پەروەردە - زانستە گشتییەکان", "زانستی", "69.1", "63.8", "-"],
+          ["پەروەردە - زانستە کۆمەڵایەتییەکان", "هاوبەش", "-", "-", "-"],
+          ["پەروەردە - زمانی کوردی", "هاوبەش", "65.1", "60.5", "56.9"],
+          ["پەروەردە - ماتماتیک", "زانستی", "61.4", "59.5", "55.4"],
+          ["پەروەردە - باخچەی منداڵان", "هاوبەش", "61.6", "58.1", "-"],
+          ["سکۆڵی بەڕێوەبردن - بەڕێوەبردنی کار", "هاوبەش", "63.4", "60.4", "56.9"],
+          ["سکۆڵی بەڕێوەبردن - ژمێریاری", "زانستی", "64.0", "60.3", "73.6"],
+          ["یاسا و سیاسی - یاسا", "هاوبەش", "77.2", "73.8", "-"],
+          ["یاسا و سیاسی - پەیوەندییە نێودەوڵەتییەکان", "هاوبەش", "61.4", "58.7", "-"]
+        ]
+      },
+      sulaimani: {
+        title: "زانکۆی سلێمانی",
+        rows: [
+          ["پزیشکی - پزیشکی گشتی", "زانستی", "98.571", "97.714", "-"],
+          ["پزیشکی - ددانسازی", "زانستی", "97.2", "96.8", "-"],
+          ["پزیشکی - دەرمانسازی", "زانستی", "96.4", "96.0", "-"],
+          ["پزیشکی - پەرستاری", "زانستی", "94.667", "92.667", "-"],
+          ["پزیشکی - کۆلێژی پزیشکی ڤێتێرنەری", "زانستی", "91.6", "89.429", "-"],
+          ["ئەندازیاری - تەلارسازی", "زانستی", "95.336", "94.7", "-"],
+          ["ئەندازیاری - کۆمپیوتەر", "زانستی", "94.626", "93.352", "-"],
+          ["ئەندازیاری - شارستانی", "زانستی", "92.133", "90.56", "-"],
+          ["ئەندازیاری - کارەبا", "زانستی", "88.0", "84.433", "-"],
+          ["ئەندازیاری - سەرچاوەکانی ئاو", "زانستی", "77.2", "73.4", "-"],
+          ["زانست - بایۆلۆجی", "زانستی", "92.1", "90.6", "-"],
+          ["زانست - کیمیا", "زانستی", "87.92", "86.038", "-"],
+          ["زانست - کۆمپیوتەر", "زانستی", "87.266", "83.2", "-"],
+          ["زانست - فیزیک", "زانستی", "69.266", "64.134", "-"],
+          ["زانست - جیۆلۆجی", "زانستی", "63.242", "60.38", "-"],
+          ["زانست - ماتماتیک", "زانستی", "64.57", "58.2", "-"],
+          ["زمان - زمانی ئینگلیزی", "هاوبەش", "84.2", "81.078", "72.8"],
+          ["زمان - وەرگێڕان", "هاوبەش", "77.6", "75.126", "-"],
+          ["زمان - زمان و ئەدەبی فارسی", "هاوبەش", "59.961", "53.733", "56.399"],
+          ["زمان - زمانی عەرەبی", "هاوبەش", "67.2", "61.642", "53.8"],
+          ["زمان - زمانی کوردی", "هاوبەش", "58.0", "57.799", "54.2"],
+          ["یاسا", "هاوبەش", "88.6", "85.25", "-"],
+          ["زانستە ڕامیارییەکان - زانستە ڕامیارییەکان", "هاوبەش", "65.7", "59.801", "-"],
+          ["زانستە ڕامیارییەکان - سیاسەت و پ. نێودەوڵەتییەکان", "هاوبەش", "62.599", "59.999", "-"],
+          ["پەروەردە - بایۆلۆجی", "زانستی", "80.3", "75.5", "-"],
+          ["پەروەردە - کیمیا", "زانستی", "75.599", "72.254", "-"],
+          ["پەروەردە - ڕێنمایی پەروەردەیی و دەروونی", "هاوبەش", "70.887", "66.399", "-"],
+          ["پەروەردە - ماتماتیک", "زانستی", "69.1", "63.053", "-"],
+          ["پەروەردە - فیزیک", "زانستی", "69.9", "64.399", "-"],
+          ["پەروەردەی بنەڕەت - زمانی ئینگلیزی", "هاوبەش", "81.7", "78.195", "71.399"],
+          ["پەروەردەی بنەڕەت - زمانی کوردی", "هاوبەش", "67.999", "63.0", "55.399"],
+          ["پەروەردەی بنەڕەت - زانستی کۆمپیوتەر", "زانستی", "70.011", "66.7", "60.633"],
+          ["پەروەردەی بنەڕەت - باخچەی منداڵان", "هاوبەش", "65.4", "59.756", "52.029"],
+          ["پەروەردەی بنەڕەت - زانستی کۆمەڵایەتی", "وێژەیی", "61.7", "58.8", "53.899"],
+          ["پەروەردەی بنەڕەت - پەروەردەی تایبەت", "هاوبەش", "63.999", "59.4", "54.498"],
+          ["پەروەردەی بنەڕەت - زانستە بیرکارییەکان", "زانستی", "64.1", "60.4", "54.199"],
+          ["مرۆڤایەتی - مێژوو", "وێژەیی", "58.216", "53.8", "53.955"],
+          ["مرۆڤایەتی - پەیوەندییە گشتییەکان", "هاوبەش", "59.5", "58.083", "-"],
+          ["مرۆڤایەتی - شوێنەوار", "هاوبەش", "59.999", "54.635", "56.049"],
+          ["مرۆڤایەتی - جوگرافیا", "هاوبەش", "57.4", "53.936", "55.645"],
+          ["مرۆڤایەتی - کۆمەڵناسی", "هاوبەش", "58.4", "57.4", "54.058"],
+          ["مرۆڤایەتی - فەلسەفە و توێژینەوە کلتورییەکان", "هاوبەش", "58.0", "55.599", "56.399"],
+          ["مرۆڤایەتی - ڕاگەیاندن", "هاوبەش", "62.8", "60.799", "58.599"],
+          ["مرۆڤایەتی - کاری کۆمەڵایەتی", "هاوبەش", "59.599", "57.4", "54.199"]
+        ]
+      },
+      raparin: {
+        title: "زانکۆی ڕاپەڕین",
+        rows: [
+          ["پەرستاری - پەرستاری", "زانستی", "93.0", "91.714", "-"],
+          ["ئەندازیاری - پرۆگرامسازی", "زانستی", "93.8", "91.8", "-"],
+          ["ئەندازیاری - شارستانی", "زانستی", "87.24", "82.938", "-"],
+          ["زانست - بایۆلۆجی", "زانستی", "88.549", "82.6", "-"],
+          ["زانست - کیمیا", "زانستی", "84.566", "78.393", "-"],
+          ["زانست - فیزیای گشتی و ئەپلاید", "زانستی", "63.3", "58.5", "-"],
+          ["زانست - زانستی تاقیگەی پزیشکی", "زانستی", "91.627", "86.8", "-"],
+          ["مرۆڤایەتی - یاسا", "هاوبەش", "80.972", "76.116", "-"],
+          ["مرۆڤایەتی - کارگێڕی کار", "هاوبەش", "64.499", "58.6", "57.422"],
+          ["مرۆڤایەتی - بەڕێوەبردنی بیمە", "هاوبەش", "58.59", "55.999", "52.354"],
+          ["مرۆڤایەتی - جوگرافیا", "هاوبەش", "58.8", "54.9", "50.399"],
+          ["مرۆڤایەتی - مێژوو", "وێژەیی", "59.799", "57.037", "51.643"],
+          ["مرۆڤایەتی - فەلسەفە", "وێژەیی", "-", "55.6", "-"],
+          ["پەروەردە قەڵادزێ - کوردی", "هاوبەش", "57.6", "54.6", "58.199"],
+          ["پەروەردە قەڵادزێ - پەروەردە و دەروونزانی", "هاوبەش", "58.041", "53.713", "50.2"],
+          ["پەروەردە قەڵادزێ - عەرەبی", "هاوبەش", "58.2", "54.52", "53.687"],
+          ["پەروەردە قەڵادزێ - ئینگلیزی", "هاوبەش", "75.039", "69.5", "59.399"],
+          ["پەروەردەی بنەڕەت - بیرکاری", "زانستی", "62.7", "62.0", "55.4"],
+          ["پەروەردەی بنەڕەت - زمانی عەرەبی", "هاوبەش", "63.8", "57.1", "53.702"],
+          ["پەروەردەی بنەڕەت - زمانی کوردی", "هاوبەش", "60.499", "57.482", "53.702"],
+          ["پەروەردەی بنەڕەت - زمانی ئینگلیزی", "هاوبەش", "74.4", "69.03", "61.5"],
+          ["پەروەردەی بنەڕەت - باخچەی ساوایان", "هاوبەش", "63.8", "57.1", "-"],
+          ["کشتوکاڵ - باخداری", "زانستی", "59.899", "57.173", "-"],
+          ["کشتوکاڵ - سامانی ئاژەڵ", "زانستی", "60.631", "57.0", "-"]
+        ]
+      },
+      garmian: {
+        title: "زانکۆی گەرمیان",
+        rows: [
+          ["پزیشکی - پزیشکی گشتی", "زانستی", "97.832", "97.333", "-"],
+          ["ئەندازیاری - شارستانی", "زانستی", "83.92", "80.68", "-"],
+          ["زانست - کۆمپیوتەر", "زانستی", "67.0", "67.1", "-"],
+          ["زانست - کیمیا", "زانستی", "77.755", "73.2", "-"],
+          ["یاسا", "هاوبەش", "78.099", "75.078", "-"],
+          ["پەروەردە - بایۆلۆجی", "زانستی", "73.399", "67.2", "-"],
+          ["پەروەردە - کیمیا", "زانستی", "69.9", "63.5", "-"],
+          ["پەروەردە - ماتماتیک", "زانستی", "61.6", "58.21", "-"],
+          ["پەروەردە - فیزیک", "زانستی", "63.957", "57.73", "-"],
+          ["پەروەردە - جوگرافی", "هاوبەش", "58.599", "55.366", "-"],
+          ["پەروەردە - مێژوو", "وێژەیی", "61.199", "56.599", "-"],
+          ["پەروەردە - دەروونناسی", "هاوبەش", "57.995", "56.2", "51.0"],
+          ["پەروەردە - کوردی", "هاوبەش", "57.0", "57.1 / 64.6", "-"],
+          ["پەروەردە - عەرەبی", "هاوبەش", "64.099", "60.2", "-"],
+          ["پەروەردە - ئینگلیزی", "هاوبەش", "74.299", "70.469", "62.21"],
+          ["پەروەردەی بنەڕەت - عەرەبی", "هاوبەش", "58.999", "55.799", "53.7"],
+          ["پەروەردەی بنەڕەت - ز.کۆمەڵایەتییەکان", "وێژەیی", "60.713", "54.885", "51.811"],
+          ["پەروەردەی بنەڕەت - کوردی", "هاوبەش", "57.961", "54.481", "55.1"],
+          ["پەروەردەی بنەڕەت - باخچە", "هاوبەش", "60.002", "57.4", "51.776"],
+          ["بەشە نوێیەکان - پلاندانانی شار", "زانستی", "New", "New", "-"],
+          ["بەشە نوێیەکان - خۆراک و خۆراکزانى", "زانستی", "New", "New", "-"],
+          ["بەشە نوێیەکان - زانستە گشتییەکان", "زانستی", "New", "New", "-"],
+          ["بەشە نوێیەکان - ژمێریاری ئەلیکترۆنی", "زانستی", "New", "New", "-"],
+          ["بەشە نوێیەکان - سیستەمە سیاسییەکان و سیاسەتی گشتی", "هاوبەش", "New", "New", "-"],
+          ["مرۆڤایەتی خانەقین - جوگرافی", "هاوبەش", "-", "-", "52.776"],
+          ["مرۆڤایەتی خانەقین - دەروونناسی", "هاوبەش", "59.799", "53.79", "51.5"],
+          ["مرۆڤایەتی خانەقین - کوردی", "هاوبەش", "59.899", "55.322", "-"],
+          ["مرۆڤایەتی خانەقین - عەرەبی", "هاوبەش", "63.003", "56.261", "-"],
+          ["مرۆڤایەتی خانەقین - ئینگلیزی", "هاوبەش", "61.684", "57.447", "57.9"],
+          ["مرۆڤایەتی خانەقین - مێژوو", "وێژەیی", "60.348", "60.298", "54.2"],
+          ["تەکنەلۆژیا خانەقین - NETWORK", "زانستی", "62.828", "66.299", "-"],
+          ["تەکنەلۆژیا خانەقین - IT", "زانستی", "63.4", "66.299", "-"]
+        ]
+      },
+      halabja: {
+        title: "زانکۆی هەڵەبجە",
+        rows: [
+          ["ئەندازیاری - شارستانی", "زانستی", "87.92", "84.84", "-"],
+          ["زانست - فیزیک", "زانستی", "62.766", "62.399", "-"],
+          ["زانست - کۆمپیوتەر", "زانستی", "77.18", "71.38", "-"],
+          ["یاسا و کارگێڕی - یاسا", "هاوبەش", "81.399", "77.916", "-"],
+          ["یاسا و کارگێڕی - بازرگانی و نێودەوڵەتی", "هاوبەش", "61.183", "58.892", "50.926"],
+          ["یاسا و کارگێڕی - سیاسەت و پ. نێودەوڵەتییەکان", "هاوبەش", "61.5", "57.3", "-"],
+          ["مرۆڤایەتی - جوگرافیا", "هاوبەش", "60.599", "54.613", "50.499"],
+          ["مرۆڤایەتی - مێژوو", "وێژەیی", "58.4", "-", "53.399"],
+          ["مرۆڤایەتی - گەشت و گوزار", "هاوبەش", "73.599", "54.768", "53.949"],
+          ["مرۆڤایەتی - ڕاگەیاندن", "هاوبەش", "71.6", "60.799", "59.8"],
+          ["مرۆڤایەتی - بنەماکانی ئایین", "هاوبەش", "-", "53.672", "-"],
+          ["پەروەردەی بنەڕەت - زمانی ئینگلیزی", "هاوبەش", "74.336", "69.098", "62.9"],
+          ["پەروەردەی بنەڕەت - زانستە کۆمەڵایەتییەکان", "وێژەیی", "59.1", "54.211", "51.794"],
+          ["پەروەردەی بنەڕەت - زانستە گشتییەکان", "زانستی", "64.32", "59.56", "-"],
+          ["پەروەردەی بنەڕەت - زمانی عەرەبی", "هاوبەش", "58.199", "56.1", "-"],
+          ["شارەزوور - گەشەپێدانی مرۆیی", "هاوبەش", "-", "-", "51.9"],
+          ["شارەزوور - زمانی کوردی", "هاوبەش", "58.424", "53.714", "54.448"],
+          ["شارەزوور - باخچەی منداڵان", "هاوبەش", "58.0", "53.589", "51.658"]
+        ]
+      },
+      duhok: {
+        title: "زانکۆی دهۆک",
+        rows: [
+          ["پزیشکی - پزیشکی", "زانستی", "97.7", "96.8", "-"],
+          ["پزیشکی - پزیشکی ددان", "زانستی", "96.3", "95.7", "-"],
+          ["پزیشکی - دەرمانسازی", "زانستی", "95.4", "94.8", "-"],
+          ["پزیشکی - پەرستاری", "زانستی", "94.0", "91.1", "-"],
+          ["پزیشکی - پزیشکی ڤێتێرنەری", "زانستی", "83.0", "78.8", "-"],
+          ["تەندرووستی - زانستی سڕکردن", "زانستی", "94.6", "93.0", "-"],
+          ["تەندرووستی - زانستی تاقیگەی پزیشکی", "زانستی", "93.7", "91.6", "-"],
+          ["ئەندازیاری - تەلارسازی", "زانستی", "94.6", "93.9", "-"],
+          ["ئەندازیاری - شارستانی", "زانستی", "93.2", "91.0", "-"],
+          ["ئەندازیاری - کارەبا و کۆمپیوتەر", "زانستی", "91.0", "87.4", "-"],
+          ["ئەندازیاری - بایۆمێدیکەڵ", "زانستی", "86.5", "-", "-"],
+          ["ئەندازیاری - میکانیک", "زانستی", "86.3", "83.0", "-"],
+          ["پلانسازی شار - پلانسازی شار", "زانستی", "72.2", "66.3", "-"],
+          ["پلانسازی شار - پلان دانانا جهى", "زانستی", "66.6", "-", "-"],
+          ["زانست - زیندەزانی", "زانستی", "87.6", "83.0", "-"],
+          ["زانست - کیمیا", "زانستی", "84.2", "78.8", "-"],
+          ["زانست - زانستی کۆمپیوتەر", "زانستی", "81.1", "76.1", "-"],
+          ["زانست - فیزیک", "زانستی", "77.0", "66.7", "-"],
+          ["زانست - زەوی ناسی", "زانستی", "68.2", "61.8", "-"],
+          ["زانست - ماتماتیک", "زانستی", "72.8", "66.7", "-"],
+          ["یاسا", "هاوبەش", "85.6", "81.0", "-"],
+          ["زانستی سیاسی - پەیوەندییە نێودەوڵەتییەکان و دیپلۆماسی", "هاوبەش", "76.6", "71.2", "-"],
+          ["زانستی سیاسی - سیستەمی سیاسی و سیاسەتی گشتی", "هاوبەش", "74.2", "68.8", "-"],
+          ["زمان - زمانی ئینگلیزی", "هاوبەش", "80.6", "74.2", "-"],
+          ["زمان - وەرگێڕان", "هاوبەش", "78.4", "72.3", "-"],
+          ["زمان - زمانی کوردی", "هاوبەش", "66.7", "61.6", "-"],
+          ["مرۆڤایەتی - شوێنەوار", "هاوبەش", "64.3", "60.0", "-"],
+          ["مرۆڤایەتی - جوگرافیا", "هاوبەش", "68.2", "63.4", "-"],
+          ["مرۆڤایەتی - دەروونناسی", "هاوبەش", "70.1", "65.0", "-"],
+          ["مرۆڤایەتی - مێژوو", "وێژەیی", "67.6", "62.6", "-"],
+          ["مرۆڤایەتی - خوێندنی ئاشتی و مافی مرۆڤ", "هاوبەش", "63.5", "60.0", "-"],
+          ["مرۆڤایەتی - کۆمەڵناسی", "هاوبەش", "63.9", "60.7", "-"],
+          ["پەروەردەی بنەڕەت - زمانی ئینگلیزی", "هاوبەش", "77.9", "72.5", "-"],
+          ["پەروەردەی بنەڕەت - زمانی عەرەبی", "هاوبەش", "72.3", "66.6", "-"],
+          ["پەروەردەی بنەڕەت - جوگرافیا", "هاوبەش", "70.4", "64.4", "-"],
+          ["پەروەردەی بنەڕەت - مێژوو", "وێژەیی", "69.5", "63.8", "-"],
+          ["پەروەردەی بنەڕەت - زانستەکان", "زانستی", "71.9", "65.8", "-"],
+          ["پەروەردەی بنەڕەت - پەروەردەی تایبەت", "هاوبەش", "66.0", "61.8", "-"],
+          ["پەروەردەی بنەڕەت - ڕابەریا پەروەردەیی", "هاوبەش", "64.6", "60.4", "-"],
+          ["پەروەردەی بنەڕەت - زمانی کوردی", "هاوبەش", "68.2", "62.5", "-"],
+          ["پەروەردەی بنەڕەت - ماتماتیک", "زانستی", "69.1", "64.0", "-"],
+          ["پەروەردەی بنەڕەت - پەروەردەی ئاینی", "هاوبەش", "64.4", "61.0", "-"],
+          ["کارگێڕی و ئابووری - زانستی دارایی و بانک", "زانستی", "64.6", "61.3", "-"],
+          ["کارگێڕی و ئابووری - ئابووری", "هاوبەش", "71.5", "65.4", "-"],
+          ["کارگێڕی و ئابووری - ژمێریاری", "زانستی", "68.0", "63.4", "-"],
+          ["کارگێڕی و ئابووری - کارگێڕی کار", "هاوبەش", "69.3", "63.7", "-"],
+          ["کارگێڕی و ئابووری - کارگێڕی بازاڕگەری", "هاوبەش", "65.6", "62.3", "-"],
+          ["پەروەردەی ئاکرێ - زمانی ئینگلیزی", "هاوبەش", "78.9", "72.5", "64.6"],
+          ["پەروەردەی ئاکرێ - زمانی عەرەبی", "هاوبەش", "72.6", "66.4", "61.0"],
+          ["پەروەردەی ئاکرێ - مێژوو", "وێژەیی", "70.1", "63.9", "60.9"],
+          ["پەروەردەی ئاکرێ - زیندەزانی", "زانستی", "75.5", "69.5", "-"],
+          ["پەروەردەی ئاکرێ - زمانی کوردی", "هاوبەش", "69.7", "63.5", "59.7"],
+          ["پەروەردەی ئاکرێ - ماتماتیک", "زانستی", "68.4", "62.3", "-"],
+          ["پەروەردەی ئاکرێ - پەروەردەی ئاینی", "هاوبەش", "64.7", "61.1", "57.9"],
+          ["کشتوکاڵ - شێوەکاریا چاندنی و جڤاکێ گوندایەتی", "زانستی", "58.3", "55.5", "-"],
+          ["کشتوکاڵ - خاک و ئاو", "زانستی", "58.8", "56.1", "-"],
+          ["کشتوکاڵ - پاراستنی ڕووەک", "زانستی", "59.1", "56.5", "-"],
+          ["کشتوکاڵ - دارستان", "زانستی", "59.2", "56.4", "-"],
+          ["کشتوکاڵ - دەرامەتی کێڵگەیی", "زانستی", "62.0", "58.3", "-"],
+          ["کشتوکاڵ - گەشتیاری توریزمی ژینگەیی", "زانستی", "59.5", "55.6", "-"],
+          ["کشتوکاڵ - بەرهەمی گیانەوەری", "زانستی", "62.4", "57.1", "-"],
+          ["کشتوکاڵ - بێستانکاری", "زانستی", "60.1", "55.3", "-"],
+          ["کشتوکاڵ - زانست و تەکنەلۆجیای خواردن", "زانستی", "57.6", "57.2", "-"],
+          ["بنەڕەت ئامێدی - زمانی ئینگلیزی", "هاوبەش", "73.4", "68.0", "-"],
+          ["بنەڕەت ئامێدی - کۆمەڵایەتی", "وێژەیی", "63.8", "59.8", "-"]
+        ]
+      },
+      charmu: {
+        title: "زانکۆی چەرمۆ",
+        rows: [
+          ["ئەندازیاری - پرۆگرامسازی", "زانستی", "93.3", "91.79", "-"],
+          ["پزیشکی و کردەیی - زانستی تاقیگەی پزیشکی", "زانستی", "89.33", "84.0", "-"],
+          ["پزیشکی و کردەیی - کیمیا", "زانستی", "77.2", "72.82", "-"],
+          ["پزیشکی و کردەیی - کۆمپیوتەر", "زانستی", "73.0", "68.99", "-"],
+          ["پزیشکی و کردەیی - فیزیا", "زانستی", "66.69", "60.7", "-"],
+          ["کار - ژمێریاری", "زانستی", "62.8", "61.4", "-"],
+          ["کار - کارگێڕی کار و نەوت و وزە", "زانستی", "62.95", "58.69", "-"],
+          ["کار - کارگێڕی کار", "هاوبەش", "58.9", "53.87", "55.81"],
+          ["پەروەردە - زمانی ئینگلیزی", "هاوبەش", "74.49", "70.39", "65.7"],
+          ["پەروەردە - زانستە گشتییەکان", "هاوبەش", "64.72", "59.76", "-"],
+          ["پەروەردە - پەروەردەی تایبەت", "هاوبەش", "58.59", "55.4", "51.79"],
+          ["پەروەردە - زمانی عەرەبی", "هاوبەش", "60.4", "57.1", "55.7"],
+          ["پەروەردە - زمانی کوردی", "هاوبەش", "57.35", "53.91", "58.9"]
+        ]
+      },
+      zakho: {
+        title: "زانکۆی زاخۆ",
+        rows: [
+          ["پزیشکی - پزیشکی گشتی", "زانستی", "97.333", "96.532", "-"],
+          ["ئەندازیاری - زیرەکی دەستکرد", "زانستی", "89.766", "87.218", "-"],
+          ["ئەندازیاری - ئەندازیاری پترۆل", "زانستی", "89.999", "87.92", "-"],
+          ["ئەندازیاری - شارستانی و ژینگە", "زانستی", "92.5", "89.966", "-"],
+          ["ئەندازیاری - میکانیک", "زانستی", "83.9", "80.75", "-"],
+          ["زانست - بایۆلۆجی", "زانستی", "85.433", "80.812", "-"],
+          ["زانست - کیمیا", "زانستی", "82.366", "77.6", "-"],
+          ["زانست - زانستی کۆمپیوتەر", "زانستی", "78.04", "73.04", "-"],
+          ["زانست - فیزیک", "زانستی", "75.013", "68.892", "-"],
+          ["زانست - ماتماتیک", "زانستی", "70.3", "65.169", "-"],
+          ["زانست - ژینگە", "زانستی", "64.188", "60.948", "-"],
+          ["یاسا", "هاوبەش", "85.3", "80.9", "-"],
+          ["مرۆڤایەتی - زمانی ئینگلیزی", "هاوبەش", "77.5", "72.2", "64.706"],
+          ["مرۆڤایەتی - زمانی کوردی", "هاوبەش", "65.899", "61.013", "58.27"],
+          ["مرۆڤایەتی - مێژوو", "وێژەیی", "66.9", "62.404", "59.2"],
+          ["مرۆڤایەتی - زمانی عەرەبی", "هاوبەش", "70.499", "65.177", "60.382"],
+          ["مرۆڤایەتی - خوێندنی ئیسلامی", "هاوبەش", "-", "-", "-"],
+          ["پەروەردە - جوگرافیا", "هاوبەش", "68.6", "63.1", "-"],
+          ["پەروەردە - ماتماتیک", "زانستی", "68.56", "63.476", "-"],
+          ["پەروەردە - دەروونناسی", "هاوبەش", "67.319", "63.199", "-"],
+          ["پەروەردەی بنەڕەت - زمانی ئینگلیزی", "هاوبەش", "76.499", "70.199", "64.199"],
+          ["پەروەردەی بنەڕەت - زانستی کۆمەڵایەتی", "وێژەیی", "65.9", "61.099", "58.599"],
+          ["پەروەردەی بنەڕەت - زمانی عەرەبی", "هاوبەش", "71.15", "66.299", "61.35"],
+          ["پەروەردەی بنەڕەت - زانستی گشتی", "زانستی", "70.674", "64.907", "-"],
+          ["پەروەردەی بنەڕەت - زمانی کوردی", "هاوبەش", "67.044", "61.7", "59.4"],
+          ["کارگێڕی و ئابووری - زانستی ئابووری", "هاوبەش", "69.015", "63.146", "60.199"],
+          ["کارگێڕی و ئابووری - ژمێریاری", "زانستی", "66.9", "60.5", "-"],
+          ["کارگێڕی و ئابووری - زانستی دارایی و بانک", "زانستی", "63.672", "59.41", "-"],
+          ["کارگێڕی و ئابووری - زانستی کارگێڕی کار", "هاوبەش", "66.812", "62.386", "59.999"]
+        ]
+      },
+      poly_erbil: {
+        title: "زانکۆی پۆلیتەکنیکی هەولێر",
+        rows: [
+          ["تەندروستی هەولێر - شیکاری نەخۆشی", "زانستی", "92.4", "91.2", "-"],
+          ["تەندروستی هەولێر - چارەسەری سروشتی", "زانستی", "89.4", "87.3", "-"],
+          ["ئەندازیاری هەولێر - تەکنیکی ئەندازیاری شارستانی", "زانستی", "89.2", "87.1", "-"],
+          ["ئەندازیاری هەولێر - تەکنیکی ئەندازیاری ڕێگەوبان", "زانستی", "78.7", "74.8", "-"],
+          ["ئەندازیاری هەولێر - تەکنیکی ئەندازیاری میکانیک وزە", "زانستی", "81.4", "79.4", "-"],
+          ["ئەندازیاری کۆمپیوتەر - زیرەکی دەستکرد", "زانستی", "91.5", "89.3", "-"],
+          ["ئەندازیاری کۆمپیوتەر - ئەندازیاری سیستەمی زانیاری IS", "زانستی", "90.9", "81.4", "-"],
+          ["ئەندازیاری کۆمپیوتەر - تەکنەلۆجیای زانیاری و گەیاندن ICT", "زانستی", "90.1", "88.0", "-"],
+          ["تەکنەلۆجی هەولێر - تەکنەلۆجیای پترۆڵ/دبلۆم", "زانستی", "58.608", "58.32", "-"],
+          ["تەکنەلۆجی هەولێر - کەرەستە و بیناکاری/دبلۆم و بەکالۆریۆس", "زانستی", "68.4", "65.7", "-"],
+          ["تەکنەلۆجی هەولێر - ڕووپێوان/دبلۆم", "زانستی", "59.8", "58.8", "-"],
+          ["تەکنەلۆجی هەولێر - دروستکردنی ڕێگاوبان/دبلۆم", "زانستی", "58.4", "57.9", "-"],
+          ["تەکنەلۆجی هەولێر - تەکنەلۆجیای ئۆتۆمبێل/دبلۆم و بەکالۆریۆس", "زانستی", "68.2", "64.5", "-"],
+          ["تەکنەلۆجی هەولێر - تەکنەلۆجیای وزە و نوێبوونەوە/دبلۆم و بەکالۆریۆس", "زانستی", "59.6", "56.8", "-"],
+          ["تەکنەلۆجی هەولێر - تەکنەلۆجیای ئۆتۆماتیکی پیشەسازی/دبلۆم", "زانستی", "61.5", "59.5", "-"],
+          ["تەکنیکی شەقڵاوە - پەرستاری/دبلۆم", "زانستی", "79.4", "76.6", "72.6"],
+          ["تەکنیکی شەقڵاوە - شیکاری نەخۆشی/دبلۆم و بەکالۆریۆس", "زانستی", "78.7", "75.3", "70.7"],
+          ["تەکنیکی شەقڵاوە - ڤێتێرنەری/دبلۆم و بەکالۆریۆس", "زانستی", "64.7", "63.0", "60.4"],
+          ["تەکنیکی شەقڵاوە - تەکنیکی کوالیتی کۆنترۆڵ و خۆراک", "زانستی", "54.8", "53.8", "50.8"],
+          ["تەکنیکی شەقڵاوە - تەکنەلۆجیای زانیاری IT/دبلۆم", "زانستی", "65.6", "62.9", "58.1"],
+          ["تەکنیکی شەقڵاوە - تەکنیکی تەلارسازی/دبلۆم", "زانستی", "59.2", "58.7", "55.9"],
+          ["تەکنیکی شەقڵاوە - بیناکاری/دبلۆم", "زانستی", "57.6", "57.1", "55.9"],
+          ["تەکنیکی شەقڵاوە - سیستەمی زانیاری کارگێڕی/دبلۆم", "زانستی", "58.0", "55.3", "53.1"],
+          ["تەکنیکی شەقڵاوە - کارگێڕی دەزگاکانی گەشتیاری/دبلۆم", "وێژەیی", "53.6", "51.8", "51.1"],
+          ["تەکنیکی شەقڵاوە - کارگێڕی کار/دبلۆم و بەکالۆریۆس", "هاوبەش", "58.9", "57.2", "56.0"],
+          ["تەکنیکی کارگێڕی - تەکنیکی کارگێڕی", "هاوبەش", "69.7", "66.2", "61.3"],
+          ["تەکنیکی کارگێڕی - تەکنیکی ژمێریاری", "زانستی", "69.2", "65.3", "-"],
+          ["تەکنیکی کارگێڕی - بازرگانی و نێودەوڵەتی زمان", "هاوبەش", "65.9", "62.1", "57.2"],
+          ["تەکنیکی کارگێڕی - تەکنیکی میدیا", "هاوبەش", "63.0", "58.6", "57.5"],
+          ["پەیمانگەی پزیشکی هەولێر - دەرمانسازی", "زانستی", "86.6", "84.1", "80.9"],
+          ["پەیمانگەی پزیشکی هەولێر - پەرستاری", "زانستی", "84.0", "82.1", "78.9"],
+          ["پەیمانگەی پزیشکی هەولێر - شیکاری نەخۆشی", "زانستی", "80.1", "77.9", "74.3"],
+          ["پەیمانگەی پزیشکی هەولێر - سڕکردن", "زانستی", "82.1", "80.5", "-"],
+          ["پەیمانگەی پزیشکی هەولێر - یاریدەدەری پزیشکی ددان", "زانستی", "77.7", "75.8", "-"],
+          ["پەیمانگەی پزیشکی هەولێر - پشکنینی چاو", "زانستی", "-", "-", "-"],
+          ["پەیمانگەی پزیشکی هەولێر - تیشک", "زانستی", "-", "-", "-"],
+          ["پەیمانگەی پزیشکی هەولێر - ئافرەتان و لەدایکبوون", "زانستی", "-", "-", "-"],
+          ["پەیمانگەی کارگێڕی هەولێر - کارگێڕی یاسا", "وێژەیی", "60.0", "58.3", "56.4"],
+          ["پەیمانگەی کارگێڕی هەولێر - کارگێڕی کار", "هاوبەش", "61.7", "59.2", "57.3"],
+          ["پەیمانگەی کارگێڕی هەولێر - تەکنیکی وەرگێڕان", "هاوبەش", "-", "-", "-"],
+          ["پەیمانگەی کارگێڕی هەولێر - ژمێریاری", "زانستی", "62.5", "60.0", "57.5"],
+          ["پەیمانگەی کارگێڕی هەولێر - کارگێڕی بازاڕگەری", "هاوبەش", "58.7", "57.1", "55.1"],
+          ["پەیمانگەی کارگێڕی هەولێر - کارگێڕی دەزگاکانی گەشتیاری", "وێژەیی", "53.6", "53.2", "50.0"],
+          ["پەیمانگەی کارگێڕی هەولێر - ڕاگەیاندن", "هاوبەش", "57.1", "56.3", "53.7"],
+          ["پەیمانگەی کارگێڕی هەولێر - زانیاری و کتێبخانە", "وێژەیی", "56.5", "54.8", "53.2"],
+          ["پەیمانگەی کارگێڕی هەولێر - کارگێڕی سەرچاوە مرۆییەکان", "هاوبەش", "57.5", "56.8", "54.6"],
+          ["پەیمانگەی کارگێڕی هەولێر - سیستەمی زانیاری کارگێڕی", "زانستی", "58.7", "56.8", "54.6"],
+          ["پەیمانگەی تەکنیکی کۆیە - پەرستاری", "زانستی", "77.7", "74.1", "70.3"],
+          ["پەیمانگەی تەکنیکی کۆیە - پەرستاری / تەقتەق", "زانستی", "74.286", "72.286", "70.0"],
+          ["پەیمانگەی تەکنیکی کۆیە - شیکاری نەخۆشی", "زانستی", "72.659", "69.844", "67.814"],
+          ["پەیمانگەی تەکنیکی کۆیە - شیکاری نەخۆشی / تەقتەق", "زانستی", "70.789", "69.143", "66.646"],
+          ["پەیمانگەی تەکنیکی کۆیە - تەکنەلۆجیای نەوت / کارپێکردن و کۆنترۆڵ", "زانستی", "58.609", "54.2", "51.316"],
+          ["پەیمانگەی تەکنیکی کۆیە - ئافرەتان و لەدایکبوون", "زانستی", "67.714", "65.903", "63.694"],
+          ["پەیمانگەی تەکنیکی کۆیە - کارگێڕی دەزگاکانی گەشتیاری", "زانستی", "53.595", "51.298", "51.675"],
+          ["پەیمانگەی تەکنیکی کۆیە - کارگێڕی کار / تەقتەق", "هاوبەش", "55.144", "54.64", "53.324"],
+          ["پەیمانگەی تەکنیکی کۆیە - کارگێڕی کار", "هاوبەش", "56.5", "54.395", "53.142"],
+          ["پەیمانگەی تەکنیکی کۆیە - تەکنەلۆجیای نەوت / شیکاری کیمیایی", "زانستی", "58.7", "54.956", "51.246"],
+          ["پەیمانگەی تەکنیکی کۆیە - تەکنەلۆجیای زانیاری", "زانستی", "62.3", "58.781", "56.921"],
+          ["کۆلێژی تەکنیکی سۆران - پەرستاری", "زانستی", "80.0", "76.6", "70.3"],
+          ["کۆلێژی تەکنیکی سۆران - شیکاری نەخۆشی", "زانستی", "72.9", "69.5", "66.6"],
+          ["کۆلێژی تەکنیکی سۆران - ئافرەتان و لەدایکبوون", "زانستی", "66.3", "64.4", "62.6"],
+          ["کۆلێژی تەکنیکی سۆران - کارگێڕی کار", "هاوبەش", "57.9", "55.7", "54.8"],
+          ["کۆلێژی تەکنیکی سۆران - تەکنەلۆجیای زانیاری", "زانستی", "61.8", "58.1", "55.8"],
+          ["پەیمانگەی تەکنیکی مێرگەسۆر - پەرستاری", "زانستی", "72.9", "69.7", "-"],
+          ["پەیمانگەی تەکنیکی مێرگەسۆر - کارگێڕی کار", "هاوبەش", "54.4", "52.0", "50.2"],
+          ["پەیمانگەی تەکنیکی مێرگەسۆر - ڕووەکی پزیشکی", "زانستی", "54.7", "51.0", "-"],
+          ["پەیمانگەی تەکنیکی مێرگەسۆر - بەخێوکردنی هەنگ", "زانستی", "54.0", "50.0", "-"],
+          ["پەیمانگەی تەکنیکی چۆمان - کارگێڕی دارایی", "هاوبەش", "54.6", "51.6", "50.9"],
+          ["پەیمانگەی تەکنیکی چۆمان - کارگێڕی گومرگ", "هاوبەش", "63.1", "54.6 / 56.7", "-"],
+          ["پەیمانگەی تەکنیکی چۆمان - کارگێڕی کار", "هاوبەش", "54.0", "50.9", "50.4"],
+          ["پەیمانگەی تەکنیکی چۆمان - تەکنەلۆجیای زانیاری", "زانستی", "57.8", "54.7", "50.9"],
+          ["پەیمانگەی تەکنیکی خەبات - تەندروستی کۆمەڵ", "زانستی", "66.0", "65.4", "-"],
+          ["پەیمانگەی تەکنیکی خەبات - بەرهەمی ڕووەکی پزیشکی", "زانستی", "57.7", "51.3", "-"],
+          ["پەیمانگەی تەکنیکی خەبات - پاراستنی ڕووەک", "زانستی", "55.4", "53.5", "-"],
+          ["پەیمانگەی تەکنیکی خەبات - ئاسایشی خۆراک و تەندروستی گشتی", "زانستی", "53.9", "50.8", "-"],
+          ["پەیمانگەی تەکنیکی خەبات - کارگێڕی یاسا", "وێژەیی", "54.1", "54.0", "-"],
+          ["پەیمانگەی تەکنیکی خەبات - تەکنەلۆجیای زانیاری", "زانستی", "60.8", "59.0", "-"]
+        ]
+      },
+      poly_suli: {
+        title: "زانکۆی پۆلیتەکنیکی سلێمانی",
+        rows: [
+          ["تەندروستی سلێمانی - تەکنیکی بێهۆشکاری", "زانستی", "95.714", "95.0", "-"],
+          ["تەندروستی سلێمانی - شیکاری نەخۆشییەکان", "زانستی", "94.0", "92.333", "-"],
+          ["تەندروستی سلێمانی - پەرستاری", "زانستی", "93.667", "92.333", "-"],
+          ["ئەندازیاری سلێمانی - ئەندازیاری گەیاندن", "زانستی", "88.698", "86.607", "-"],
+          ["ئەندازیاری سلێمانی - نەوت و وزە", "زانستی", "83.0", "80.666", "-"],
+          ["ئەندازیاری سلێمانی - میکانیک", "زانستی", "85.56", "81.04", "-"],
+          ["ئەندازیاری سلێمانی - ئەندازیاری پاوەر و کۆنترۆڵ", "زانستی", "80.573", "77.5", "-"],
+          ["ئەندازیاری سلێمانی - پلانسازی شار", "زانستی", "80.466", "78.0", "-"],
+          ["کارگێڕی سلێمانی - تەکنیکی کارگێڕی", "هاوبەش", "66.166", "61.836", "-"],
+          ["کارگێڕی سلێمانی - تەکنیکی ژمێریاری", "زانستی", "65.6", "61.714", "-"],
+          ["کارگێڕی سلێمانی - تەکنیکی میدیا", "هاوبەش", "62.6", "57.6", "-"],
+          ["کارگێڕی سلێمانی - پەیوەندییە گشتییەکان و بازاڕگەری", "هاوبەش", "63.199", "59.599", "-"],
+          ["ئینفۆرماتیک - تەکنەلۆجیای زانیاری", "زانستی", "87.733", "82.566", "-"],
+          ["ئینفۆرماتیک - تەکنەلۆجیای داتابەیس", "زانستی", "80.84", "76.88", "-"],
+          ["ئینفۆرماتیک - تۆڕەکانی کۆمپیوتەر", "زانستی", "77.666", "75.6", "-"],
+          ["کەلار - شیکاری نەخۆشیەکان/دبلۆم و بەکالۆریۆس", "زانستی", "91.143", "88.4", "-"],
+          ["کەلار - پەرستاری/بەکالۆریۆس", "زانستی", "New", "New", "-"],
+          ["کەلار - ئەندازیاری کارەبا و کۆمپیوتەر", "زانستی", "75.399", "74.33", "-"],
+          ["پەیمانگەی کەلار - پەرستاری", "زانستی", "81.714", "79.005", "76.0"],
+          ["پەیمانگەی کەلار - تەکنەلۆجیای زانیاری IT", "زانستی", "61.799", "58.0", "54.33"],
+          ["پەیمانگەی کەلار - کارگێڕی کار", "هاوبەش", "58.611", "57.314", "53.399"],
+          ["پەیمانگەی کەلار - ڤێتێرنەری", "زانستی", "64.0", "61.429", "-"],
+          ["پەیمانگەی کەلار - ڕووپێوی", "زانستی", "59.562", "54.022", "52.171"],
+          ["پەیمانگەی کەلار - کارگێڕی پڕۆژە کشتوکاڵی", "زانستی", "54.519", "50.799", "52.96"],
+          ["پەیمانگەی کەلار - تەکنیکی دیزاینی ناوەوە", "زانستی", "New", "New", "-"],
+          ["کفری - تەکنیکی کارگێڕی/دبلۆم و بەکالۆریۆس", "هاوبەش", "New", "New", "-"],
+          ["کفری - شیکاری خۆراک و تەندروستی", "زانستی", "62.5", "61.6", "-"],
+          ["کفری - سیستەمی بەڕێوەبردنی زانیاری", "زانستی", "67.6", "57.899", "-"],
+          ["پەیمانگەی کفری - زانستی تاقیگەی پزیشکی", "زانستی", "70.571", "69.429", "67.143"],
+          ["پەیمانگەی کفری - ژمێریاری", "زانستی", "58.287", "54.042", "50.954"],
+          ["هەڵەبجە ز.پراکتیکی - زانستی تاقیگەی پزیشکی", "زانستی", "90.4", "86.0", "-"],
+          ["هەڵەبجە ز.پراکتیکی - ڕووەکە پزیشکییەکان", "زانستی", "61.4", "55.5", "-"],
+          ["هەڵەبجە ز.پراکتیکی - زانستی خۆراک و کۆنترۆڵی جۆری", "زانستی", "59.5", "55.47", "-"],
+          ["پەیمانگەی ز.کۆمپیوتەر - تەکنەلۆجیای زانیاری IT", "زانستی", "71.0", "67.4", "61.502"],
+          ["پەیمانگەی ز.کۆمپیوتەر - سیستەمەکانی داتا پایس", "زانستی", "67.116", "63.0", "57.704"],
+          ["پەیمانگەی ز.کۆمپیوتەر - NET WORK", "زانستی", "66.9", "62.5", "57.399"],
+          ["پەیمانگەی تەکنیکی سلێمانی - دەرمانسازی", "زانستی", "90.239", "88.571", "84.286"],
+          ["پەیمانگەی تەکنیکی سلێمانی - پەرستاری", "زانستی", "87.429", "83.714", "80.286"],
+          ["پەیمانگەی تەکنیکی سلێمانی - سڕکردن", "زانستی", "86.571", "83.714", "-"],
+          ["پەیمانگەی تەکنیکی سلێمانی - شیکاری نەخۆشییەکان", "زانستی", "83.714", "79.714", "74.286"],
+          ["پەیمانگەی تەکنیکی سلێمانی - پەرستاری ددان", "زانستی", "79.143", "75.143", "-"],
+          ["پەیمانگەی تەکنیکی سلێمانی - تیشک", "زانستی", "79.099", "75.429", "-"],
+          ["پەیمانگەی تەکنیکی سلێمانی - پەرستاری منداڵان", "زانستی", "77.143", "74.0", "-"],
+          ["پەیمانگەی تەکنیکی سلێمانی - تەندروستی گشتی", "زانستی", "76.857", "74.0", "71.509"],
+          ["پەیمانگەی تەکنیکی سلێمانی - پەرستاری ژنان و منداڵبوون", "زانستی", "75.429", "73.051", "-"],
+          ["پەیمانگەی تەکنیکی سلێمانی - تەکنیکی تەلارسازی", "زانستی", "68.9", "62.911 / 68.178", "-"],
+          ["پەیمانگەی تەکنیکی سلێمانی - کارگێڕی کار", "هاوبەش", "64.142", "61.5 / 65.141", "59.7"],
+          ["پەیمانگەی تەکنیکی سلێمانی - ڕووپێوی", "زانستی", "63.2", "59.584 / 61.9", "-"],
+          ["پەیمانگەی تەکنیکی سلێمانی - ژمێریاری", "زانستی", "61.9", "59.15 / 61.606", "56.965"],
+          ["پەیمانگەی تەکنیکی سلێمانی - تەکنیکی میدیا", "هاوبەش", "62.0", "60.117 / 62.633", "58.239"],
+          ["پەیمانگەی تەکنیکی سلێمانی - تەکنیکی کارەبا", "زانستی", "59.4", "58.1 / 59.2", "55.7"],
+          ["پەیمانگەی تەکنیکی سلێمانی - میکانیک (کاد کام)", "زانستی", "59.1", "58.2 / 60.4", "-"],
+          ["پەیمانگەی هەڵەبجە - پەرستاری", "زانستی", "82.0", "77.64", "74.0"],
+          ["پەیمانگەی هەڵەبجە - شیکاری نەخۆشییەکان", "زانستی", "77.429", "74.156", "71.597"],
+          ["پەیمانگەی هەڵەبجە - تەکنەلۆجیای زانیاری IT", "زانستی", "63.8", "59.674", "54.2"],
+          ["پەیمانگەی هەڵەبجە - کارگێڕی کار", "هاوبەش", "57.499", "54.687", "52.099"],
+          ["پەیمانگەی هەڵەبجە - ژمێریاری", "زانستی", "57.665", "53.725", "51.611"],
+          ["چەمچەماڵ - پەرستاری", "زانستی", "81.714", "79.429", "77.429"],
+          ["چەمچەماڵ - تەکنەلۆجیای زانیاری IT", "زانستی", "62.2", "59.03", "55.205"],
+          ["چەمچەماڵ - تەکنیکی کارەبا", "زانستی", "60.499", "54.226", "51.379"],
+          ["چەمچەماڵ - کارگێڕی کار", "هاوبەش", "57.7", "55.263", "53.565"],
+          ["چەمچەماڵ - ژمێریاری", "زانستی", "58.5", "53.8", "50.987"],
+          ["دەربەندیخان - پەرستاری", "زانستی", "80.0", "76.286", "72.857"],
+          ["دەربەندیخان - تەکنیکی کارەبا", "زانستی", "-", "54.924", "-"],
+          ["دەربەندیخان - ژمێریاری", "زانستی", "57.449", "55.599", "52.151"],
+          ["دەربەندیخان - ڕووپێوی", "زانستی", "57.449", "55.4", "-"],
+          ["دەربەندیخان - زانستی کۆمپیوتەر", "زانستی", "59.4", "57.599", "51.0"],
+          ["دەربەندیخان - کارگێڕی کار", "هاوبەش", "56.799", "53.679", "51.0"],
+          ["دەربەندیخان - تەکنەلۆجیای ئۆتۆمبێل", "زانستی", "58.9", "55.0", "52.12"],
+          ["بەکرەجۆ - کشتوکاڵی داپۆشراوەکان", "زانستی", "53.6", "51.6", "-"],
+          ["بەکرەجۆ - کارگێڕی ئەلیکترۆنی", "زانستی", "58.4", "54.648", "-"],
+          ["بەکرەجۆ - دیزاینی باخچەکان", "زانستی", "54.308", "51.029", "-"],
+          ["بەکرەجۆ - زانستی خۆراک و کۆنترۆڵی جۆری", "زانستی", "57.276", "54.299", "-"],
+          ["بەکرەجۆ - زانستی هەنگ", "زانستی", "55.015", "51.834", "-"],
+          ["دووکان - کارگێڕی بانک", "هاوبەش", "57.514", "54.7", "51.0"],
+          ["دووکان - پەیوەندییە گشتییەکان و بازاڕگەری", "هاوبەش", "56.2", "54.059", "50.94"],
+          ["دووکان - کارگێڕی کار", "هاوبەش", "58.442", "55.469", "53.2"],
+          ["دووکان - ژمێریاری", "زانستی", "58.627", "54.813", "51.4"],
+          ["دووکان - تەکنەلۆجیای زانیاری IT", "زانستی", "63.199", "58.9", "54.173"]
+        ]
+      },
+      poly_duhok: {
+        title: "زانکۆی پۆلیتەکنیکی دهۆک",
+        rows: [
+          ["تەندروستی شێخان - پەرستاری", "زانستی", "91.5", "88.6", "-"],
+          ["تەندروستی شێخان - تەکنەلۆجیای تاقیگەی نۆژداری", "زانستی", "91.2", "87.7", "-"],
+          ["تەندروستی شێخان - تەندروستی گشتی", "زانستی", "86.6", "81.1", "-"],
+          ["ئەندازیاری دهۆک - وزە", "زانستی", "83.2", "79.3", "-"],
+          ["ئەندازیاری دهۆک - ڕێگەوبان", "زانستی", "85.6", "81.8", "-"],
+          ["ئەندازیاری دهۆک - ئەندازیاری کیمیاوی", "زانستی", "85.2", "80.4", "-"],
+          ["تەکنیکی دهۆک - کۆلێژی چاککردنی ددان", "زانستی", "93.3", "-", "-"],
+          ["تەکنیکی دهۆک - تەکنەلۆجیای زانیاری", "زانستی", "75.6", "71.0", "-"],
+          ["تەکنیکی دهۆک - بەرهەمهێنانی تەکنەلۆجیای خۆراک", "زانستی", "-", "-", "-"],
+          ["پترۆڵ زاخۆ - جیۆلۆجی پترۆڵ", "زانستی", "72.4", "67.8", "-"],
+          ["پترۆڵ زاخۆ - سیستەمی زانیاری کۆمپیوتەر", "زانستی", "70.7", "66.8", "-"],
+          ["تەکنیکی زاخۆ - تەکنیکی کارگێڕی کار", "هاوبەش", "64.2", "61.3", "58.6"],
+          ["تەکنیکی زاخۆ - ئابووری دیجیتاڵ", "هاوبەش", "65.7", "60.4", "58.1"],
+          ["کارگێڕی دهۆک - تەکنیکی کارگێڕی کار", "هاوبەش", "65.0", "60.7", "59.3"],
+          ["کارگێڕی دهۆک - تەکنەلۆجیای ژمێریاری", "زانستی", "63.8", "60.1", "-"],
+          ["کارگێڕی دهۆک - تەکنەلۆجیای زانیاری کارگێڕی", "زانستی", "-", "-", "-"],
+          ["کارگێڕی دهۆک - تەکنیکی ڕاگەیاندن", "هاوبەش", "63.0", "58.6", "58.6"],
+          ["ئینفۆرماتیک ئاکرێ - زیرەکی دەستکرد", "زانستی", "77.0", "71.4", "-"],
+          ["ئینفۆرماتیک ئاکرێ - تەکنەلۆجیای زانیاری", "زانستی", "73.4", "67.2", "-"],
+          ["ئینفۆرماتیک ئاکرێ - تۆڕی کۆمپیوتەر و پاراستنی زانیاری", "زانستی", "71.0", "65.4", "-"],
+          ["تەکنیکی ئاکرێ - ژمێریاری", "زانستی", "62.4", "60.8", "-"],
+          ["تەکنیکی ئاکرێ - کارگێڕی کار", "هاوبەش", "64.4", "60.172", "-"],
+          ["تەکنیکی ئاکرێ - ڕەزگەری", "زانستی", "60.4", "56.2", "-"],
+          ["پەیمانگەی دهۆک - دەرمانسازی", "زانستی", "85.1", "82.0", "79.9"],
+          ["پەیمانگەی دهۆک - پەرستاری / نەخۆشخانە", "زانستی", "84.0", "77.7", "74.3"],
+          ["پەیمانگەی دهۆک - چارەسەری سروشتی", "زانستی", "76.0", "-", "-"],
+          ["پەیمانگەی دهۆک - ڕووپێوی", "زانستی", "63.7", "59.1", "57.4"],
+          ["پەیمانگەی دهۆک - پیشەسازی و تەکنەلۆجیا", "زانستی", "58.5", "56.5", "53.5"],
+          ["پەیمانگەی دهۆک - تەکنەلۆجیای وێب", "زانستی", "63.1", "58.7", "55.8"],
+          ["پەیمانگەی دهۆک - تەکنەلۆجیای بیناکاری", "زانستی", "61.2", "58.1", "54.6"],
+          ["کارگێڕی دهۆک - کارگێڕی یاسا", "وێژەیی", "62.5", "59.5", "57.2"],
+          ["کارگێڕی دهۆک - کارگێڕی کار", "هاوبەش", "62.6", "59.6", "57.1"],
+          ["کارگێڕی دهۆک - ژمێریاری", "زانستی", "59.1", "56.8", "53.0"],
+          ["کارگێڕی دهۆک - سیستەمی زانیاری کارگێڕی", "زانستی", "57.6", "55.8", "51.3"],
+          ["پەیمانگەی ئاکرێ - پەرستاری / نەخۆشخانە", "زانستی", "80.9", "75.4", "73.1"],
+          ["پەیمانگەی ئاکرێ - کارگێڕی یاسا", "وێژەیی", "61.4", "58.2", "56.2"],
+          ["پەیمانگەی ئاکرێ - ڕووپێوی", "زانستی", "60.9", "57.2", "55.3"],
+          ["پەیمانگەی ئاکرێ - تەکنەلۆجیای زانیاری", "زانستی", "61.4", "58.7", "55.7"],
+          ["پەیمانگەی زاخۆ - پەرستاری / نەخۆشخانە", "زانستی", "81.5", "75.9", "73.5"],
+          ["پەیمانگەی زاخۆ - تەکنەلۆجیای تاقیگەی نۆژداری", "زانستی", "78.2", "73.7", "71.5"],
+          ["پەیمانگەی زاخۆ - پترۆڵ", "زانستی", "64.4", "61.1", "58.2"],
+          ["پەیمانگەی زاخۆ - کارگێڕی کار", "هاوبەش", "62.1", "58.9", "56.8"],
+          ["پەیمانگەی زاخۆ - تەکنەلۆجیای زانیاری", "زانستی", "62.2", "58.7", "56.3"],
+          ["پەیمانگەی زاخۆ - چاندنی پاراستی", "زانستی", "59.1", "55.2", "52.4"],
+          ["پەیمانگەی ئامێدی - تەکنەلۆجیای تاقیگەی نۆژداری", "زانستی", "75.4", "72.0", "69.9"],
+          ["پەیمانگەی ئامێدی - کارگێڕی بازاڕگەری", "هاوبەش", "59.5", "56.0", "-"],
+          ["پەیمانگەی ئامێدی - کارگێڕی گەشتیاری", "وێژەیی", "58.0", "56.0", "53.3"],
+          ["پەیمانگەی ئامێدی - تەکنەلۆجیای زانیاری", "زانستی", "57.5", "56.3", "50.4"],
+          ["پەیمانگەی ئامێدی - کارگێڕی کار", "هاوبەش", "60.8", "57.9", "55.1"],
+          ["پەیمانگەی بەردەڕەش - پەرستاری / نەخۆشخانە", "زانستی", "76.2", "71.8", "-"],
+          ["پەیمانگەی بەردەڕەش - ژمێریاری", "زانستی", "57.5", "54.6", "-"],
+          ["پەیمانگەی بەردەڕەش - کارگێڕی کار", "هاوبەش", "60.2", "57.5", "-"],
+          ["پەیمانگەی بەردەڕەش - تۆڕەکانی کۆمپیوتەر", "زانستی", "57.3", "54.3", "-"],
+          ["پەیمانگەی بەردەڕەش - تەکنەلۆجیای زانیاری", "زانستی", "59.2", "58.7", "-"],
+          ["پەیمانگەی شێخان - کارگێڕی کار", "هاوبەش", "60.6", "57.4", "55.2"],
+          ["پەیمانگەی شێخان - ژمێریاری", "زانستی", "57.5", "56.3", "50.4"],
+          ["پەیمانگەی شێخان - تەکنەلۆجیای زانیاری", "زانستی", "57.6", "56.3", "51.5"],
+          ["پەیمانگەی شنگال - کارگێڕی تەندروستی", "هاوبەش", "72.1", "70.5", "70.3"],
+          ["پەیمانگەی شنگال - ژمێریاری", "زانستی", "57.8", "55.8", "51.6"]
+        ]
+      }
+    };
+
+    function openUniCutoffTable(uniKey) {
+      const data = universitiesData[uniKey];
+      if (!data) return;
+
+      document.getElementById('tableModalTitle').innerText = data.title;
+      const tbody = document.getElementById('uniTableBody');
+      tbody.innerHTML = '';
+
+      data.rows.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="text-align: right; font-weight:700;">${row[0]}</td>
+          <td><span style="background:rgba(255,255,255,0.08); padding:3px 8px; border-radius:6px; font-size:11px;">${row[1]}</span></td>
+          <td class="table-score-highlight">${row[2]}</td>
+          <td>${row[3]}</td>
+          <td>${row[4]}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('tableSearchInput').value = '';
+      document.getElementById('tableModal').style.display = 'flex';
+    }
+
+    function filterTable() {
+      const query = document.getElementById('tableSearchInput').value.toLowerCase();
+      const rows = document.getElementById('uniTableBody').getElementsByTagName('tr');
+      for (let tr of rows) {
+        const text = tr.innerText.toLowerCase();
+        tr.style.display = text.includes(query) ? '' : 'none';
+      }
+    }
+
+    function closeTableModal() {
+      document.getElementById('tableModal').style.display = 'none';
+    }
+
+    function playYouTubeVideo() {
+      const input = document.getElementById('ytUrlInput').value.trim();
+      if (!input) {
+        openCustomAlert('تێبینی ⚠️', 'تکایە سەرەتا لینکی ڤیدیۆی یوتوب بنووسە!');
+        return;
+      }
+
+      let videoId = "";
+      if (input.includes("youtu.be/")) {
+        videoId = input.split("youtu.be/")[1].split("?")[0];
+      } else if (input.includes("watch?v=")) {
+        videoId = input.split("watch?v=")[1].split("&")[0];
+      } else if (input.includes("shorts/")) {
+        videoId = input.split("shorts/")[1].split("?")[0];
+      }
+
+      if (videoId) {
+        const frame = document.getElementById('ytFrame');
+        const container = document.getElementById('ytContainer');
+        frame.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
+        container.style.display = 'block';
+      } else {
+        openCustomAlert('هەڵە ❌', 'تکایە لینکێکی دروستی یوتیوب دابنێ!');
+      }
+    }
+
+    setRandomQuote();
+  </script>
+</body>
+</html>
+
+```
